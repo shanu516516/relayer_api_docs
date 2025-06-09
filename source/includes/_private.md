@@ -552,9 +552,10 @@ Order History By ClientId
 
 ### Message Parameters
 
-| Params   | Data_Type | Values                           |
-| -------- | --------- | -------------------------------- |
-| ClientId | object    | <a href="#clientid">ClientId</a> |
+| Params   | Data_Type        | Values                                                                                    |
+| -------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| ClientId | object           | <a href="#clientid">ClientId</a>                                                          |
+| ClientId | object (example) | `{"from": "2024-01-13T00:00:00Z", "to": "2024-02-15T01:00:00Z", "offset": 0, "limit": 2}` |
 
 ### ClientId
 
@@ -610,7 +611,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 }
 ```
 
-Trade volume
+Get trading volume for a specific time period
 
 ### HTTP Method
 
@@ -624,13 +625,13 @@ Trade volume
 
 | Params | Data_Type | Values     |
 | ------ | --------- | ---------- |
-| from   | datetime  | Start time |
-| to     | datetime  | End time   |
+| start  | datetime  | Start time |
+| end    | datetime  | End time   |
 
 ## Get Funding Payment
 
 ```javascript
-const myHeaders = new Headers();
+var myHeaders = new Headers();
 myHeaders.append("relayer-api-key", "7d4fd427-ab9f-4a4d-8163-7faddb0c50e2");
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append(
@@ -676,7 +677,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 }
 ```
 
-Get Funding Payment
+Get funding payment details by ID
 
 ### HTTP Method
 
@@ -692,7 +693,7 @@ Get Funding Payment
 | ------ | --------- | ------------- |
 | id     | string    | UUID of order |
 
-## Last Order Details
+## Last Order Detail
 
 ```javascript
 var myHeaders = new Headers();
@@ -757,7 +758,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 }
 ```
 
-Last Order Details
+Get details of the last order
 
 ### HTTP Method
 
@@ -1191,3 +1192,75 @@ Unrealized Pnl All
 ### Message Parameters
 
 `All`
+
+## Order History
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("signature", "{{signature}}");
+myHeaders.append("datetime", "{{timestamp}}");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "order_history",
+  id: 123,
+  params: {
+    OrderId: "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api/private", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+      "account_id": "0c7ccfc25ec0c535a8232e785ddec39972dc48e25ae570e368b9384dc6147ec639b4ea7118b0002894c9d2d9bfcaf72d47a0a49893518a4cfb30a0e81ba34a51684e2f05e9",
+      "order_type": "MARKET",
+      "position_type": "LONG",
+      "order_status": "FILLED",
+      "timestamp": "2024-01-30T11:13:23.386791Z"
+    }
+  ],
+  "id": 123
+}
+```
+
+Get order history by Order ID or by Client ID with date range
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`order_history`
+
+### Message Parameters
+
+**Option 1 - By Order ID:**
+| Params | Data_Type | Values |
+| ------ | --------- | ------------- |
+| OrderId | string | UUID of order |
+
+**Option 2 - By Client ID with date range:**
+| Params | Data_Type | Values |
+| ------ | --------- | ------ |
+| ClientId | object | `{"from": "2024-01-13T00:00:00Z", "to": "2024-02-15T01:00:00Z", "offset": 0, "limit": 2}` |

@@ -223,5 +223,5 @@ This README provides a high-level overview. For complete API documentation inclu
 ---
 
 <p align="center">
-  <em>Built with ❤️ by the Twilight Protocol team</em>
+  <em>Built with ❤️ by the Twilight team</em>
 </p>

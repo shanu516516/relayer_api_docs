@@ -1,7 +1,7 @@
 # Twilight Relayer API Documentation
 
 <p align="center">
-  <img src="source/images/image.avif" alt="Twilight Protocol" width="64">Twilight
+  <img src="source/images/image.avif" alt="Twilight Protocol" width="64"> <span style="font-size: 48px; font-weight: bold; vertical-align: middle;">Twilight</span>
 </p>
 
 <p align="center">

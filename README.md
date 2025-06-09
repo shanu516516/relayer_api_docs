@@ -1,7 +1,7 @@
 # Twilight Relayer API Documentation
 
 <h1 style="font-size: 48px; font-weight: bold; vertical-align: middle;"><p align="center">
- <img src="source/images/image.avif" alt="Twilight Pool" width="38"> Twilight
+ <img src="source/images/image.avif" alt="Twilight Pool" width="32"> Twilight
 </p></h1>
 
 <p align="center">

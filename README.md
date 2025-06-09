@@ -9,14 +9,28 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.twilight.rest" target="_blank">📖 Read Full Documentation</a>
+  [📖 Read Full Documentation](https://docs.twilight.rest)
 </p>
 
 ---
 
 ## Overview
 
-The Twilight Relayer API provides comprehensive access to decentralized trading, lending, and market data functionality. This documentation covers three main API categories:
+The Twilight Relayer API provides comprehensive access to decentralized trading, lending, and market data functionality built on Twilight's revolutionary Bitcoin reserve architecture. Twilight combines the security of distributed Bitcoin custody with the flexibility of twilight pools - Alternative Trading Systems that allow selective information revelation for sophisticated DeFi strategies.
+
+### 🏦 What is Twilight?
+
+Twilight serves as an antidote to rising walled gardens of centralized custody, maintaining Bitcoin's core value of distributed trust while providing advanced DeFi capabilities. Key properties include:
+
+- **Always Inflight Bitcoin** - Your Bitcoin is constantly moving between validators, preventing any single party from claiming custody
+- **Bitcoin-Derived Security** - Direct security inheritance from Bitcoin with inscribed exit hatches for permissionless fund recovery
+- **Efficient Capital Requirements** - Secures $1B with only $10M in stake (100:1 ratio) through distributed trust assumptions
+- **Distributed Signing** - All validators share signatures on the distributed ledger, eliminating centralized aggregation servers
+- **Fast Confirmations** - 2-block deposit confirmation using validity gadgets for predictive finality
+
+### 📡 API Categories
+
+This documentation covers three main API categories:
 
 - **Public API** - Market data, pricing, and public information (no authentication required)
 - **Private API** - Trading, lending, and account management (requires authentication)
@@ -36,7 +50,64 @@ The Twilight Relayer API provides comprehensive access to decentralized trading,
 
 ## 📚 Complete Documentation
 
-**👉 <a href="https://docs.twilight.rest" target="_blank" rel="noopener">Visit docs.twilight.rest</a> for the complete interactive API documentation**
+**👉 [Visit docs.twilight.rest](https://docs.twilight.rest) for the complete interactive API documentation**
+
+## 🏊 Twilight Pools Architecture
+
+### What is a Twilight Pool?
+
+Inspired by traditional financial markets, Twilight brings the concept of "twilight pools" to DeFi. In traditional finance:
+
+- **Lit Pools** - All trade information is immediately public
+- **Dark Pools** - Trade information is completely hidden
+- **Twilight Pools** - Partial trade information is revealed after pre-defined time periods
+
+Twilight pools operate as Alternative Trading Systems (ATS) where selective information like price, trade direction, or partial bids/offers may be revealed strategically. This approach bridges the gap between complete transparency and privacy in DeFi.
+
+### 🎯 Developer Flexibility
+
+Twilight enables developers to build applications with configurable privacy levels:
+
+- **Full Transparency** - Traditional public distributed ledger approach
+- **Selective Privacy** - Obfuscate specific parameters based on application needs
+- **Time-Delayed Revelation** - Strategic information disclosure after predetermined periods
+- **Partial Information Sharing** - Reveal only necessary trade details while protecting sensitive data
+
+This flexibility allows for sophisticated trading strategies while maintaining the distributed custody benefits of the underlying Bitcoin reserve system.
+
+### 🪃 Boomerang Protocol
+
+The Boomerang protocol is Twilight's core innovation for maintaining distributed Bitcoin custody:
+
+- **Bitcoin Fragments** - Your Bitcoin is split into fragments that continuously move between validators
+- **Fragment Addresses** - Each fragment has unique addressing for tracking and verification
+- **Automatic Sweeping** - Fragments are automatically swept and redistributed to prevent centralization
+- **Clearing Mechanism** - Efficient settlement of trades and positions across the distributed network
+- **Refund Snapshots** - Regular snapshots ensure funds can always be recovered
+
+### 🕒 Validity Gadget
+
+Twilight's Validity Gadget provides predictive finality and enhanced security:
+
+- **Chaintip Attestation** - Validators attest to Bitcoin blockchain state for faster confirmations
+- **2-Block Confirmation** - Achieve deposit confirmation in just 2 blocks instead of traditional 100+ blocks
+- **Predictive Finality** - Advanced algorithms predict transaction finality on the longest chain
+- **Liveness Guarantees** - Ensures the system remains operational even with validator failures
+
+### 🔐 Security Model
+
+Twilight's unique security approach:
+
+- **1-of-n Trust Assumption** - System operates securely even if only one honest validator exists
+- **n-of-n Malicious Resistance** - Designed to handle scenarios where all validators turn malicious
+- **Inscribed Exit Hatches** - Bitcoin-native exit mechanisms that can be triggered permissionlessly
+- **Distributed Validation** - No single point of failure in the validation process
+
+### 💰 Capital Efficiency
+
+- **100:1 Security Ratio** - Secure $1B in Bitcoin with only $10M in validator stake
+- **Minimal Collateral Requirements** - Efficient capital utilization compared to traditional systems
+- **Dynamic Stake Adjustment** - Validator stakes adjust based on network conditions and security needs
 
 ## 🔓 Public API Features
 
@@ -197,7 +268,7 @@ Private API endpoints utilize zkOS (Zero-Knowledge Operating System) for:
 
 1. **Explore Public APIs** - Start with public endpoints to understand the data structure
 2. **Get API Credentials** - Contact Twilight Protocol for private API access
-3. **Review Documentation** - Visit <a href="https://docs.twilight.rest" target="_blank" rel="noopener">docs.twilight.rest</a> for detailed guides
+3. **Review Documentation** - Visit [docs.twilight.rest](https://docs.twilight.rest) for detailed guides
 4. **Test Integration** - Use staging endpoints for development and testing
 5. **Implement zkOS** - Integrate zkOS WASM for private operations
 
@@ -212,12 +283,13 @@ This README provides a high-level overview. For complete API documentation inclu
 - **Rate limiting information**
 - **SDK and integration examples**
 
-**Visit: <a href="https://docs.twilight.rest" target="_blank" rel="noopener">https://docs.twilight.rest</a>**
+**Visit: [https://docs.twilight.rest](https://docs.twilight.rest)**
 
 ## 🔗 Links
 
-- **Documentation**: <a href="https://docs.twilight.rest" target="_blank" rel="noopener">docs.twilight.rest</a>
-- **Twilight Protocol**: <a href="https://twilight.rest" target="_blank" rel="noopener">twilight.rest</a>
+- **API Documentation**: [docs.twilight.rest](https://docs.twilight.rest)
+- **Protocol Documentation**: [docs.twilight.org](https://docs.twilight.org)
+- **Twilight Protocol**: [twilight.rest](https://twilight.rest)
 - **Support**: Contact through official channels
 
 ---

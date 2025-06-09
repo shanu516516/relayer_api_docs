@@ -1,82 +1,227 @@
+# Twilight Relayer API Documentation
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226">
-  <br>
-  <a href="https://github.com/slatedocs/slate/actions?query=workflow%3ABuild+branch%3Amain"><img src="https://github.com/slatedocs/slate/workflows/Build/badge.svg?branch=main" alt="Build Status"></a>
-  <a href="https://hub.docker.com/r/slatedocs/slate"><img src="https://img.shields.io/docker/v/slatedocs/slate?sort=semver" alt="Docker Version" /></a>
+  <img src="https://twilight.rest/logo.png" alt="Twilight Protocol" width="200">
 </p>
 
-<p align="center">Slate helps you create beautiful, intelligent, responsive API documentation.</p>
+<p align="center">
+  <strong>Complete API documentation for Twilight Protocol's Relayer service</strong>
+</p>
 
-<p align="center"><img src="https://raw.githubusercontent.com/slatedocs/img/main/screenshot-slate.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
+<p align="center">
+  <a href="https://docs.twilight.rest">📖 Read Full Documentation</a>
+</p>
 
-<p align="center"><em>The example above was created with Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
+---
 
-Features
-------------
+## Overview
 
-* **Clean, intuitive design** — With Slate, the description of your API is on the left side of your documentation, and all the code examples are on the right side. Inspired by [Stripe's](https://stripe.com/docs/api) and [PayPal's](https://developer.paypal.com/webapps/developer/docs/api/) API docs. Slate is responsive, so it looks great on tablets, phones, and even in print.
+The Twilight Relayer API provides comprehensive access to decentralized trading, lending, and market data functionality. This documentation covers three main API categories:
 
-* **Everything on a single page** — Gone are the days when your users had to search through a million pages to find what they wanted. Slate puts the entire documentation on a single page. We haven't sacrificed linkability, though. As you scroll, your browser's hash will update to the nearest header, so linking to a particular point in the documentation is still natural and easy.
+- **Public API** - Market data, pricing, and public information (no authentication required)
+- **Private API** - Trading, lending, and account management (requires authentication)
+- **WebSocket API** - Real-time data streams and live updates
 
-* **Slate is just Markdown** — When you write docs with Slate, you're just writing Markdown, which makes it simple to edit and understand. Everything is written in Markdown — even the code samples are just Markdown code blocks.
+## 🌐 API Endpoints
 
-* **Write code samples in multiple languages** — If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you'll distinguish different languages by specifying the language name at the top of each code block, just like with GitHub Flavored Markdown.
+### Production
 
-* **Out-of-the-box syntax highlighting** for [over 100 languages](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers), no configuration required.
+- **REST API**: `https://twilight.rest`
+- **WebSocket**: `wss://twilight.rest/ws`
 
-* **Automatic, smoothly scrolling table of contents** on the far left of the page. As you scroll, it displays your current position in the document. It's fast, too. We're using Slate at TripIt to build documentation for our new API, where our table of contents has over 180 entries. We've made sure that the performance remains excellent, even for larger documents.
+### Staging
 
-* **Let your users update your documentation for you** — By default, your Slate-generated documentation is hosted in a public GitHub repository. Not only does this mean you get free hosting for your docs with GitHub Pages, but it also makes it simple for other developers to make pull requests to your docs if they find typos or other problems. Of course, if you don't want to use GitHub, you're also welcome to host your docs elsewhere.
+- **REST API**: `https://rpc.twilight.rest`
+- **WebSocket**: `wss://rpc.twilight.rest/ws`
 
-* **RTL Support** Full right-to-left layout for RTL languages such as Arabic, Persian (Farsi), Hebrew etc.
+## 📚 Complete Documentation
 
-Getting started with Slate is super easy! Simply press the green "use this template" button above and follow the instructions below. Or, if you'd like to check out what Slate is capable of, take a look at the [sample docs](https://slatedocs.github.io/slate/).
+**👉 [Visit docs.twilight.rest](https://docs.twilight.rest) for the complete interactive API documentation**
 
-Getting Started with Slate
-------------------------------
+## 🔓 Public API Features
 
-To get started with Slate, please check out the [Getting Started](https://github.com/slatedocs/slate/wiki#getting-started)
-section in our [wiki](https://github.com/slatedocs/slate/wiki).
+The Public API provides access to market data and general information without authentication:
 
-We support running Slate in three different ways:
-* [Natively](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively)
-* [Using Vagrant](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Vagrant)
-* [Using Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
+### Available Endpoints
 
-Companies Using Slate
----------------------------------
+- **Candle Data** - OHLCV data with multiple timeframes (1min to 1day)
+- **Funding Rates** - Current and historical funding rates
+- **Order Book** - Current limit orders
+- **Recent Trades** - Latest trade executions
+- **Position Data** - Open position information
+- **Price Data** - Current and historical BTC/USD prices
+- **Server Time** - Synchronized server timestamp
+- **Transaction Hash** - Blockchain transaction information
 
-* [NASA](https://api.nasa.gov)
-* [Sony](http://developers.cimediacloud.com)
-* [Best Buy](https://bestbuyapis.github.io/api-documentation/)
-* [Travis-CI](https://docs.travis-ci.com/api/)
-* [Greenhouse](https://developers.greenhouse.io/harvest.html)
-* [WooCommerce](http://woocommerce.github.io/woocommerce-rest-api-docs/)
-* [Dwolla](https://docs.dwolla.com/)
-* [Clearbit](https://clearbit.com/docs)
-* [Coinbase](https://developers.coinbase.com/api)
-* [Parrot Drones](http://developer.parrot.com/docs/bebop/)
-* [CoinAPI](https://docs.coinapi.io/)
+### Example: Get Candle Data
 
-You can view more in [the list on the wiki](https://github.com/slatedocs/slate/wiki/Slate-in-the-Wild).
+```javascript
+const response = await fetch("https://twilight.rest/api", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    method: "candle_data",
+    id: 123,
+    params: {
+      interval: "ONE_HOUR",
+      since: "2024-01-01T00:00:00.0Z",
+      limit: 100,
+      offset: 0,
+    },
+  }),
+});
 
-Questions? Need Help? Found a bug?
---------------------
+const data = await response.json();
+console.log(data.result);
+```
 
-If you've got questions about setup, deploying, special feature implementation in your fork, or just want to chat with the developer, please feel free to [start a thread in our Discussions tab](https://github.com/slatedocs/slate/discussions)!
+## 🔐 Private API Features
 
-Found a bug with upstream Slate? Go ahead and [submit an issue](https://github.com/slatedocs/slate/issues). And, of course, feel free to submit pull requests with bug fixes or changes to the `dev` branch.
+The Private API requires authentication and provides trading and account management functionality:
 
-Contributors
---------------------
+### Authentication Headers
 
-Slate was built by [Robert Lord](https://lord.io) while at [TripIt](https://www.tripit.com/). The project is now maintained by [Matthew Peveler](https://github.com/MasterOdin) and [Mike Ralphson](https://github.com/MikeRalphson).
+- `relayer-api-key` - Your API key
+- `signature` - Request signature
+- `datetime` - Unix timestamp
 
-Thanks to the following people who have submitted major pull requests:
+### Available Endpoints
 
-- [@chrissrogers](https://github.com/chrissrogers)
-- [@bootstraponline](https://github.com/bootstraponline)
-- [@realityking](https://github.com/realityking)
-- [@cvkef](https://github.com/cvkef)
+- **Submit Trade Orders** - Place market and limit orders using zkOS
+- **Submit Lend Orders** - Create lending positions
+- **Settle Orders** - Settle trade and lending positions
+- **Order Management** - View open orders and order history
+- **Trade Volume** - Get trading volume statistics
+- **Funding Payments** - Access funding payment history
+- **Account Data** - Retrieve account-specific information
 
-Also, thanks to [Sauce Labs](http://saucelabs.com) for sponsoring the development of the responsive styles.
+### Example: Submit Trade Order
+
+```javascript
+const response = await fetch("https://twilight.rest/api/private", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "relayer-api-key": "your-api-key",
+    signature: "your-signature",
+    datetime: "1706613208905",
+  },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    method: "submit_trade_order",
+    id: 123,
+    params: {
+      data: "0x...", // Hex data from zkOS WASM
+    },
+  }),
+});
+
+const result = await response.json();
+console.log(result);
+```
+
+## 🔄 WebSocket API Features
+
+Real-time data streaming for live market updates:
+
+### Available Subscriptions
+
+- **Live Price Data** - Real-time price updates
+- **Order Book** - Live order book changes
+- **Candle Data** - Real-time OHLCV updates
+- **Recent Trades** - Live trade executions
+- **Heartbeat** - Connection health monitoring
+
+### Example: Subscribe to Live Price Data
+
+```javascript
+const socket = new WebSocket("wss://twilight.rest/ws");
+
+socket.onopen = () => {
+  socket.send(
+    JSON.stringify({
+      jsonrpc: "2.0",
+      method: "subscribe_live_price_data",
+      id: 123,
+      params: null,
+    })
+  );
+};
+
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log("Live price update:", data.params.result);
+};
+```
+
+## 🛠 Technical Details
+
+### JSON-RPC Protocol
+
+All APIs use JSON-RPC 2.0 protocol with the following structure:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "method_name",
+  "id": 123,
+  "params": {
+    /* method parameters */
+  }
+}
+```
+
+### zkOS Integration
+
+Private API endpoints utilize zkOS (Zero-Knowledge Operating System) for:
+
+- **Privacy-preserving transactions**
+- **Cryptographic proof generation**
+- **Secure order execution**
+- **Decentralized settlement**
+
+### Supported Timeframes
+
+- `ONE_MINUTE` - 1-minute candles
+- `FIVE_MINUTE` - 5-minute candles
+- `FIFTEEN_MINUTE` - 15-minute candles
+- `THIRTY_MINUTE` - 30-minute candles
+- `ONE_HOUR` - 1-hour candles
+- `FOUR_HOUR` - 4-hour candles
+- `EIGHT_HOUR` - 8-hour candles
+- `TWELVE_HOUR` - 12-hour candles
+- `ONE_DAY` - Daily candles
+
+## 🚀 Getting Started
+
+1. **Explore Public APIs** - Start with public endpoints to understand the data structure
+2. **Get API Credentials** - Contact Twilight Protocol for private API access
+3. **Review Documentation** - Visit [docs.twilight.rest](https://docs.twilight.rest) for detailed guides
+4. **Test Integration** - Use staging endpoints for development and testing
+5. **Implement zkOS** - Integrate zkOS WASM for private operations
+
+## 📖 Full Documentation
+
+This README provides a high-level overview. For complete API documentation including:
+
+- **Detailed parameter specifications**
+- **Response schemas and examples**
+- **Authentication guides**
+- **Error handling**
+- **Rate limiting information**
+- **SDK and integration examples**
+
+**Visit: [https://docs.twilight.rest](https://docs.twilight.rest)**
+
+## 🔗 Links
+
+- **Documentation**: [docs.twilight.rest](https://docs.twilight.rest)
+- **Twilight Protocol**: [twilight.rest](https://twilight.rest)
+- **Support**: Contact through official channels
+
+---
+
+<p align="center">
+  <em>Built with ❤️ by the Twilight Protocol team</em>
+</p>

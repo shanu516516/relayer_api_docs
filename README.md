@@ -1,11 +1,11 @@
 # Twilight Relayer API Documentation
 
 <p align="center">
-  <img src="https://twilight.rest/logo.png" alt="Twilight Protocol" width="200">
+  <img src="source/images/image.avif" alt="Twilight Protocol" width="200">
 </p>
 
 <p align="center">
-  <strong>Complete API documentation for Twilight Protocol's Relayer service</strong>
+  <strong>Complete API documentation for Twilight's Relayer service</strong>
 </p>
 
 <p align="center">

@@ -36,7 +36,7 @@ The Twilight Relayer API provides comprehensive access to decentralized trading,
 
 ## 📚 Complete Documentation
 
-**👉 [Visit docs.twilight.rest](https://docs.twilight.rest) for the complete interactive API documentation**
+**👉 <a href="https://docs.twilight.rest" target="_blank" rel="noopener">Visit docs.twilight.rest</a> for the complete interactive API documentation**
 
 ## 🔓 Public API Features
 
@@ -197,7 +197,7 @@ Private API endpoints utilize zkOS (Zero-Knowledge Operating System) for:
 
 1. **Explore Public APIs** - Start with public endpoints to understand the data structure
 2. **Get API Credentials** - Contact Twilight Protocol for private API access
-3. **Review Documentation** - Visit [docs.twilight.rest](https://docs.twilight.rest) for detailed guides
+3. **Review Documentation** - Visit <a href="https://docs.twilight.rest" target="_blank" rel="noopener">docs.twilight.rest</a> for detailed guides
 4. **Test Integration** - Use staging endpoints for development and testing
 5. **Implement zkOS** - Integrate zkOS WASM for private operations
 
@@ -212,12 +212,12 @@ This README provides a high-level overview. For complete API documentation inclu
 - **Rate limiting information**
 - **SDK and integration examples**
 
-**Visit: [https://docs.twilight.rest](https://docs.twilight.rest)**
+**Visit: <a href="https://docs.twilight.rest" target="_blank" rel="noopener">https://docs.twilight.rest</a>**
 
 ## 🔗 Links
 
-- **Documentation**: [docs.twilight.rest](https://docs.twilight.rest)
-- **Twilight Protocol**: [twilight.rest](https://twilight.rest)
+- **Documentation**: <a href="https://docs.twilight.rest" target="_blank" rel="noopener">docs.twilight.rest</a>
+- **Twilight Protocol**: <a href="https://twilight.rest" target="_blank" rel="noopener">twilight.rest</a>
 - **Support**: Contact through official channels
 
 ---

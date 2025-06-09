@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  [📖 Read Full Documentation](https://docs.twilight.rest)
+  <a href="https://docs.twilight.rest">📖 Read Full Documentation</a>
 </p>
 
 ---

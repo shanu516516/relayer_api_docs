@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.twilight.rest">📖 Read Full Documentation</a>{:target="_blank" rel="noopener"}
+  <a href="https://docs.twilight.rest" target="_blank">📖 Read Full Documentation</a>
 </p>
 
 ---
@@ -36,7 +36,7 @@ The Twilight Relayer API provides comprehensive access to decentralized trading,
 
 ## 📚 Complete Documentation
 
-**👉 [Visit docs.twilight.rest](https://docs.twilight.rest){:target="\_blank" rel="noopener"} for the complete interactive API documentation**
+**👉 [Visit docs.twilight.rest](https://docs.twilight.rest) for the complete interactive API documentation**
 
 ## 🔓 Public API Features
 
@@ -197,7 +197,7 @@ Private API endpoints utilize zkOS (Zero-Knowledge Operating System) for:
 
 1. **Explore Public APIs** - Start with public endpoints to understand the data structure
 2. **Get API Credentials** - Contact Twilight Protocol for private API access
-3. **Review Documentation** - Visit [docs.twilight.rest](https://docs.twilight.rest){:target="\_blank" rel="noopener"} for detailed guides
+3. **Review Documentation** - Visit [docs.twilight.rest](https://docs.twilight.rest) for detailed guides
 4. **Test Integration** - Use staging endpoints for development and testing
 5. **Implement zkOS** - Integrate zkOS WASM for private operations
 
@@ -212,12 +212,12 @@ This README provides a high-level overview. For complete API documentation inclu
 - **Rate limiting information**
 - **SDK and integration examples**
 
-**Visit: [https://docs.twilight.rest](https://docs.twilight.rest){:target="\_blank" rel="noopener"}**
+**Visit: [https://docs.twilight.rest](https://docs.twilight.rest)**
 
 ## 🔗 Links
 
-- **Documentation**: [docs.twilight.rest](https://docs.twilight.rest){:target="\_blank" rel="noopener"}
-- **Twilight Protocol**: [twilight.rest](https://twilight.rest){:target="\_blank" rel="noopener"}
+- **Documentation**: [docs.twilight.rest](https://docs.twilight.rest)
+- **Twilight Protocol**: [twilight.rest](https://twilight.rest)
 - **Support**: Contact through official channels
 
 ---

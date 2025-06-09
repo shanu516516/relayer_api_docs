@@ -1,8 +1,8 @@
 # Twilight Relayer API Documentation
 
-<p align="center">
-  <img src="source/images/image.avif" alt="Twilight Protocol" width="64"> <span style="font-size: 48px; font-weight: bold; vertical-align: middle;">Twilight</span>
-</p>
+<h1 style="font-size: 48px; font-weight: bold; vertical-align: middle;"><p align="center">
+ <img src="source/images/image.avif" alt="Twilight Pool" width="38"> Twilight
+</p></h1>
 
 <p align="center">
   <strong>Complete API documentation for Twilight's Relayer service</strong>

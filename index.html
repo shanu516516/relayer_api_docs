@@ -588,6 +588,65 @@
 <td>Page number</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>btc_volume</td>
+<td>string</td>
+<td>BTC trading volume for the period (2 decimal places)</td>
+</tr>
+<tr>
+<td>close</td>
+<td>string</td>
+<td>Closing price for the period (2 decimal places)</td>
+</tr>
+<tr>
+<td>end</td>
+<td>string</td>
+<td>End timestamp of the candle period (ISO 8601)</td>
+</tr>
+<tr>
+<td>high</td>
+<td>string</td>
+<td>Highest price during the period (2 decimal places)</td>
+</tr>
+<tr>
+<td>low</td>
+<td>string</td>
+<td>Lowest price during the period (2 decimal places)</td>
+</tr>
+<tr>
+<td>open</td>
+<td>string</td>
+<td>Opening price for the period (2 decimal places)</td>
+</tr>
+<tr>
+<td>resolution</td>
+<td>string</td>
+<td>Time interval resolution (e.g., &quot;1 day&quot;, &quot;1 hour&quot;)</td>
+</tr>
+<tr>
+<td>start</td>
+<td>string</td>
+<td>Start timestamp of the candle period (ISO 8601)</td>
+</tr>
+<tr>
+<td>trades</td>
+<td>integer</td>
+<td>Number of trades executed during the period</td>
+</tr>
+<tr>
+<td>usd_volume</td>
+<td>string</td>
+<td>USD trading volume for the period (2 decimal places)</td>
+</tr>
+</tbody></table>
 <h2 id='get-funding-rate'>Get Funding Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -653,6 +712,35 @@
 <td>N/A</td>
 <td>null</td>
 <td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-2'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal funding rate record ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>BTC-USD price at funding time (2 decimal places)</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>string</td>
+<td>Current funding rate (4 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Funding rate timestamp (ISO 8601 format)</td>
 </tr>
 </tbody></table>
 <h2 id='historical-funding-rate'>Historical Funding Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -756,6 +844,35 @@
 <td>Page number</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-3'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal funding rate record ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>BTC-USD price at funding time (2 decimal places)</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>string</td>
+<td>Funding rate for the period (4 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Funding rate timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
 <h2 id='open-limit-order'>Open Limit Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -821,6 +938,27 @@
 <td>No parameters required</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-4'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ask</td>
+<td>array</td>
+<td>Array of ask (sell) orders in the order book</td>
+</tr>
+<tr>
+<td>bid</td>
+<td>array</td>
+<td>Array of bid (buy) orders in the order book</td>
+</tr>
+</tbody></table>
+
+<p><em>Note: Each order in ask/bid arrays contains price, size, and order details</em></p>
 <h2 id='recent-trade-order'>Recent Trade Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -898,6 +1036,40 @@
 <td>No parameters required</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-5'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Unique identifier for the executed trade</td>
+</tr>
+<tr>
+<td>side</td>
+<td>string</td>
+<td>Trade direction (&quot;LONG&quot; or &quot;SHORT&quot;)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>Execution price of the trade (2 decimal places)</td>
+</tr>
+<tr>
+<td>positionsize</td>
+<td>string</td>
+<td>Size of the executed trade (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Trade execution timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
 <h2 id='position-size'>Position Size</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -964,6 +1136,30 @@
 <td>No parameters required</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-6'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>string</td>
+<td>Total open position size across all participants (2 decimal places)</td>
+</tr>
+<tr>
+<td>total_long</td>
+<td>string</td>
+<td>Total long position size (2 decimal places)</td>
+</tr>
+<tr>
+<td>total_short</td>
+<td>string</td>
+<td>Total short position size (2 decimal places)</td>
+</tr>
+</tbody></table>
 <h2 id='btc-usd-price'>Btc Usd Price</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1028,6 +1224,30 @@
 <td>N/A</td>
 <td>null</td>
 <td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-7'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal price record ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>Current BTC-USD price (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Price timestamp (ISO 8601 format)</td>
 </tr>
 </tbody></table>
 <h2 id='historical-price'>Historical Price</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1128,6 +1348,30 @@
 <td>Page number</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-8'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal price record ID</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>Historical BTC-USD price (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Price timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
 <h2 id='login'>Login</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1203,6 +1447,25 @@
 <td><code>{&quot;pub_key&quot;: {&quot;type&quot;: &quot;tendermint/PubKeySecp256k1&quot;, &quot;value&quot;: string}, &quot;signature&quot;: string}</code></td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-9'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_key</td>
+<td>string</td>
+<td>Generated API key for accessing private endpoints</td>
+</tr>
+<tr>
+<td>api_secret</td>
+<td>string</td>
+<td>Generated API secret for request signature generation</td>
+</tr>
+</tbody></table>
 
 <aside class="notice">
 You must add <code>api_key</code> and <code>api_secret</code> in your private API endpoint header.
@@ -1268,7 +1531,23 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>No parameters required</td>
 </tr>
 </tbody></table>
-<h2 id='transaction-hash'>Transaction Hash</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<h3 id='response-fields-10'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>string</td>
+<td>Current server timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
+<h2 id='transaction-hash'>Transaction Hash</h2>
+<p>The <code>transaction_hashes</code> method supports three different parameter types for querying transaction data:</p>
+<h3 id='1-query-by-account-id'>1. Query by Account ID</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -1278,6 +1557,59 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">AccountId</span><span class="p">:</span> <span class="p">{</span>
       <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><h3 id='2-query-by-transaction-order-id'>2. Query by Transaction/Order ID</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">transaction_hashes</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">TxId</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">83216790-d1c6-40d9-a70e-712d5d81cecd</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SETTLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><h3 id='3-query-by-request-id'>3. Query by Request ID</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">transaction_hashes</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">RequestId</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325</span><span class="dl">"</span><span class="p">,</span> <span class="c1">//request_id</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
     <span class="p">},</span>
   <span class="p">},</span>
 <span class="p">});</span>
@@ -1308,6 +1640,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
       </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000010000002a000000000000003138363065656636336564656531303738313738623361646236336539663836393231636161313662358a00000000000000306333656231363738336363646265653835356530626162663664313330313031653764363630383962616332303438343630366535326266353037643930653361353034396133333739623861666334373036386432353038646664373166653932616461623761356164363832666262626239623430313135386536326434326161363463623232010000000000000082000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f0104000000000000000300000001000000386567000000000000000000000000000000000000000000000000000000000002000000010000000000000001000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f03000000010000009ccb0000000000000000000000000000000000000000000000000000000000000300000001000000010000000000000000000000000000000000000000000000000000000000000001000000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"tx_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8E291447D61EBC7E0AF5BB006576190E117516CA9A29358554C108718586FF58"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -1318,6 +1651,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
       </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SETTLED"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="nl">"tx_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C5680F08C4D315241924BB1B4F172B12ABB44A6A49DA0CBAD69552D43A9EBA4A"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -1342,17 +1676,125 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <h3 id='rpc-method-10'>RPC Method</h3>
 <p><code>transaction_hashes</code></p>
 <h3 id='message-parameters-10'>Message Parameters</h3>
+<p>The <code>transaction_hashes</code> method accepts one of three parameter variants:</p>
+<h4 id='variant-1-query-by-account-id'>Variant 1: Query by Account ID</h4>
 <table><thead>
 <tr>
 <th>Params</th>
 <th>Data_Type</th>
+<th>Required</th>
 <th>Values</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
+<td>AccountId.id</td>
 <td>string</td>
-<td>User account id</td>
+<td>Yes</td>
+<td>Account public key/identifier</td>
+</tr>
+<tr>
+<td>AccountId.status</td>
+<td>string</td>
+<td>No</td>
+<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;OPEN&quot;, &quot;CANCELLED&quot;)</td>
+</tr>
+</tbody></table>
+<h4 id='variant-2-query-by-transaction-order-id'>Variant 2: Query by Transaction/Order ID</h4>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TxId.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Transaction/Order UUID</td>
+</tr>
+<tr>
+<td>TxId.status</td>
+<td>string</td>
+<td>No</td>
+<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;OPEN&quot;, &quot;CANCELLED&quot;)</td>
+</tr>
+</tbody></table>
+<h4 id='variant-3-query-by-request-id'>Variant 3: Query by Request ID</h4>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RequestId.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Unique request identifier</td>
+</tr>
+<tr>
+<td>RequestId.status</td>
+<td>string</td>
+<td>No</td>
+<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;OPEN&quot;, &quot;CANCELLED&quot;)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-11'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>string</td>
+<td>Account ID associated with the transaction</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>string</td>
+<td>Transaction timestamp (Unix timestamp in microseconds)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal transaction record ID</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Order UUID associated with the transaction</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>string</td>
+<td>Order status at transaction time (&quot;FILLED&quot;, &quot;SETTLED&quot;)</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>string</td>
+<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>Hex-encoded transaction output data (nullable)</td>
+</tr>
+<tr>
+<td>request_id</td>
+<td>string</td>
+<td>Unique request identifier (nullable)</td>
+</tr>
+<tr>
+<td>tx_hash</td>
+<td>string</td>
+<td>Blockchain transaction hash</td>
 </tr>
 </tbody></table>
 <h2 id='get-fee-rate'>Get Fee Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1422,6 +1864,45 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>N/A</td>
 <td>null</td>
 <td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-12'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal fee rate record ID</td>
+</tr>
+<tr>
+<td>order_filled_on_market</td>
+<td>string</td>
+<td>Fee rate for market orders when filled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_filled_on_limit</td>
+<td>string</td>
+<td>Fee rate for limit orders when filled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_settled_on_market</td>
+<td>string</td>
+<td>Fee rate for market orders when settled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_settled_on_limit</td>
+<td>string</td>
+<td>Fee rate for limit orders when settled (4 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Fee rate timestamp (ISO 8601 format)</td>
 </tr>
 </tbody></table>
 <h2 id='historical-fee-rate'>Historical Fee Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1531,6 +2012,45 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Page number</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-13'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal fee rate record ID</td>
+</tr>
+<tr>
+<td>order_filled_on_market</td>
+<td>string</td>
+<td>Fee rate for market orders when filled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_filled_on_limit</td>
+<td>string</td>
+<td>Fee rate for limit orders when filled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_settled_on_market</td>
+<td>string</td>
+<td>Fee rate for market orders when settled (4 decimal places)</td>
+</tr>
+<tr>
+<td>order_settled_on_limit</td>
+<td>string</td>
+<td>Fee rate for limit orders when settled (4 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Fee rate timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
 <h2 id='pool-share-value'>Pool Share Value</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1591,6 +2111,20 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>N/A</td>
 <td>null</td>
 <td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-14'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>number</td>
+<td>Current value of 100 pool shares (2 decimal places)</td>
 </tr>
 </tbody></table>
 <h2 id='trader-order-info'>Trader Order Info</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1682,6 +2216,135 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded query data for trader order</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-15'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal order ID</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>string</td>
+<td>Unique order identifier</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>string</td>
+<td>Account public key associated with the order</td>
+</tr>
+<tr>
+<td>position_type</td>
+<td>string</td>
+<td>Position direction (&quot;LONG&quot; or &quot;SHORT&quot;)</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>string</td>
+<td>Current order status (&quot;FILLED&quot;, &quot;OPEN&quot;, &quot;CANCELLED&quot;)</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>string</td>
+<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+</tr>
+<tr>
+<td>entryprice</td>
+<td>string</td>
+<td>Entry price for the position (2 decimal places)</td>
+</tr>
+<tr>
+<td>execution_price</td>
+<td>string</td>
+<td>Actual execution price (2 decimal places)</td>
+</tr>
+<tr>
+<td>positionsize</td>
+<td>string</td>
+<td>Position size in base currency (2 decimal places)</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>string</td>
+<td>Leverage multiplier (2 decimal places)</td>
+</tr>
+<tr>
+<td>initial_margin</td>
+<td>string</td>
+<td>Initial margin requirement (2 decimal places)</td>
+</tr>
+<tr>
+<td>available_margin</td>
+<td>string</td>
+<td>Available margin for the position (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Order creation timestamp (ISO 8601 format)</td>
+</tr>
+<tr>
+<td>bankruptcy_price</td>
+<td>string</td>
+<td>Price at which position becomes bankrupt (2 decimal places)</td>
+</tr>
+<tr>
+<td>bankruptcy_value</td>
+<td>string</td>
+<td>Value at bankruptcy price (2 decimal places)</td>
+</tr>
+<tr>
+<td>maintenance_margin</td>
+<td>string</td>
+<td>Maintenance margin requirement (4 decimal places)</td>
+</tr>
+<tr>
+<td>liquidation_price</td>
+<td>string</td>
+<td>Price at which position gets liquidated (2 decimal places)</td>
+</tr>
+<tr>
+<td>unrealized_pnl</td>
+<td>string</td>
+<td>Current unrealized profit/loss (2 decimal places)</td>
+</tr>
+<tr>
+<td>settlement_price</td>
+<td>string</td>
+<td>Settlement price if order is settled (2 decimal places)</td>
+</tr>
+<tr>
+<td>entry_nonce</td>
+<td>integer</td>
+<td>Entry transaction nonce</td>
+</tr>
+<tr>
+<td>exit_nonce</td>
+<td>integer</td>
+<td>Exit transaction nonce</td>
+</tr>
+<tr>
+<td>entry_sequence</td>
+<td>integer</td>
+<td>Entry sequence number</td>
+</tr>
+<tr>
+<td>fee_filled</td>
+<td>string</td>
+<td>Fee paid when order was filled (4 decimal places)</td>
+</tr>
+<tr>
+<td>fee_settled</td>
+<td>string</td>
+<td>Fee paid when order was settled (4 decimal places)</td>
+</tr>
+</tbody></table>
 <h2 id='lend-order-info'>Lend Order Info</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1770,6 +2433,130 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded query data for lend order</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-16'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal lend order ID</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>string</td>
+<td>Unique lend order identifier</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>string</td>
+<td>Account public key associated with the lend order</td>
+</tr>
+<tr>
+<td>balance</td>
+<td>string</td>
+<td>Current balance in the lend order (2 decimal places)</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>string</td>
+<td>Current order status (&quot;FILLED&quot;, &quot;OPEN&quot;, &quot;CANCELLED&quot;)</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>string</td>
+<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+</tr>
+<tr>
+<td>entry_nonce</td>
+<td>integer</td>
+<td>Entry transaction nonce</td>
+</tr>
+<tr>
+<td>exit_nonce</td>
+<td>integer</td>
+<td>Exit transaction nonce</td>
+</tr>
+<tr>
+<td>deposit</td>
+<td>string</td>
+<td>Initial deposit amount (2 decimal places)</td>
+</tr>
+<tr>
+<td>new_lend_state_amount</td>
+<td>string</td>
+<td>Updated lend state amount (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Order creation timestamp (ISO 8601 format)</td>
+</tr>
+<tr>
+<td>npoolshare</td>
+<td>string</td>
+<td>Number of pool shares (2 decimal places)</td>
+</tr>
+<tr>
+<td>nwithdraw</td>
+<td>string</td>
+<td>Withdrawal amount (2 decimal places)</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>string</td>
+<td>Payment amount (2 decimal places)</td>
+</tr>
+<tr>
+<td>tlv0</td>
+<td>string</td>
+<td>Total locked value tier 0 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tps0</td>
+<td>string</td>
+<td>Total pool shares tier 0 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tlv1</td>
+<td>string</td>
+<td>Total locked value tier 1 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tps1</td>
+<td>string</td>
+<td>Total pool shares tier 1 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tlv2</td>
+<td>string</td>
+<td>Total locked value tier 2 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tps2</td>
+<td>string</td>
+<td>Total pool shares tier 2 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tlv3</td>
+<td>string</td>
+<td>Total locked value tier 3 (2 decimal places)</td>
+</tr>
+<tr>
+<td>tps3</td>
+<td>string</td>
+<td>Total pool shares tier 3 (2 decimal places)</td>
+</tr>
+<tr>
+<td>entry_sequence</td>
+<td>integer</td>
+<td>Entry sequence number</td>
+</tr>
+</tbody></table>
 <h2 id='submit-trade-order'>Submit Trade Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1835,6 +2622,25 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Hex-encoded transaction data for the trade order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-17'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Success message confirming order submission</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Unique request identifier for tracking purposes</td>
 </tr>
 </tbody></table>
 <h2 id='submit-lend-order'>Submit Lend Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1904,6 +2710,25 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded transaction data for the lend order</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-18'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Success message confirming order submission</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Unique request identifier for tracking purposes</td>
+</tr>
+</tbody></table>
 <h2 id='settle-trade-order'>Settle Trade Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -1969,6 +2794,25 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Hex-encoded settlement data for the trade order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-19'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Success message confirming order settlement</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Unique request identifier for tracking purposes</td>
 </tr>
 </tbody></table>
 <h2 id='settle-lend-order'>Settle Lend Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -2038,6 +2882,25 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded settlement data for the lend order</td>
 </tr>
 </tbody></table>
+<h3 id='response-fields-20'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Success message confirming order settlement</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Unique request identifier for tracking purposes</td>
+</tr>
+</tbody></table>
 <h2 id='cancel-trader-order'>Cancel Trader Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -2103,6 +2966,25 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Hex-encoded cancellation data for the trader order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-21'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Success message confirming order cancellation</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Unique request identifier for tracking purposes</td>
 </tr>
 </tbody></table>
 <h1 id='private-api'>Private API</h1>
@@ -2180,6 +3062,55 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <li>Include required headers in your request</li>
 <li>Send POST request to the private API endpoint</li>
 </ol>
+<h3 id='getting-api-credentials'>Getting API Credentials</h3>
+<p>Before you can use any private API methods, you must first obtain your API credentials (<code>api_key</code> and <code>api_secret</code>) by calling the <strong>Login</strong> method available in the Public API.</p>
+
+<p><strong>Step 1: Call the Login Method</strong></p>
+
+<p>The <code>login</code> method is available in the Public API (<code>_public.md</code>) and requires your Twilight account signature for authentication. Here&#39;s how to use it:</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">account_address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">twilight1l03j8j5nwegy9fkz9p0whkxch2e2zqcq6lvfda</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">signature</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">pub_key</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">tendermint/PubKeySecp256k1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">value</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AkNImdlt3/+4axILXJsyiBigMWheg8i8npwTX/AzBrSC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">signature</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">waaVXJnXIYQd2BG4rVA12q5OTuctzcDt7BLyHw7Yx/1b2iDFrl4kOcC/VlvE3tvLZq7Dd/qSiMEdYK1DvDPmZw==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/register</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<p><strong>Step 2: Receive Your API Credentials</strong></p>
+
+<p>The login method will return your API credentials:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"api_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7d4fd427-ab9f-4a4d-8163-7faddb0c50e2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"api_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dab81c56-2cb1-4bfb-b58d-26e14d1262d6"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Step 3: Use Credentials in Private API Calls</strong></p>
+
+<p>Once you have your <code>api_key</code> and <code>api_secret</code>, include them in all private API requests as shown in the authentication headers above.</p>
+
+<aside class="notice">
+<strong>Important:</strong> Keep your <code>api_secret</code> secure and never expose it in client-side code. The <code>api_secret</code> is used to generate HMAC-SHA256 signatures for request authentication.
+</aside>
 
 <hr>
 <h2 id='submit-lend-order-zkos'>Submit Lend Order Zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -4737,7 +5668,20 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <p><code>WEBSOCKET_ENDPOINT_PRODUCTION = wss://relayer.twilight.rest/ws</code></p>
 
 <p><code>WEBSOCKET_ENDPOINT_STAGING = wss://app.twilight.rest/ws</code></p>
-<h2 id='subscribe-live-price-data'>Subscribe Live Price Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
+
+<hr>
+<h2 id='subscribe-live-price-data'>Subscribe Live Price Data</h2>
+<p><strong>Description:</strong> Establishes a real-time WebSocket connection to receive live BTC-USD price updates as they occur in the market.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time price tickers and dashboard displays</li>
+<li>Algorithmic trading systems requiring instant price updates</li>
+<li>Market monitoring and alert systems</li>
+<li>Live charting and trading interface updates</li>
+</ul>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
 
 <span class="kd">const</span> <span class="nx">subscriptionPayload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
@@ -4804,7 +5748,49 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 <h3 id='method'>Method</h3>
 <p><code>subscribe_live_price_data</code></p>
-<h2 id='subscribe-order-book'>Subscribe Order Book</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription</td>
+<td>integer</td>
+<td>Unique subscription ID for this WebSocket connection</td>
+</tr>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Array containing [price, timestamp]</td>
+</tr>
+<tr>
+<td>result[0]</td>
+<td>number</td>
+<td>Current BTC-USD price (2 decimal places)</td>
+</tr>
+<tr>
+<td>result[1]</td>
+<td>string</td>
+<td>Price timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='subscribe-order-book'>Subscribe Order Book</h2>
+<p><strong>Description:</strong> Provides real-time updates of the order book changes, showing bid and ask orders as they are placed, modified, or filled.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Market depth visualization and analysis</li>
+<li>Liquidity assessment for large order placement</li>
+<li>Spread monitoring and market making strategies</li>
+<li>Real-time order book displays in trading interfaces</li>
+</ul>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
 
 <span class="kd">const</span> <span class="nx">subscriptionPayload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
@@ -4877,7 +5863,64 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 <h3 id='method-2'>Method</h3>
 <p><code>subscribe_order_book</code></p>
-<h2 id='subscribe-candle-data'>Subscribe Candle Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
+<h3 id='response-fields-2'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription</td>
+<td>integer</td>
+<td>Unique subscription ID for this WebSocket connection</td>
+</tr>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>Order book update data</td>
+</tr>
+<tr>
+<td>bid</td>
+<td>object</td>
+<td>Bid (buy) order information (when present)</td>
+</tr>
+<tr>
+<td>ask</td>
+<td>object</td>
+<td>Ask (sell) order information (when present)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Order ID (may be empty)</td>
+</tr>
+<tr>
+<td>positionsize</td>
+<td>number</td>
+<td>Order size (2 decimal places)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>number</td>
+<td>Order price (2 decimal places)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='subscribe-candle-data'>Subscribe Candle Data</h2>
+<p><strong>Description:</strong> Streams real-time candlestick data updates for specified time intervals, providing OHLCV data as new candles form.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time charting applications and technical analysis</li>
+<li>Automated trading strategies based on candlestick patterns</li>
+<li>Market trend monitoring and analysis</li>
+<li>Live price action visualization</li>
+</ul>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
 
 <span class="kd">const</span> <span class="nx">subscriptionPayload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
@@ -4957,7 +6000,89 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 <h3 id='method-3'>Method</h3>
 <p><code>subscribe_candle_data</code></p>
-<h2 id='subscribe-recent-trades'>Subscribe Recent Trades</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
+<h3 id='response-fields-3'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription</td>
+<td>integer</td>
+<td>Unique subscription ID for this WebSocket connection</td>
+</tr>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Array of candle data objects</td>
+</tr>
+<tr>
+<td>btc_volume</td>
+<td>string</td>
+<td>BTC trading volume for the candle period (6 decimal places)</td>
+</tr>
+<tr>
+<td>close</td>
+<td>string</td>
+<td>Closing price for the candle (2 decimal places)</td>
+</tr>
+<tr>
+<td>end</td>
+<td>string</td>
+<td>End timestamp of the candle period (ISO 8601)</td>
+</tr>
+<tr>
+<td>high</td>
+<td>string</td>
+<td>Highest price during the candle period (2 decimal places)</td>
+</tr>
+<tr>
+<td>low</td>
+<td>string</td>
+<td>Lowest price during the candle period (2 decimal places)</td>
+</tr>
+<tr>
+<td>open</td>
+<td>string</td>
+<td>Opening price for the candle (2 decimal places)</td>
+</tr>
+<tr>
+<td>resolution</td>
+<td>string</td>
+<td>Time interval resolution (e.g., &quot;1 hour&quot;, &quot;1 day&quot;)</td>
+</tr>
+<tr>
+<td>start</td>
+<td>string</td>
+<td>Start timestamp of the candle period (ISO 8601)</td>
+</tr>
+<tr>
+<td>trades</td>
+<td>integer</td>
+<td>Number of trades executed during the candle period</td>
+</tr>
+<tr>
+<td>usd_volume</td>
+<td>string</td>
+<td>USD trading volume for the candle period (2 decimal places)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='subscribe-recent-trades'>Subscribe Recent Trades</h2>
+<p><strong>Description:</strong> Streams real-time trade execution data, showing completed trades as they happen on the Relayer-matchbook.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Live trade feed monitoring and analysis</li>
+<li>Volume analysis and market activity tracking</li>
+<li>Time and sales displays for trading interfaces</li>
+<li>Market sentiment analysis through trade flow</li>
+</ul>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
 
 <span class="kd">const</span> <span class="nx">subscriptionPayload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
@@ -5030,7 +6155,64 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 <h3 id='method-4'>Method</h3>
 <p><code>subscribe_recent_trades</code></p>
-<h2 id='subscribe-heartbeat'>Subscribe Heartbeat</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
+<h3 id='response-fields-4'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription</td>
+<td>integer</td>
+<td>Unique subscription ID for this WebSocket connection</td>
+</tr>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>Recent trade data</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Unique identifier for the executed trade</td>
+</tr>
+<tr>
+<td>side</td>
+<td>string</td>
+<td>Trade direction (&quot;LONG&quot; or &quot;SHORT&quot;)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>number</td>
+<td>Execution price of the trade (2 decimal places)</td>
+</tr>
+<tr>
+<td>positionsize</td>
+<td>number</td>
+<td>Size of the executed trade (2 decimal places)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>Trade execution timestamp (ISO 8601 format)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='subscribe-heartbeat'>Subscribe Heartbeat</h2>
+<p><strong>Description:</strong> Establishes a heartbeat connection to monitor WebSocket connection health and ensure real-time connectivity.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Connection health monitoring and reliability</li>
+<li>Network latency measurement and optimization</li>
+<li>Automatic reconnection logic for trading systems</li>
+<li>System health checks and uptime monitoring</li>
+</ul>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">({{</span> <span class="nx">WEBSOCKET_ENDPOINT</span> <span class="p">}});</span>
 
 <span class="kd">const</span> <span class="nx">subscriptionPayload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
@@ -5097,7 +6279,39 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 <h3 id='method-5'>Method</h3>
 <p><code>subscribe_heartbeat</code></p>
+<h3 id='response-fields-5'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscription</td>
+<td>integer</td>
+<td>Unique subscription ID for this WebSocket connection</td>
+</tr>
+<tr>
+<td>result</td>
+<td>string</td>
+<td>Heartbeat status message (always &quot;BEAT&quot;)</td>
+</tr>
+</tbody></table>
+
+<hr>
 <h3 id='unsubscribing-from-a-websocket-stream'>Unsubscribing from a WebSocket Stream</h3>
+<p><strong>Description:</strong> Terminates active WebSocket subscriptions to stop receiving real-time updates and manage connection resources.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Resource management and connection optimization</li>
+<li>Subscription cleanup when switching between data feeds</li>
+<li>Bandwidth management for multiple concurrent connections</li>
+<li>Clean disconnection from specific data streams</li>
+</ul>
+
 <p>To stop receiving updates, send an <code>unsubscribe_*</code> request with the subscription ID you received when you subscribed:</p>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// Assume you stored the subscription id from the earlier response</span>
 <span class="kd">const</span> <span class="nx">subId</span> <span class="o">=</span> <span class="mi">7957441702917313</span><span class="p">;</span> <span class="c1">// example</span>

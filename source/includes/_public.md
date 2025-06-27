@@ -311,15 +311,17 @@ fetch("API_ENDPOINT/api", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "positionsize": 8686710.0,
-      "price": 35000.0,
+      "order_id": "a2369fcf-489b-4ddf-85f6-78ec076401d0",
       "side": "LONG",
+      "price": "35000",
+      "positionsize": "8686710",
       "timestamp": "2024-01-30T11:13:23.386791Z"
     },
     {
-      "positionsize": 8687372.0,
-      "price": 35000.0,
+      "order_id": "b3468eda-612a-4eef-96f7-89fc186502b1",
       "side": "LONG",
+      "price": "35000",
+      "positionsize": "8687372",
       "timestamp": "2024-01-30T12:42:59.466955Z"
     }
   ],
@@ -901,3 +903,445 @@ Current pool share value (value of 100 pool shares)
 ### Message Parameters
 
 `null`
+
+## Trader Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "trader_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 50,
+    "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "position_type": "LONG",
+    "order_status": "FILLED",
+    "order_type": "MARKET",
+    "entryprice": "42508.7099999999991268850862979888916015625",
+    "execution_price": "30000",
+    "positionsize": "4250871",
+    "leverage": "10",
+    "initial_margin": "10",
+    "available_margin": "10",
+    "timestamp": "2024-01-31T11:14:45.575359Z",
+    "bankruptcy_price": "38644.281818181814742274582386016845703125",
+    "bankruptcy_value": "110",
+    "maintenance_margin": "0.5375",
+    "liquidation_price": "38834.039054470704286359250545501708984375",
+    "unrealized_pnl": "0",
+    "settlement_price": "0",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "entry_sequence": 1,
+    "fee_filled": "0",
+    "fee_settled": "0"
+  },
+  "id": 123
+}
+```
+
+Get trader order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`trader_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                  |
+| ------ | --------- | --------------------------------------- |
+| data   | string    | Hex-encoded query data for trader order |
+
+## Lend Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "lend_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 25,
+    "uuid": "6fb4f910-ceb4-432d-995b-79eddb8c4c83",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "balance": "153620",
+    "order_status": "FILLED",
+    "order_type": "MARKET",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "deposit": "153620",
+    "new_lend_state_amount": "153620",
+    "timestamp": "2024-02-28T04:59:44.020048Z",
+    "npoolshare": "100",
+    "nwithdraw": "0",
+    "payment": "0",
+    "tlv0": "0",
+    "tps0": "0",
+    "tlv1": "0",
+    "tps1": "0",
+    "tlv2": "0",
+    "tps2": "0",
+    "tlv3": "0",
+    "tps3": "0",
+    "entry_sequence": 10
+  },
+  "id": 123
+}
+```
+
+Get lend order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`lend_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                |
+| ------ | --------- | ------------------------------------- |
+| data   | string    | Hex-encoded query data for lend order |
+
+## Submit Trade Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "submit_trade_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_transaction_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+Submit a new trade order to the exchange
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`submit_trade_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                           |
+| ------ | --------- | ------------------------------------------------ |
+| data   | string    | Hex-encoded transaction data for the trade order |
+
+## Submit Lend Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "submit_lend_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_transaction_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+Submit a new lend order to the lending pool
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`submit_lend_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                          |
+| ------ | --------- | ----------------------------------------------- |
+| data   | string    | Hex-encoded transaction data for the lend order |
+
+## Settle Trade Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "settle_trade_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_settlement_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+Settle an existing trade order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`settle_trade_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                          |
+| ------ | --------- | ----------------------------------------------- |
+| data   | string    | Hex-encoded settlement data for the trade order |
+
+## Settle Lend Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "settle_lend_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_settlement_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+Settle an existing lend order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`settle_lend_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                         |
+| ------ | --------- | ---------------------------------------------- |
+| data   | string    | Hex-encoded settlement data for the lend order |
+
+## Cancel Trader Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "cancel_trader_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_cancellation_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+Cancel an existing trader order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`cancel_trader_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                             |
+| ------ | --------- | -------------------------------------------------- |
+| data   | string    | Hex-encoded cancellation data for the trader order |

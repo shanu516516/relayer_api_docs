@@ -252,6 +252,126 @@ Settle Trade Order
 | ------ | --------- | ------------------ |
 | data   | string    | Hex from zkos wasm |
 
+## Cancel Trader Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append(
+  "signature",
+  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
+);
+myHeaders.append("datetime", "1706613208905");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "cancel_trader_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_cancellation_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api/private", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": "OK",
+  "id": 123
+}
+```
+
+Cancel an existing trader order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`cancel_trader_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                             |
+| ------ | --------- | -------------------------------------------------- |
+| data   | string    | Hex-encoded cancellation data for the trader order |
+
+## Submit Bulk Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append(
+  "signature",
+  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
+);
+myHeaders.append("datetime", "1706613208905");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "submit_bulk_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_bulk_order_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api/private", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": "OK",
+  "id": 123
+}
+```
+
+Submit multiple orders in a single request
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`submit_bulk_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                                 |
+| ------ | --------- | ------------------------------------------------------ |
+| data   | string    | Hex-encoded bulk order data containing multiple orders |
+
 ## Open Order
 
 ```javascript

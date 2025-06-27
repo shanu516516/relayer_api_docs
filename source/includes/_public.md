@@ -6,6 +6,26 @@
 
 `API_ENDPOINT_STAGING = https://app.twilight.rest`
 
+## Request Structure
+
+All public API requests must be sent to:
+
+**`API_ENDPOINT/api`**
+
+For example:
+
+- Production: `https://relayer.twilight.rest/api`
+- Staging: `https://app.twilight.rest/api`
+
+### Request Format
+
+| Component    | Description                    |
+| ------------ | ------------------------------ |
+| URL          | `API_ENDPOINT/api`             |
+| Method       | `POST`                         |
+| Content-Type | `application/json`             |
+| Body         | JSON-RPC 2.0 formatted request |
+
 ## Candle Data
 
 ```javascript

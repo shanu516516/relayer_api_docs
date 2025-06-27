@@ -6,6 +6,17 @@
 
 `API_ENDPOINT_STAGING = https://app.twilight.rest`
 
+## Request Structure
+
+All private API requests must be sent to:
+
+**`API_ENDPOINT/api/private`**
+
+For example:
+
+- Production: `https://relayer.twilight.rest/api/private`
+- Staging: `https://app.twilight.rest/api/private`
+
 ## Authentication
 
 Authentication is required for all private API methods using the following headers:
@@ -30,7 +41,7 @@ function getCurrentTimestamp() {
 }
 ```
 
-### Request Structure
+### Request Format
 
 All private API requests follow this structure:
 

@@ -396,10 +396,10 @@
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#submit-lend-order-zkos" class="toc-h2 toc-link" data-title="Submit Lend Order Zkos">Submit Lend Order Zkos</a>
+                    <a href="#submit-lend-order-zkos" class="toc-h2 toc-link" data-title="Submit Lend Order zkos">Submit Lend Order zkos</a>
                   </li>
                   <li>
-                    <a href="#submit-trade-order-zkos" class="toc-h2 toc-link" data-title="Submit Trade Order Zkos">Submit Trade Order Zkos</a>
+                    <a href="#submit-trade-order-zkos" class="toc-h2 toc-link" data-title="Submit Trade Order zkos">Submit Trade Order zkos</a>
                   </li>
                   <li>
                     <a href="#settle-trade-order" class="toc-h2 toc-link" data-title="Settle Trade Order">Settle Trade Order</a>
@@ -452,7 +452,7 @@
               </ul>
           </li>
           <li>
-            <a href="#websocket-api" class="toc-h1 toc-link" data-title="Websocket API">Websocket API</a>
+            <a href="#websocket-api" class="toc-h1 toc-link" data-title="WebSocket API">WebSocket API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#subscribe-live-price-data" class="toc-h2 toc-link" data-title="Subscribe Live Price Data">Subscribe Live Price Data</a>
@@ -473,7 +473,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li>Twilight © 2024</li>
+            <li>Twilight © 2025</li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -3165,7 +3165,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </aside>
 
 <hr>
-<h2 id='submit-lend-order-zkos'>Submit Lend Order Zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<h2 id='submit-lend-order-zkos'>Submit Lend Order zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">relayer-api-key</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">your-api-key</span><span class="dl">"</span><span class="p">);</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">signature</span><span class="dl">"</span><span class="p">,</span> <span class="nx">generateSignature</span><span class="p">(</span><span class="nx">raw</span><span class="p">,</span> <span class="dl">"</span><span class="s2">your-api-secret</span><span class="dl">"</span><span class="p">));</span>
@@ -3232,7 +3232,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Yes</td>
-<td>Hex-encoded zkOS transaction data for the lend order</td>
+<td>Hex-encoded zkos transaction data for the lend order</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields'>Response Fields</h3>
@@ -3256,7 +3256,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </tbody></table>
 
 <hr>
-<h2 id='submit-trade-order-zkos'>Submit Trade Order Zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<h2 id='submit-trade-order-zkos'>Submit Trade Order zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">relayer-api-key</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">your-api-key</span><span class="dl">"</span><span class="p">);</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">signature</span><span class="dl">"</span><span class="p">,</span> <span class="nx">generateSignature</span><span class="p">(</span><span class="nx">raw</span><span class="p">,</span> <span class="dl">"</span><span class="s2">your-api-secret</span><span class="dl">"</span><span class="p">));</span>
@@ -3323,7 +3323,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Yes</td>
-<td>Hex-encoded zkOS transaction data for the trade order</td>
+<td>Hex-encoded zkos transaction data for the trade order</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-2'>Response Fields</h3>
@@ -3414,7 +3414,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Yes</td>
-<td>Hex-encoded zkOS settlement data for the trade order</td>
+<td>Hex-encoded zkos settlement data for the trade order</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-3'>Response Fields</h3>
@@ -3505,7 +3505,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Yes</td>
-<td>Hex-encoded zkOS settlement data for the lend order</td>
+<td>Hex-encoded zkos settlement data for the lend order</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-4'>Response Fields</h3>
@@ -3596,7 +3596,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>data</td>
 <td>string</td>
 <td>Yes</td>
-<td>Hex-encoded zkOS cancellation data for the trader order</td>
+<td>Hex-encoded zkos cancellation data for the trader order</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-5'>Response Fields</h3>
@@ -3689,7 +3689,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Array of orders</td>
 <td>array</td>
 <td>Yes</td>
-<td>Array of order objects with hex-encoded zkOS data</td>
+<td>Array of order objects with hex-encoded zkos data</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-6'>Response Fields</h3>
@@ -5714,7 +5714,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Account public key associated with the positions</td>
 </tr>
 </tbody></table>
-<h1 id='websocket-api'>Websocket API</h1>
+<h1 id='websocket-api'>WebSocket API</h1>
 <p><strong>Endpoint URL</strong></p>
 
 <p><code>WEBSOCKET_ENDPOINT_PRODUCTION = wss://relayer.twilight.rest/ws</code></p>

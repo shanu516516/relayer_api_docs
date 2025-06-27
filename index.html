@@ -319,6 +319,9 @@
             <a href="#public-api" class="toc-h1 toc-link" data-title="Public API">Public API</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#request-structure" class="toc-h2 toc-link" data-title="Request Structure">Request Structure</a>
+                  </li>
+                  <li>
                     <a href="#candle-data" class="toc-h2 toc-link" data-title="Candle Data">Candle Data</a>
                   </li>
                   <li>
@@ -386,6 +389,9 @@
           <li>
             <a href="#private-api" class="toc-h1 toc-link" data-title="Private API">Private API</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#request-structure" class="toc-h2 toc-link" data-title="Request Structure">Request Structure</a>
+                  </li>
                   <li>
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
@@ -481,6 +487,41 @@
 <p><code>API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest</code></p>
 
 <p><code>API_ENDPOINT_STAGING = https://app.twilight.rest</code></p>
+<h2 id='request-structure'>Request Structure</h2>
+<p>All public API requests must be sent to:</p>
+
+<p><strong><code>API_ENDPOINT/api</code></strong></p>
+
+<p>For example:</p>
+
+<ul>
+<li>Production: <code>https://relayer.twilight.rest/api</code></li>
+<li>Staging: <code>https://app.twilight.rest/api</code></li>
+</ul>
+<h3 id='request-format'>Request Format</h3>
+<table><thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>URL</td>
+<td><code>API_ENDPOINT/api</code></td>
+</tr>
+<tr>
+<td>Method</td>
+<td><code>POST</code></td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td><code>application/json</code></td>
+</tr>
+<tr>
+<td>Body</td>
+<td>JSON-RPC 2.0 formatted request</td>
+</tr>
+</tbody></table>
 <h2 id='candle-data'>Candle Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -2993,6 +3034,17 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <p><code>API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest</code></p>
 
 <p><code>API_ENDPOINT_STAGING = https://app.twilight.rest</code></p>
+<h2 id='request-structure'>Request Structure</h2>
+<p>All private API requests must be sent to:</p>
+
+<p><strong><code>API_ENDPOINT/api/private</code></strong></p>
+
+<p>For example:</p>
+
+<ul>
+<li>Production: <code>https://relayer.twilight.rest/api/private</code></li>
+<li>Staging: <code>https://app.twilight.rest/api/private</code></li>
+</ul>
 <h2 id='authentication'>Authentication</h2>
 <p>Authentication is required for all private API methods using the following headers:</p>
 
@@ -3028,7 +3080,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <span class="kd">function</span> <span class="nx">getCurrentTimestamp</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre></div><h3 id='request-structure'>Request Structure</h3>
+</code></pre></div><h3 id='request-format'>Request Format</h3>
 <p>All private API requests follow this structure:</p>
 
 <table><thead>

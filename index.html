@@ -351,6 +351,15 @@
                   <li>
                     <a href="#transaction-hash" class="toc-h2 toc-link" data-title="Transaction Hash">Transaction Hash</a>
                   </li>
+                  <li>
+                    <a href="#get-fee-rate" class="toc-h2 toc-link" data-title="Get Fee Rate">Get Fee Rate</a>
+                  </li>
+                  <li>
+                    <a href="#historical-fee-rate" class="toc-h2 toc-link" data-title="Historical Fee Rate">Historical Fee Rate</a>
+                  </li>
+                  <li>
+                    <a href="#pool-share-value" class="toc-h2 toc-link" data-title="Pool Share Value">Pool Share Value</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -439,9 +448,9 @@
 <h1 id='public-api'>Public API</h1>
 <p><strong>Endpoint URL</strong></p>
 
-<p><code>API_ENDPOINT_PRODUCTION = https://twilight.rest</code></p>
+<p><code>API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest</code></p>
 
-<p><code>API_ENDPOINT_STAGING = https://rpc.twilight.rest</code></p>
+<p><code>API_ENDPOINT_STAGING = https://app.twilight.rest</code></p>
 <h2 id='candle-data'>Candle Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
@@ -519,7 +528,7 @@
 <tr>
 <td>interval</td>
 <td>string</td>
-<td><code>ONE_MINUTE</code>, <code>FIVE_MINUTE</code>, <code>FIFTEEN_MINUTE</code>, <code>THIRTY_MINUTE</code>, <code>ONE_HOUR</code>, <code>FOUR_HOUR</code>, <code>EIGHT_HOUR</code>, <code>TWELVE_HOUR</code>, <code>ONE_DAY</code></td>
+<td><code>ONE_MINUTE</code>, <code>FIVE_MINUTE</code>, <code>FIFTEEN_MINUTE</code>, <code>THIRTY_MINUTE</code>, <code>ONE_HOUR</code>, <code>FOUR_HOUR</code>, <code>EIGHT_HOUR</code>, <code>TWELVE_HOUR</code>, <code>ONE_DAY</code>, <code>ONE_DAY_CHANGE</code></td>
 </tr>
 <tr>
 <td>since</td>
@@ -739,14 +748,14 @@
   </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8686710"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"35000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="mf">8686710.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">35000.0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-30T11:13:23.386791Z"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8687372"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"35000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="mf">8687372.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">35000.0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-30T12:42:59.466955Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -1110,6 +1119,184 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>User account id</td>
 </tr>
 </tbody></table>
+<h2 id='get-fee-rate'>Get Fee Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get_fee_rate</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_filled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_filled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00025"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_settled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00075"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_settled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-27T12:00:00Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Current fee rate</p>
+<h3 id='http-method-12'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-11'>RPC Method</h3>
+<p><code>get_fee_rate</code></p>
+<h3 id='message-parameters-11'>Message Parameters</h3>
+<p><code>null</code></p>
+<h2 id='historical-fee-rate'>Historical Fee Rate</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">historical_fee_rate</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-01-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">to</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-02-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">limit</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00025"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00075"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-28T12:00:00Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">41</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00025"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00075"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-29T12:00:00Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_filled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00025"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00075"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_settled_on_limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-30T12:00:00Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Historical fee rate</p>
+<h3 id='http-method-13'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-12'>RPC Method</h3>
+<p><code>historical_fee_rate</code></p>
+<h3 id='message-parameters-12'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>datetime</td>
+<td>Start time</td>
+</tr>
+<tr>
+<td>to</td>
+<td>datetime</td>
+<td>End time</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>Number of entries</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>integer</td>
+<td>Page number</td>
+</tr>
+</tbody></table>
+<h2 id='pool-share-value'>Pool Share Value</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pool_share_value</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="mf">123.456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Current pool share value (value of 100 pool shares)</p>
+<h3 id='http-method-14'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-13'>RPC Method</h3>
+<p><code>pool_share_value</code></p>
+<h3 id='message-parameters-13'>Message Parameters</h3>
+<p><code>null</code></p>
 <h1 id='private-api'>Private API</h1>
 <p>Required headers for private API:</p>
 
@@ -1121,9 +1308,9 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 
 <p><strong>Endpoint URL</strong></p>
 
-<p><code>API_ENDPOINT_PRODUCTION = https://twilight.rest</code></p>
+<p><code>API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest</code></p>
 
-<p><code>API_ENDPOINT_STAGING = https://rpc.twilight.rest</code></p>
+<p><code>API_ENDPOINT_STAGING = https://app.twilight.rest</code></p>
 <h2 id='submit-lend-order-zkos'>Submit Lend Order Zkos</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">relayer-api-key</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">e56d9635-b1fd-4e0d-9902-a356ea1a54ae</span><span class="dl">"</span><span class="p">);</span>
@@ -1860,6 +2047,8 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
     </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T11:20:37.427721Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15a35bcd-46c6-42bf-8746-be141dd573b5"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
@@ -1982,6 +2171,8 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
     </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-30T11:13:23.386791Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
@@ -2063,6 +2254,8 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
     </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-30T11:13:23.386791Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
@@ -2336,26 +2529,28 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
     </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"available_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38644.281818181814742274582386016845703125"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"bankruptcy_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"available_margin"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">38644.281818181814742</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"bankruptcy_value"</span><span class="p">:</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w">
         </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"entry_sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42508.7099999999991268850862979888916015625"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"execution_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="mf">42508.71</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"execution_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span><span class="w">
         </span><span class="nl">"exit_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"initial_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38834.039054470704286359250545501708984375"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.53749999999999997779553950749686919152736663818359375"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"initial_margin"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">38834.0390544707</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5375</span><span class="p">,</span><span class="w">
         </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4250871"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">4250871</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T11:14:45.575359Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -2421,7 +2616,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <li><strong><code>jsonrpc</code></strong> (String, required): The JSON-RPC protocol version. Must be set to <code>&quot;2.0&quot;</code>.</li>
 <li><strong><code>method</code></strong> (String, required): The name of the method to be invoked.</li>
 <li><strong><code>id</code></strong> (Number, required): A unique identifier for the request.</li>
-<li><strong><code>params</code></strong> (Object, optional): Additional parameters for the method, if any.</li>
+<li><strong><code>params</code></strong> (Object, optional): Additional parameters for the method, if any. When using <code>subscribe_candle_data</code>, the <code>params</code> object must include an <code>interval</code> field whose value can be one of <code>ONE_MINUTE</code>, <code>FIVE_MINUTE</code>, <code>FIFTEEN_MINUTE</code>, <code>THIRTY_MINUTE</code>, <code>ONE_HOUR</code>, <code>FOUR_HOUR</code>, <code>EIGHT_HOUR</code>, <code>TWELVE_HOUR</code>, <code>ONE_DAY</code>, <code>ONE_DAY_CHANGE</code>.</li>
 </ul>
 <h3 id='method-3'>Method</h3>
 <p><code>subscribe_candle_data</code></p>
@@ -2469,6 +2664,8 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
       </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="mf">614.48</span><span class="p">,</span><span class="w">
       </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">12989749.999999736</span><span class="p">,</span><span class="w">
       </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"exit_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -2527,6 +2724,29 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 <h3 id='method-5'>Method</h3>
 <p><code>subscribe_heartbeat</code></p>
+<h3 id='unsubscribing-from-a-websocket-stream'>Unsubscribing from a WebSocket Stream</h3>
+<p>To stop receiving updates, send an <code>unsubscribe_*</code> request with the subscription ID you received when you subscribed:</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// Assume you stored the subscription id from the earlier response</span>
+<span class="kd">const</span> <span class="nx">subId</span> <span class="o">=</span> <span class="mi">7957441702917313</span><span class="p">;</span> <span class="c1">// example</span>
+
+<span class="kd">const</span> <span class="nx">unsubscribePayload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">unsubscribe_order_book</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// change accordingly</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">456</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span><span class="nx">subId</span><span class="p">],</span>
+<span class="p">};</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">unsubscribePayload</span><span class="p">));</span>
+</code></pre></div>
+<p>Available unsubscribe methods:</p>
+
+<ul>
+<li><code>unsubscribe_live_price_data</code></li>
+<li><code>unsubscribe_order_book</code></li>
+<li><code>unsubscribe_candle_data</code></li>
+<li><code>unsubscribe_recent_trades</code></li>
+<li><code>unsubscribe_heartbeat</code></li>
+</ul>
 
       </div>
       <div class="dark-box">

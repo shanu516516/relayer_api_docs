@@ -8,9 +8,9 @@ Required headers for private API:
 
 **Endpoint URL**
 
-`API_ENDPOINT_PRODUCTION = https://twilight.rest`
+`API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest`
 
-`API_ENDPOINT_STAGING = https://rpc.twilight.rest`
+`API_ENDPOINT_STAGING = https://app.twilight.rest`
 
 ## Submit Lend Order Zkos
 
@@ -752,6 +752,8 @@ fetch("API_ENDPOINT/api/private", requestOptions)
     "settlement_price": "0",
     "timestamp": "2024-01-31T11:20:37.427721Z",
     "unrealized_pnl": "0",
+    "fee_filled": "0",
+    "fee_settled": "0",
     "uuid": "15a35bcd-46c6-42bf-8746-be141dd573b5"
   },
   "id": 123
@@ -898,6 +900,8 @@ fetch("API_ENDPOINT/api/private", requestOptions)
     "settlement_price": "0",
     "timestamp": "2024-01-30T11:13:23.386791Z",
     "unrealized_pnl": "0",
+    "fee_filled": "0",
+    "fee_settled": "0",
     "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"
   },
   "id": 123
@@ -981,6 +985,8 @@ fetch("API_ENDPOINT/api/private", requestOptions)
     "settlement_price": "0",
     "timestamp": "2024-01-30T11:13:23.386791Z",
     "unrealized_pnl": "0",
+    "fee_filled": "0",
+    "fee_settled": "0",
     "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"
   },
   "id": 123

@@ -2,9 +2,9 @@
 
 **Endpoint URL**
 
-`API_ENDPOINT_PRODUCTION = https://twilight.rest`
+`API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest`
 
-`API_ENDPOINT_STAGING = https://rpc.twilight.rest`
+`API_ENDPOINT_STAGING = https://app.twilight.rest`
 
 ## Candle Data
 
@@ -84,12 +84,12 @@ Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr)
 
 ### Message Parameters
 
-| Params   | Data_Type | Values                                                                                                                          |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| interval | string    | `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY` |
-| since    | datetime  | Start time                                                                                                                      |
-| limit    | integer   | Number of entries                                                                                                               |
-| offset   | integer   | Page number                                                                                                                     |
+| Params   | Data_Type | Values                                                                                                                                            |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| interval | string    | `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY`, `ONE_DAY_CHANGE` |
+| since    | datetime  | Start time                                                                                                                                        |
+| limit    | integer   | Number of entries                                                                                                                                 |
+| offset   | integer   | Page number                                                                                                                                       |
 
 ## Get Funding Rate
 
@@ -311,14 +311,14 @@ fetch("API_ENDPOINT/api", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "positionsize": "8686710",
-      "price": "35000",
+      "positionsize": 8686710.0,
+      "price": 35000.0,
       "side": "LONG",
       "timestamp": "2024-01-30T11:13:23.386791Z"
     },
     {
-      "positionsize": "8687372",
-      "price": "35000",
+      "positionsize": 8687372.0,
+      "price": 35000.0,
       "side": "LONG",
       "timestamp": "2024-01-30T12:42:59.466955Z"
     }
@@ -709,3 +709,195 @@ Transaction Hash
 | Params | Data_Type | Values          |
 | ------ | --------- | --------------- |
 | id     | string    | User account id |
+
+## Get Fee Rate
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "get_fee_rate",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 42,
+    "order_filled_on_market": "0.0005",
+    "order_filled_on_limit": "0.00025",
+    "order_settled_on_market": "0.00075",
+    "order_settled_on_limit": "0.0005",
+    "timestamp": "2024-02-27T12:00:00Z"
+  },
+  "id": 123
+}
+```
+
+Current fee rate
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`get_fee_rate`
+
+### Message Parameters
+
+`null`
+
+## Historical Fee Rate
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "historical_fee_rate",
+  id: 123,
+  params: {
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-02-01T00:00:00Z",
+    limit: 3,
+    offset: 0,
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": 40,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-28T12:00:00Z"
+    },
+    {
+      "id": 41,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-29T12:00:00Z"
+    },
+    {
+      "id": 42,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-30T12:00:00Z"
+    }
+  ],
+  "id": 123
+}
+```
+
+Historical fee rate
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`historical_fee_rate`
+
+### Message Parameters
+
+| Params | Data_Type | Values            |
+| ------ | --------- | ----------------- |
+| from   | datetime  | Start time        |
+| to     | datetime  | End time          |
+| limit  | integer   | Number of entries |
+| offset | integer   | Page number       |
+
+## Pool Share Value
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "pool_share_value",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": 123.456,
+  "id": 123
+}
+```
+
+Current pool share value (value of 100 pool shares)
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`pool_share_value`
+
+### Message Parameters
+
+`null`

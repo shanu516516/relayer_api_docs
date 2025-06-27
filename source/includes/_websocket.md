@@ -89,26 +89,28 @@ socket.onmessage = (event) => {
     "result": [
       {
         "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-        "available_margin": "10",
-        "bankruptcy_price": "38644.281818181814742274582386016845703125",
-        "bankruptcy_value": "110",
+        "available_margin": 10,
+        "bankruptcy_price": 38644.281818181814742,
+        "bankruptcy_value": 110,
         "entry_nonce": 0,
         "entry_sequence": 1,
-        "entryprice": "42508.7099999999991268850862979888916015625",
-        "execution_price": "30000",
+        "entryprice": 42508.71,
+        "execution_price": 30000,
         "exit_nonce": 0,
         "id": 50,
-        "initial_margin": "10",
-        "leverage": "10",
-        "liquidation_price": "38834.039054470704286359250545501708984375",
-        "maintenance_margin": "0.53749999999999997779553950749686919152736663818359375",
+        "initial_margin": 10,
+        "leverage": 10,
+        "liquidation_price": 38834.0390544707,
+        "maintenance_margin": 0.5375,
         "order_status": "FILLED",
         "order_type": "MARKET",
         "position_type": "LONG",
-        "positionsize": "4250871",
-        "settlement_price": "0",
+        "positionsize": 4250871,
+        "settlement_price": 0,
         "timestamp": "2024-01-31T11:14:45.575359Z",
-        "unrealized_pnl": "0",
+        "unrealized_pnl": 0,
+        "fee_filled": "0",
+        "fee_settled": "0",
         "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8"
       }
     ]
@@ -188,7 +190,7 @@ Subscribe Candle Data
 - **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
 - **`method`** (String, required): The name of the method to be invoked.
 - **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any.
+- **`params`** (Object, optional): Additional parameters for the method, if any. When using `subscribe_candle_data`, the `params` object must include an `interval` field whose value can be one of `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY`, `ONE_DAY_CHANGE`.
 
 ### Method
 
@@ -242,6 +244,8 @@ socket.onmessage = (event) => {
       "maintenance_margin": 614.48,
       "liquidation_price": 12989749.999999736,
       "unrealized_pnl": 0.0,
+      "fee_filled": "0",
+      "fee_settled": "0",
       "settlement_price": 0.0,
       "entry_nonce": 0,
       "exit_nonce": 0,
@@ -315,3 +319,29 @@ Subscribe Heartbeat
 ### Method
 
 `subscribe_heartbeat`
+
+### Unsubscribing from a WebSocket Stream
+
+To stop receiving updates, send an `unsubscribe_*` request with the subscription ID you received when you subscribed:
+
+```javascript
+// Assume you stored the subscription id from the earlier response
+const subId = 7957441702917313; // example
+
+const unsubscribePayload = {
+  jsonrpc: "2.0",
+  method: "unsubscribe_order_book", // change accordingly
+  id: 456,
+  params: [subId],
+};
+
+socket.send(JSON.stringify(unsubscribePayload));
+```
+
+Available unsubscribe methods:
+
+- `unsubscribe_live_price_data`
+- `unsubscribe_order_book`
+- `unsubscribe_candle_data`
+- `unsubscribe_recent_trades`
+- `unsubscribe_heartbeat`

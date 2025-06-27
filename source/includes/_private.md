@@ -49,6 +49,63 @@ All private API requests follow this structure:
 4. Include required headers in your request
 5. Send POST request to the private API endpoint
 
+### Getting API Credentials
+
+Before you can use any private API methods, you must first obtain your API credentials (`api_key` and `api_secret`) by calling the **Login** method available in the Public API.
+
+**Step 1: Call the Login Method**
+
+The `login` method is available in the Public API (`_public.md`) and requires your Twilight account signature for authentication. Here's how to use it:
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  account_address: "twilight1l03j8j5nwegy9fkz9p0whkxch2e2zqcq6lvfda",
+  data: "hello",
+  signature: {
+    pub_key: {
+      type: "tendermint/PubKeySecp256k1",
+      value: "AkNImdlt3/+4axILXJsyiBigMWheg8i8npwTX/AzBrSC",
+    },
+    signature:
+      "waaVXJnXIYQd2BG4rVA12q5OTuctzcDt7BLyHw7Yx/1b2iDFrl4kOcC/VlvE3tvLZq7Dd/qSiMEdYK1DvDPmZw==",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/register", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+**Step 2: Receive Your API Credentials**
+
+The login method will return your API credentials:
+
+```json
+{
+  "api_key": "7d4fd427-ab9f-4a4d-8163-7faddb0c50e2",
+  "api_secret": "dab81c56-2cb1-4bfb-b58d-26e14d1262d6"
+}
+```
+
+**Step 3: Use Credentials in Private API Calls**
+
+Once you have your `api_key` and `api_secret`, include them in all private API requests as shown in the authentication headers above.
+
+<aside class="notice">
+<strong>Important:</strong> Keep your <code>api_secret</code> secure and never expose it in client-side code. The <code>api_secret</code> is used to generate HMAC-SHA256 signatures for request authentication.
+</aside>
+
 ---
 
 ## Submit Lend Order Zkos

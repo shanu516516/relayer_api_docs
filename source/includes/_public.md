@@ -101,6 +101,21 @@ Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, da
 | limit    | integer   | Number of entries                                                                                                                                 |
 | offset   | integer   | Page number                                                                                                                                       |
 
+### Response Fields
+
+| Field      | Data_Type | Description                                          |
+| ---------- | --------- | ---------------------------------------------------- |
+| btc_volume | string    | BTC trading volume for the period (2 decimal places) |
+| close      | string    | Closing price for the period (2 decimal places)      |
+| end        | string    | End timestamp of the candle period (ISO 8601)        |
+| high       | string    | Highest price during the period (2 decimal places)   |
+| low        | string    | Lowest price during the period (2 decimal places)    |
+| open       | string    | Opening price for the period (2 decimal places)      |
+| resolution | string    | Time interval resolution (e.g., "1 day", "1 hour")   |
+| start      | string    | Start timestamp of the candle period (ISO 8601)      |
+| trades     | integer   | Number of trades executed during the period          |
+| usd_volume | string    | USD trading volume for the period (2 decimal places) |
+
 ## Get Funding Rate
 
 ```javascript
@@ -167,6 +182,15 @@ Current funding rate
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field     | Data_Type | Description                                      |
+| --------- | --------- | ------------------------------------------------ |
+| id        | integer   | Internal funding rate record ID                  |
+| price     | string    | BTC-USD price at funding time (2 decimal places) |
+| rate      | string    | Current funding rate (4 decimal places)          |
+| timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
 
 ## Historical Funding Rate
 
@@ -257,6 +281,15 @@ Historical funding rate
 | limit  | integer   | Number of entries |
 | offset | integer   | Page number       |
 
+### Response Fields
+
+| Field     | Data_Type | Description                                      |
+| --------- | --------- | ------------------------------------------------ |
+| id        | integer   | Internal funding rate record ID                  |
+| price     | string    | BTC-USD price at funding time (2 decimal places) |
+| rate      | string    | Funding rate for the period (4 decimal places)   |
+| timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
+
 ## Open Limit Order
 
 ```javascript
@@ -321,6 +354,15 @@ Open Limit Order
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field | Data_Type | Description                                  |
+| ----- | --------- | -------------------------------------------- |
+| ask   | array     | Array of ask (sell) orders in the order book |
+| bid   | array     | Array of bid (buy) orders in the order book  |
+
+_Note: Each order in ask/bid arrays contains price, size, and order details_
 
 ## Recent Trade Order
 
@@ -399,6 +441,16 @@ Recent Trade Order
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
+### Response Fields
+
+| Field        | Data_Type | Description                                     |
+| ------------ | --------- | ----------------------------------------------- |
+| order_id     | string    | Unique identifier for the executed trade        |
+| side         | string    | Trade direction ("LONG" or "SHORT")             |
+| price        | string    | Execution price of the trade (2 decimal places) |
+| positionsize | string    | Size of the executed trade (2 decimal places)   |
+| timestamp    | string    | Trade execution timestamp (ISO 8601 format)     |
+
 ## Position Size
 
 ```javascript
@@ -465,6 +517,14 @@ Position Size
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
+### Response Fields
+
+| Field       | Data_Type | Description                                                         |
+| ----------- | --------- | ------------------------------------------------------------------- |
+| total       | string    | Total open position size across all participants (2 decimal places) |
+| total_long  | string    | Total long position size (2 decimal places)                         |
+| total_short | string    | Total short position size (2 decimal places)                        |
+
 ## Btc Usd Price
 
 ```javascript
@@ -530,6 +590,14 @@ Btc Usd Price
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field     | Data_Type | Description                              |
+| --------- | --------- | ---------------------------------------- |
+| id        | integer   | Internal price record ID                 |
+| price     | string    | Current BTC-USD price (2 decimal places) |
+| timestamp | string    | Price timestamp (ISO 8601 format)        |
 
 ## Historical Price
 
@@ -617,6 +685,14 @@ Historical BTC price
 | limit  | integer   | Number of entries |
 | offset | integer   | Page number       |
 
+### Response Fields
+
+| Field     | Data_Type | Description                                 |
+| --------- | --------- | ------------------------------------------- |
+| id        | integer   | Internal price record ID                    |
+| price     | string    | Historical BTC-USD price (2 decimal places) |
+| timestamp | string    | Price timestamp (ISO 8601 format)           |
+
 ## Login
 
 ```javascript
@@ -681,6 +757,13 @@ Endpoint to get `api_key` and `api_secret` for private API endpoints.
 | account_address | string    | Twilight address                                                                            |
 | data            | string    | Message string                                                                              |
 | signature       | object    | `{"pub_key": {"type": "tendermint/PubKeySecp256k1", "value": string}, "signature": string}` |
+
+### Response Fields
+
+| Field      | Data_Type | Description                                           |
+| ---------- | --------- | ----------------------------------------------------- |
+| api_key    | string    | Generated API key for accessing private endpoints     |
+| api_secret | string    | Generated API secret for request signature generation |
 
 <aside class="notice">
 You must add <code>api_key</code> and <code>api_secret</code> in your private API endpoint header.
@@ -747,7 +830,17 @@ Server time
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
+### Response Fields
+
+| Field  | Data_Type | Description                                |
+| ------ | --------- | ------------------------------------------ |
+| result | string    | Current server timestamp (ISO 8601 format) |
+
 ## Transaction Hash
+
+The `transaction_hashes` method supports three different parameter types for querying transaction data:
+
+### 1. Query by Account ID
 
 ```javascript
 var myHeaders = new Headers();
@@ -760,6 +853,69 @@ var raw = JSON.stringify({
   params: {
     AccountId: {
       id: "0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22",
+      status: "FILLED", // Optional: filter by order status
+    },
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+### 2. Query by Transaction/Order ID
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "transaction_hashes",
+  id: 123,
+  params: {
+    TxId: {
+      id: "83216790-d1c6-40d9-a70e-712d5d81cecd",
+      status: "SETTLED", // Optional: filter by order status
+    },
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+### 3. Query by Request ID
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "transaction_hashes",
+  id: 123,
+  params: {
+    RequestId: {
+      id: "REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325", //request_id
+      status: "FILLED", // Optional: filter by order status
     },
   },
 });
@@ -791,6 +947,7 @@ fetch("API_ENDPOINT/api", requestOptions)
       "order_status": "FILLED",
       "order_type": "MARKET",
       "output": "01000000010000002a000000000000003138363065656636336564656531303738313738623361646236336539663836393231636161313662358a00000000000000306333656231363738336363646265653835356530626162663664313330313031653764363630383962616332303438343630366535326266353037643930653361353034396133333739623861666334373036386432353038646664373166653932616461623761356164363832666262626239623430313135386536326434326161363463623232010000000000000082000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f0104000000000000000300000001000000386567000000000000000000000000000000000000000000000000000000000002000000010000000000000001000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f03000000010000009ccb0000000000000000000000000000000000000000000000000000000000000300000001000000010000000000000000000000000000000000000000000000000000000000000001000000",
+      "request_id": "REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325",
       "tx_hash": "8E291447D61EBC7E0AF5BB006576190E117516CA9A29358554C108718586FF58"
     },
     {
@@ -801,6 +958,7 @@ fetch("API_ENDPOINT/api", requestOptions)
       "order_status": "SETTLED",
       "order_type": "MARKET",
       "output": null,
+      "request_id": null,
       "tx_hash": "C5680F08C4D315241924BB1B4F172B12ABB44A6A49DA0CBAD69552D43A9EBA4A"
     }
   ],
@@ -830,9 +988,42 @@ Transaction Hash
 
 ### Message Parameters
 
-| Params | Data_Type | Values          |
-| ------ | --------- | --------------- |
-| id     | string    | User account id |
+The `transaction_hashes` method accepts one of three parameter variants:
+
+#### Variant 1: Query by Account ID
+
+| Params           | Data_Type | Required | Values                                                                  |
+| ---------------- | --------- | -------- | ----------------------------------------------------------------------- |
+| AccountId.id     | string    | Yes      | Account public key/identifier                                           |
+| AccountId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+
+#### Variant 2: Query by Transaction/Order ID
+
+| Params      | Data_Type | Required | Values                                                                  |
+| ----------- | --------- | -------- | ----------------------------------------------------------------------- |
+| TxId.id     | string    | Yes      | Transaction/Order UUID                                                  |
+| TxId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+
+#### Variant 3: Query by Request ID
+
+| Params           | Data_Type | Required | Values                                                                  |
+| ---------------- | --------- | -------- | ----------------------------------------------------------------------- |
+| RequestId.id     | string    | Yes      | Unique request identifier                                               |
+| RequestId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+
+### Response Fields
+
+| Field        | Data_Type | Description                                            |
+| ------------ | --------- | ------------------------------------------------------ |
+| account_id   | string    | Account ID associated with the transaction             |
+| datetime     | string    | Transaction timestamp (Unix timestamp in microseconds) |
+| id           | integer   | Internal transaction record ID                         |
+| order_id     | string    | Order UUID associated with the transaction             |
+| order_status | string    | Order status at transaction time ("FILLED", "SETTLED") |
+| order_type   | string    | Order type ("MARKET", "LIMIT")                         |
+| output       | string    | Hex-encoded transaction output data (nullable)         |
+| request_id   | string    | Unique request identifier (nullable)                   |
+| tx_hash      | string    | Blockchain transaction hash                            |
 
 ## Get Fee Rate
 
@@ -902,6 +1093,17 @@ Current fee rate
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field                   | Data_Type | Description                                                |
+| ----------------------- | --------- | ---------------------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                                |
+| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
+| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
 
 ## Historical Fee Rate
 
@@ -998,6 +1200,17 @@ Historical fee rate
 | limit  | integer   | Number of entries |
 | offset | integer   | Page number       |
 
+### Response Fields
+
+| Field                   | Data_Type | Description                                                |
+| ----------------------- | --------- | ---------------------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                                |
+| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
+| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
+
 ## Pool Share Value
 
 ```javascript
@@ -1059,6 +1272,12 @@ Current pool share value (value of 100 pool shares)
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field  | Data_Type | Description                                         |
+| ------ | --------- | --------------------------------------------------- |
+| result | number    | Current value of 100 pool shares (2 decimal places) |
 
 ## Trader Order Info
 
@@ -1149,6 +1368,35 @@ Get trader order information by account ID
 | ------ | --------- | --------------------------------------- |
 | data   | string    | Hex-encoded query data for trader order |
 
+### Response Fields
+
+| Field              | Data_Type | Description                                                 |
+| ------------------ | --------- | ----------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                           |
+| uuid               | string    | Unique order identifier                                     |
+| account_id         | string    | Account public key associated with the order                |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
+| entryprice         | string    | Entry price for the position (2 decimal places)             |
+| execution_price    | string    | Actual execution price (2 decimal places)                   |
+| positionsize       | string    | Position size in base currency (2 decimal places)           |
+| leverage           | string    | Leverage multiplier (2 decimal places)                      |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
+| available_margin   | string    | Available margin for the position (2 decimal places)        |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
+| entry_nonce        | integer   | Entry transaction nonce                                     |
+| exit_nonce         | integer   | Exit transaction nonce                                      |
+| entry_sequence     | integer   | Entry sequence number                                       |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+
 ## Lend Order Info
 
 ```javascript
@@ -1237,6 +1485,34 @@ Get lend order information by account ID
 | ------ | --------- | ------------------------------------- |
 | data   | string    | Hex-encoded query data for lend order |
 
+### Response Fields
+
+| Field                 | Data_Type | Description                                          |
+| --------------------- | --------- | ---------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                               |
+| uuid                  | string    | Unique lend order identifier                         |
+| account_id            | string    | Account public key associated with the lend order    |
+| balance               | string    | Current balance in the lend order (2 decimal places) |
+| order_status          | string    | Current order status ("FILLED", "OPEN", "CANCELLED") |
+| order_type            | string    | Order type ("MARKET", "LIMIT")                       |
+| entry_nonce           | integer   | Entry transaction nonce                              |
+| exit_nonce            | integer   | Exit transaction nonce                               |
+| deposit               | string    | Initial deposit amount (2 decimal places)            |
+| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)         |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)           |
+| npoolshare            | string    | Number of pool shares (2 decimal places)             |
+| nwithdraw             | string    | Withdrawal amount (2 decimal places)                 |
+| payment               | string    | Payment amount (2 decimal places)                    |
+| tlv0                  | string    | Total locked value tier 0 (2 decimal places)         |
+| tps0                  | string    | Total pool shares tier 0 (2 decimal places)          |
+| tlv1                  | string    | Total locked value tier 1 (2 decimal places)         |
+| tps1                  | string    | Total pool shares tier 1 (2 decimal places)          |
+| tlv2                  | string    | Total locked value tier 2 (2 decimal places)         |
+| tps2                  | string    | Total pool shares tier 2 (2 decimal places)          |
+| tlv3                  | string    | Total locked value tier 3 (2 decimal places)         |
+| tps3                  | string    | Total pool shares tier 3 (2 decimal places)          |
+| entry_sequence        | integer   | Entry sequence number                                |
+
 ## Submit Trade Order
 
 ```javascript
@@ -1303,6 +1579,13 @@ Submit a new trade order to the Relayer-matchbook
 | Params | Data_Type | Values                                           |
 | ------ | --------- | ------------------------------------------------ |
 | data   | string    | Hex-encoded transaction data for the trade order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order submission     |
+| id      | string    | Unique request identifier for tracking purposes |
 
 ## Submit Lend Order
 
@@ -1371,6 +1654,13 @@ Submit a new lend order to the lending pool
 | ------ | --------- | ----------------------------------------------- |
 | data   | string    | Hex-encoded transaction data for the lend order |
 
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order submission     |
+| id      | string    | Unique request identifier for tracking purposes |
+
 ## Settle Trade Order
 
 ```javascript
@@ -1437,6 +1727,13 @@ Settle an existing trade order
 | Params | Data_Type | Values                                          |
 | ------ | --------- | ----------------------------------------------- |
 | data   | string    | Hex-encoded settlement data for the trade order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order settlement     |
+| id      | string    | Unique request identifier for tracking purposes |
 
 ## Settle Lend Order
 
@@ -1505,6 +1802,13 @@ Settle an existing lend order
 | ------ | --------- | ---------------------------------------------- |
 | data   | string    | Hex-encoded settlement data for the lend order |
 
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order settlement     |
+| id      | string    | Unique request identifier for tracking purposes |
+
 ## Cancel Trader Order
 
 ```javascript
@@ -1571,3 +1875,10 @@ Cancel an existing trader order
 | Params | Data_Type | Values                                             |
 | ------ | --------- | -------------------------------------------------- |
 | data   | string    | Hex-encoded cancellation data for the trader order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order cancellation   |
+| id      | string    | Unique request identifier for tracking purposes |

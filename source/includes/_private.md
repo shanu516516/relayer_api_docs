@@ -55,7 +55,7 @@ Before you can use any private API methods, you must first obtain your API crede
 
 **Step 1: Call the Login Method**
 
-The `login` method is available in the Public API (`_public.md`) and requires your Twilight account signature for authentication. Here's how to use it:
+The `login` method is available in the Public API ([Click Here](/#login)) and requires your Twilight account signature for authentication. Here's how to use it:
 
 ```javascript
 var myHeaders = new Headers();

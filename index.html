@@ -545,7 +545,19 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr)</p>
+<p><strong>Description:</strong> Retrieves OHLCV (Open, High, Low, Close, Volume) candle data for technical analysis and chart visualization of BTC-USD perpetual contracts.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Technical analysis for trading strategies and pattern recognition</li>
+<li>Chart visualization for web and mobile trading applications</li>
+<li>Algorithm development for automated trading systems</li>
+<li>Market trend analysis and volatility assessment</li>
+<li>Historical backtesting of trading strategies</li>
+</ul>
+
+<p>Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, daily change)</p>
 <h3 id='http-method'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method'>RPC Method</h3>
@@ -615,6 +627,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves the current funding rate for BTC-USD perpetual contracts, essential for understanding the cost of holding positions and market sentiment.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Position cost calculation for margin trading and leverage strategies</li>
+<li>Market sentiment analysis to gauge bullish/bearish positioning</li>
+<li>Arbitrage opportunities between funding rates across Relayer-matchbooks</li>
+<li>Risk management for long-term position holding</li>
+<li>Algorithmic trading signal generation based on funding rate trends</li>
+</ul>
+
 <p>Current funding rate</p>
 <h3 id='http-method-2'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -689,6 +713,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Provides historical funding rate data for analyzing past market conditions and developing predictive models for funding rate movements.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Historical analysis for funding rate pattern recognition and forecasting</li>
+<li>Backtesting of funding rate arbitrage strategies across different time periods</li>
+<li>Research and development of predictive models for funding rate movements</li>
+<li>Compliance reporting and audit trail for regulatory requirements</li>
+<li>Performance attribution analysis for portfolio management</li>
+</ul>
+
 <p>Historical funding rate</p>
 <h3 id='http-method-3'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -757,6 +793,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Displays the current order book with open limit orders, showing market depth and liquidity for both buy (bid) and sell (ask) sides.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Market depth analysis for optimal order placement and execution strategies</li>
+<li>Liquidity assessment before placing large orders to minimize slippage</li>
+<li>Market making strategies and spread analysis for profit opportunities</li>
+<li>Real-time price discovery and support/resistance level identification</li>
+<li>Order book imbalance detection for short-term trading signals</li>
+</ul>
+
 <p>Open Limit Order</p>
 <h3 id='http-method-4'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -822,6 +870,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves the latest executed trades on the Relayer-matchbook, showing real-time market activity and price discovery.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time trade monitoring for market sentiment analysis</li>
+<li>Price trend analysis and momentum detection for trading strategies</li>
+<li>Trade volume analysis for liquidity assessment and market depth evaluation</li>
+<li>Last price validation and market data feed synchronization</li>
+<li>Historical trade reconstruction for compliance and audit purposes</li>
+</ul>
+
 <p>Recent Trade Order</p>
 <h3 id='http-method-5'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -876,6 +936,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Provides aggregate position size information across all market participants, showing total open interest and market exposure distribution.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Open interest analysis for market sentiment and trend confirmation</li>
+<li>Risk management for position sizing and exposure calculation</li>
+<li>Market capacity assessment for large order planning</li>
+<li>Long/short ratio analysis for contrarian trading strategies</li>
+<li>Liquidity planning and market impact estimation</li>
+</ul>
+
 <p>Position Size</p>
 <h3 id='http-method-6'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -930,6 +1002,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Returns the current BTC-USD price from the perpetual contract, providing real-time price information for trading and valuation.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time price feeds for trading applications and market data display</li>
+<li>Portfolio valuation and mark-to-market calculations</li>
+<li>Price alerts and notification systems for traders</li>
+<li>Risk management and position monitoring systems</li>
+<li>Market data synchronization and price validation</li>
+</ul>
+
 <p>Btc Usd Price</p>
 <h3 id='http-method-7'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1001,6 +1085,18 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves historical BTC-USD price data for backtesting, analysis, and research purposes across specified time ranges.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Historical backtesting of trading strategies and algorithm development</li>
+<li>Price trend analysis and technical indicator calculation</li>
+<li>Research and academic studies on cryptocurrency market behavior</li>
+<li>Compliance reporting and regulatory data requirements</li>
+<li>Performance attribution and risk analysis for portfolio management</li>
+</ul>
+
 <p>Historical BTC price</p>
 <h3 id='http-method-8'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1071,6 +1167,18 @@
   </span><span class="nl">"api_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dab81c56-2cb1-4bfb-b58d-26e14d1262d6"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Authentication endpoint that generates API credentials for accessing private trading and account management functions.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Initial user registration and API access setup</li>
+<li>Credential renewal and security key rotation</li>
+<li>Multi-application access management for trading platforms</li>
+<li>Third-party integration and automated trading system setup</li>
+<li>Secure API access for institutional trading accounts</li>
+</ul>
+
 <p>Endpoint to get <code>api_key</code> and <code>api_secret</code> for private API endpoints.</p>
 <h3 id='http-method-9'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1132,6 +1240,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Returns the current server timestamp for time synchronization and ensuring accurate order timestamping.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Client-server time synchronization for accurate order placement</li>
+<li>Timestamp validation for API requests and signature generation</li>
+<li>Latency measurement and network performance monitoring</li>
+<li>Event sequencing and order book consistency verification</li>
+<li>Audit trail and compliance logging with accurate timestamps</li>
+</ul>
+
 <p>Server time</p>
 <h3 id='http-method-10'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1207,6 +1327,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Transaction verification and blockchain confirmation tracking</li>
+<li>Audit trail maintenance for regulatory compliance and reporting</li>
+<li>Order execution transparency and proof of settlement</li>
+<li>Dispute resolution and transaction history verification</li>
+<li>Integration with blockchain explorers for transaction monitoring</li>
+</ul>
+
 <p>Transaction Hash</p>
 <h3 id='http-method-11'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1264,6 +1396,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Returns the current trading fee structure for different order types and execution scenarios on the Relayer-matchbook.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Trading cost calculation and profitability analysis for different strategies</li>
+<li>Fee optimization strategies for high-frequency and algorithmic trading</li>
+<li>Order type selection based on fee structure and market conditions</li>
+<li>Cost-benefit analysis for market making vs. taking strategies</li>
+<li>Compliance and transparency for fee disclosure requirements</li>
+</ul>
+
 <p>Current fee rate</p>
 <h3 id='http-method-12'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1344,6 +1488,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Provides historical trading fee data for analyzing fee trends and optimizing trading strategies over time.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Historical fee analysis for trading strategy optimization and cost modeling</li>
+<li>Backtesting with accurate fee calculations for realistic performance metrics</li>
+<li>Fee trend analysis for predicting future fee changes and planning</li>
+<li>Compliance reporting and audit requirements for fee transparency</li>
+<li>Cost analysis for institutional trading and volume-based fee negotiations</li>
+</ul>
+
 <p>Historical fee rate</p>
 <h3 id='http-method-13'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1409,6 +1565,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Yield calculation and return on investment analysis for lending strategies</li>
+<li>Pool performance monitoring and comparative analysis across time periods</li>
+<li>Liquidity provision optimization and capital allocation decisions</li>
+<li>DeFi yield farming integration and automated rebalancing strategies</li>
+<li>Portfolio valuation for mixed trading and lending positions</li>
+</ul>
+
 <p>Current pool share value (value of 100 pool shares)</p>
 <h3 id='http-method-14'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1486,6 +1654,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Order status verification and execution confirmation for specific traders</li>
+<li>Risk management and position monitoring for trading algorithms</li>
+<li>Compliance monitoring and audit trail verification for regulatory purposes</li>
+<li>Portfolio management and performance tracking for individual accounts</li>
+<li>Customer service and order dispute resolution with privacy protection</li>
+</ul>
+
 <p>Get trader order information by account ID</p>
 <h3 id='http-method-15'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1562,6 +1742,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Lending position monitoring and yield tracking for DeFi strategies</li>
+<li>Pool share management and withdrawal planning for liquidity providers</li>
+<li>Performance analysis and ROI calculation for lending portfolios</li>
+<li>Risk assessment and exposure management for lending activities</li>
+<li>Compliance reporting and audit trail for lending operations</li>
+</ul>
+
 <p>Get lend order information by account ID</p>
 <h3 id='http-method-16'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1617,7 +1809,19 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Submit a new trade order to the exchange</p>
+<p><strong>Description:</strong> Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Direct order placement for manual and algorithmic trading strategies</li>
+<li>High-frequency trading and automated market making operations</li>
+<li>Portfolio rebalancing and risk management order execution</li>
+<li>Strategic position building and liquidation for institutional trading</li>
+<li>Integration with trading bots and automated trading systems</li>
+</ul>
+
+<p>Submit a new trade order to the Relayer-matchbook</p>
 <h3 id='http-method-17'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method-16'>RPC Method</h3>
@@ -1672,6 +1876,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Submits a new lending order to participate in the lending pool and earn yield on deposited assets.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Yield farming and passive income generation through lending strategies</li>
+<li>Liquidity provision to support margin trading and leverage operations</li>
+<li>Portfolio diversification with DeFi lending products and fixed-income alternatives</li>
+<li>Capital allocation optimization for unused trading capital</li>
+<li>Automated lending strategies and rebalancing for institutional accounts</li>
+</ul>
+
 <p>Submit a new lend order to the lending pool</p>
 <h3 id='http-method-18'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1727,6 +1943,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Order finalization and trade confirmation for executed positions</li>
+<li>Settlement timing optimization for tax and accounting purposes</li>
+<li>Automated settlement workflows for algorithmic trading systems</li>
+<li>Risk management through controlled settlement processes</li>
+<li>Compliance and audit trail maintenance for trade settlement records</li>
+</ul>
+
 <p>Settle an existing trade order</p>
 <h3 id='http-method-19'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1782,6 +2010,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Lending position finalization and yield calculation confirmation</li>
+<li>Withdrawal processing and capital reallocation for lending strategies</li>
+<li>Automated settlement for DeFi lending and yield optimization protocols</li>
+<li>Pool share reconciliation and accurate yield distribution</li>
+<li>Compliance reporting for lending income and tax calculation purposes</li>
+</ul>
+
 <p>Settle an existing lend order</p>
 <h3 id='http-method-20'>HTTP Method</h3>
 <p><code>POST</code></p>
@@ -1837,6 +2077,18 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Description:</strong> Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Risk management through rapid order cancellation during market volatility</li>
+<li>Strategy adjustment and order modification for changing market conditions</li>
+<li>Automated order management and stop-loss implementation for trading algorithms</li>
+<li>Position size adjustment and order replacement for optimal execution</li>
+<li>Emergency order cancellation and risk mitigation during system issues</li>
+</ul>
+
 <p>Cancel an existing trader order</p>
 <h3 id='http-method-21'>HTTP Method</h3>
 <p><code>POST</code></p>

@@ -40,13 +40,6 @@ under the License.
     <% end %>
     <title><%= current_page.data.title || "API Documentation" %></title>
 
-    <!-- Favicon -->
-    <%= favicon_link_tag "logo.webp" %>
-    <link rel="icon" type="image/webp" href="<%= image_path('logo.webp') %>">
-    <link rel="shortcut icon" type="image/webp" href="<%= image_path('logo.webp') %>">
-    <link rel="apple-touch-icon" href="<%= image_path('logo.webp') %>">
-    <meta name="theme-color" content="#2E2E2E">
-
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
     </style>

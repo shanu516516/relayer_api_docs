@@ -1,16 +1,39 @@
 # Private API
 
-Required headers for private API:
+The Private API requires authentication and provides secure access to trading, lending, and account management functionality.
 
-1. signature
-2. datetime
-3. relayer-api-key
+## Authentication Requirements
 
-**Endpoint URL**
+### Required Headers
 
-`API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest`
+All private API requests must include the following authentication headers:
 
-`API_ENDPOINT_STAGING = https://app.twilight.rest`
+| Header Name       | Data Type | Description                                    | Example                                                              |
+| ----------------- | --------- | ---------------------------------------------- | -------------------------------------------------------------------- |
+| `relayer-api-key` | string    | Your unique API key obtained from registration | `"7d4fd427-ab9f-4a4d-8163-7faddb0c50e2"`                             |
+| `signature`       | string    | HMAC-SHA256 signature of the request           | `"34b656edeca51b0a2ed85cc804757e163a55cdca671624c5954370bf93dba10a"` |
+| `datetime`        | string    | Unix timestamp in milliseconds                 | `"1705928223"`                                                       |
+| `Content-Type`    | string    | Must be set to application/json                | `"application/json"`                                                 |
+
+### Request Structure
+
+All private API requests follow this structure:
+
+| Property  | Data Type | Required | Description                                   |
+| --------- | --------- | -------- | --------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (always `"2.0"`)    |
+| `method`  | string    | Yes      | The RPC method name to invoke                 |
+| `id`      | number    | Yes      | Unique identifier for the request             |
+| `params`  | object    | Varies   | Method-specific parameters (null if not used) |
+
+**Endpoint URLs**
+
+| Environment | URL                             |
+| ----------- | ------------------------------- |
+| Production  | `https://relayer.twilight.rest` |
+| Staging     | `https://app.twilight.rest`     |
+
+## API Methods
 
 ## Submit Lend Order Zkos
 
@@ -475,7 +498,9 @@ Open Order
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Order History By Id
 
@@ -892,7 +917,9 @@ Get details of the last order
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Lend Pool Info
 
@@ -957,7 +984,9 @@ Lend Pool Info
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Trade Order Info
 
@@ -1317,4 +1346,6 @@ Unrealized Pnl All
 
 ### Message Parameters
 
-`All`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |

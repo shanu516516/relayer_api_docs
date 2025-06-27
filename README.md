@@ -40,13 +40,13 @@ This documentation covers three main API categories:
 
 ### Production
 
-- **REST API**: `https://twilight.rest`
-- **WebSocket**: `wss://twilight.rest/ws`
+- **REST API**: `https://relayer.twilight.rest`
+- **WebSocket**: `wss://relayer.twilight.rest/ws`
 
 ### Staging
 
-- **REST API**: `https://rpc.twilight.rest`
-- **WebSocket**: `wss://rpc.twilight.rest/ws`
+- **REST API**: `https://app.twilight.rest`
+- **WebSocket**: `wss://app.twilight.rest/ws`
 
 ## 📚 Complete Documentation
 
@@ -115,19 +115,23 @@ The Public API provides access to market data and general information without au
 
 ### Available Endpoints
 
-- **Candle Data** - OHLCV data with multiple timeframes (1min to 1day)
+- **Candle Data** - OHLCV data with multiple timeframes (1min to 1day + daily change)
 - **Funding Rates** - Current and historical funding rates
+- **Fee Rates** - Current and historical fee rates
 - **Order Book** - Current limit orders
 - **Recent Trades** - Latest trade executions
 - **Position Data** - Open position information
 - **Price Data** - Current and historical BTC/USD prices
+- **Pool Share Value** - Current pool share value
 - **Server Time** - Synchronized server timestamp
 - **Transaction Hash** - Blockchain transaction information
+- **Trader/Lend Order Info** - Order information by account ID
+- **Submit/Settle/Cancel Orders** - Order management endpoints
 
 ### Example: Get Candle Data
 
 ```javascript
-const response = await fetch("https://twilight.rest/api", {
+const response = await fetch("https://relayer.twilight.rest/api", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -161,16 +165,20 @@ The Private API requires authentication and provides trading and account managem
 
 - **Submit Trade Orders** - Place market and limit orders using zkOS
 - **Submit Lend Orders** - Create lending positions
+- **Submit Bulk Orders** - Submit multiple orders in a single request
 - **Settle Orders** - Settle trade and lending positions
+- **Cancel Orders** - Cancel existing trader orders
 - **Order Management** - View open orders and order history
 - **Trade Volume** - Get trading volume statistics
 - **Funding Payments** - Access funding payment history
 - **Account Data** - Retrieve account-specific information
+- **Unrealized PnL** - Calculate unrealized profit/loss
+- **Lend Pool Info** - Access lending pool information
 
 ### Example: Submit Trade Order
 
 ```javascript
-const response = await fetch("https://twilight.rest/api/private", {
+const response = await fetch("https://relayer.twilight.rest/api/private", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -200,9 +208,19 @@ Real-time data streaming for live market updates:
 
 - **Live Price Data** - Real-time price updates
 - **Order Book** - Live order book changes
-- **Candle Data** - Real-time OHLCV updates
+- **Candle Data** - Real-time OHLCV updates with all intervals
 - **Recent Trades** - Live trade executions
 - **Heartbeat** - Connection health monitoring
+
+### Unsubscribe Methods
+
+All subscription methods have corresponding unsubscribe methods:
+
+- `unsubscribe_live_price_data`
+- `unsubscribe_order_book`
+- `unsubscribe_candle_data`
+- `unsubscribe_recent_trades`
+- `unsubscribe_heartbeat`
 
 ### Example: Subscribe to Live Price Data
 
@@ -263,6 +281,24 @@ Private API endpoints utilize zkOS (Zero-Knowledge Operating System) for:
 - `EIGHT_HOUR` - 8-hour candles
 - `TWELVE_HOUR` - 12-hour candles
 - `ONE_DAY` - Daily candles
+- `ONE_DAY_CHANGE` - Daily change data
+
+### Order and Response Data Types
+
+**Trader Orders include:**
+
+- Basic order information (UUID, account ID, timestamps)
+- Position details (size, price, leverage, margin)
+- Risk management (bankruptcy price, liquidation price, maintenance margin)
+- Fee tracking (`fee_filled`, `fee_settled` fields)
+- Profit/loss calculations (unrealized PnL)
+
+**Recent Trade Orders include:**
+
+- Order ID and execution details
+- Side (LONG/SHORT)
+- Price and position size (as string values for precision)
+- Execution timestamp
 
 ## 🚀 Getting Started
 

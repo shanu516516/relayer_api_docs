@@ -144,7 +144,9 @@ Current funding rate
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Historical Funding Rate
 
@@ -276,7 +278,9 @@ Open Limit Order
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Recent Trade Order
 
@@ -341,7 +345,9 @@ Recent Trade Order
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Position Size
 
@@ -395,7 +401,9 @@ Position Size
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Btc Usd Price
 
@@ -449,7 +457,9 @@ Btc Usd Price
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Historical Price
 
@@ -633,7 +643,9 @@ Server time
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Transaction Hash
 
@@ -767,7 +779,9 @@ Current fee rate
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Historical Fee Rate
 
@@ -902,7 +916,9 @@ Current pool share value (value of 100 pool shares)
 
 ### Message Parameters
 
-`null`
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
 
 ## Trader Order Info
 

@@ -2,9 +2,9 @@
 
 **Endpoint URL**
 
-`WEBSOCKET_ENDPOINT_PRODUCTION = wss://twilight.rest/ws`
+`WEBSOCKET_ENDPOINT_PRODUCTION = wss://relayer.twilight.rest/ws`
 
-`WEBSOCKET_ENDPOINT_STAGING = wss://rpc.twilight.rest/ws`
+`WEBSOCKET_ENDPOINT_STAGING = wss://app.twilight.rest/ws`
 
 ## Subscribe Live Price Data
 
@@ -47,10 +47,12 @@ Subscribe Live Price Data
 
 ### Parameters
 
-- **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
-- **`method`** (String, required): The name of the method to be invoked.
-- **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any.
+| Parameter | Data Type | Required | Description                                 |
+| --------- | --------- | -------- | ------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`) |
+| `method`  | string    | Yes      | The method name to invoke                   |
+| `id`      | number    | Yes      | Unique identifier for the request           |
+| `params`  | null      | Yes      | No additional parameters required           |
 
 ### Method
 
@@ -103,10 +105,12 @@ Subscribe Order Book
 
 ### Parameters
 
-- **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
-- **`method`** (String, required): The name of the method to be invoked.
-- **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any.
+| Parameter | Data Type | Required | Description                                 |
+| --------- | --------- | -------- | ------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`) |
+| `method`  | string    | Yes      | The method name to invoke                   |
+| `id`      | number    | Yes      | Unique identifier for the request           |
+| `params`  | null      | Yes      | No additional parameters required           |
 
 ### Method
 
@@ -166,10 +170,12 @@ Subscribe Candle Data
 
 ### Parameters
 
-- **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
-- **`method`** (String, required): The name of the method to be invoked.
-- **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any. When using `subscribe_candle_data`, the `params` object must include an `interval` field whose value can be one of `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY`, `ONE_DAY_CHANGE`.
+| Parameter | Data Type | Required | Description                                                                                                                                                                                  |
+| --------- | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`)                                                                                                                                                  |
+| `method`  | string    | Yes      | The method name to invoke                                                                                                                                                                    |
+| `id`      | number    | Yes      | Unique identifier for the request                                                                                                                                                            |
+| `params`  | object    | Yes      | Must include `interval` field with values: `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY`, `ONE_DAY_CHANGE` |
 
 ### Method
 
@@ -222,10 +228,12 @@ Subscribe Recent Trades
 
 ### Parameters
 
-- **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
-- **`method`** (String, required): The name of the method to be invoked.
-- **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any.
+| Parameter | Data Type | Required | Description                                 |
+| --------- | --------- | -------- | ------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`) |
+| `method`  | string    | Yes      | The method name to invoke                   |
+| `id`      | number    | Yes      | Unique identifier for the request           |
+| `params`  | null      | Yes      | No additional parameters required           |
 
 ### Method
 
@@ -272,10 +280,12 @@ Subscribe Heartbeat
 
 ### Parameters
 
-- **`jsonrpc`** (String, required): The JSON-RPC protocol version. Must be set to `"2.0"`.
-- **`method`** (String, required): The name of the method to be invoked.
-- **`id`** (Number, required): A unique identifier for the request.
-- **`params`** (Object, optional): Additional parameters for the method, if any.
+| Parameter | Data Type | Required | Description                                 |
+| --------- | --------- | -------- | ------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`) |
+| `method`  | string    | Yes      | The method name to invoke                   |
+| `id`      | number    | Yes      | Unique identifier for the request           |
+| `params`  | null      | Yes      | No additional parameters required           |
 
 ### Method
 
@@ -299,10 +309,21 @@ const unsubscribePayload = {
 socket.send(JSON.stringify(unsubscribePayload));
 ```
 
+### Unsubscribe Parameters
+
+| Parameter | Data Type | Required | Description                                    |
+| --------- | --------- | -------- | ---------------------------------------------- |
+| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (must be `"2.0"`)    |
+| `method`  | string    | Yes      | The unsubscribe method name                    |
+| `id`      | number    | Yes      | Unique identifier for the request              |
+| `params`  | array     | Yes      | Array containing the subscription ID to cancel |
+
 Available unsubscribe methods:
 
-- `unsubscribe_live_price_data`
-- `unsubscribe_order_book`
-- `unsubscribe_candle_data`
-- `unsubscribe_recent_trades`
-- `unsubscribe_heartbeat`
+| Method                        | Description                          |
+| ----------------------------- | ------------------------------------ |
+| `unsubscribe_live_price_data` | Stop receiving live price updates    |
+| `unsubscribe_order_book`      | Stop receiving order book updates    |
+| `unsubscribe_candle_data`     | Stop receiving candle data updates   |
+| `unsubscribe_recent_trades`   | Stop receiving recent trades updates |
+| `unsubscribe_heartbeat`       | Stop receiving heartbeat messages    |

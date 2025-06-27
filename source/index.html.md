@@ -8,7 +8,7 @@ language_tabs:
   - javascript
 
 toc_footers:
-  - Twilight © 2024
+  - Twilight © 2025
 
 includes:
   - public

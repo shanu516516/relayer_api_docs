@@ -1,4 +1,4 @@
-# Websocket API
+# WebSocket API
 
 **Endpoint URL**
 

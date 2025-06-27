@@ -119,7 +119,7 @@ Once you have your `api_key` and `api_secret`, include them in all private API r
 
 ---
 
-## Submit Lend Order Zkos
+## Submit Lend Order zkos
 
 ```javascript
 var myHeaders = new Headers();
@@ -185,7 +185,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params | Data_Type | Required | Values                                               |
 | ------ | --------- | -------- | ---------------------------------------------------- |
-| data   | string    | Yes      | Hex-encoded zkOS transaction data for the lend order |
+| data   | string    | Yes      | Hex-encoded zkos transaction data for the lend order |
 
 ### Response Fields
 
@@ -196,7 +196,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 ---
 
-## Submit Trade Order Zkos
+## Submit Trade Order zkos
 
 ```javascript
 var myHeaders = new Headers();
@@ -262,7 +262,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params | Data_Type | Required | Values                                                |
 | ------ | --------- | -------- | ----------------------------------------------------- |
-| data   | string    | Yes      | Hex-encoded zkOS transaction data for the trade order |
+| data   | string    | Yes      | Hex-encoded zkos transaction data for the trade order |
 
 ### Response Fields
 
@@ -339,7 +339,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params | Data_Type | Required | Values                                               |
 | ------ | --------- | -------- | ---------------------------------------------------- |
-| data   | string    | Yes      | Hex-encoded zkOS settlement data for the trade order |
+| data   | string    | Yes      | Hex-encoded zkos settlement data for the trade order |
 
 ### Response Fields
 
@@ -416,7 +416,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params | Data_Type | Required | Values                                              |
 | ------ | --------- | -------- | --------------------------------------------------- |
-| data   | string    | Yes      | Hex-encoded zkOS settlement data for the lend order |
+| data   | string    | Yes      | Hex-encoded zkos settlement data for the lend order |
 
 ### Response Fields
 
@@ -493,7 +493,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params | Data_Type | Required | Values                                                  |
 | ------ | --------- | -------- | ------------------------------------------------------- |
-| data   | string    | Yes      | Hex-encoded zkOS cancellation data for the trader order |
+| data   | string    | Yes      | Hex-encoded zkos cancellation data for the trader order |
 
 ### Response Fields
 
@@ -572,7 +572,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 | Params          | Data_Type | Required | Values                                            |
 | --------------- | --------- | -------- | ------------------------------------------------- |
-| Array of orders | array     | Yes      | Array of order objects with hex-encoded zkOS data |
+| Array of orders | array     | Yes      | Array of order objects with hex-encoded zkos data |
 
 ### Response Fields
 

@@ -225,7 +225,7 @@ All subscription methods have corresponding unsubscribe methods:
 ### Example: Subscribe to Live Price Data
 
 ```javascript
-const socket = new WebSocket("wss://twilight.rest/ws");
+const socket = new WebSocket("wss://relayer.twilight.rest/ws");
 
 socket.onopen = () => {
   socket.send(

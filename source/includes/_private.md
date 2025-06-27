@@ -680,7 +680,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 | uuid               | string    | Unique order identifier                                     |
 | account_id         | string    | Account public key associated with the order                |
 | position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
 | order_type         | string    | Order type ("MARKET", "LIMIT")                              |
 | entryprice         | string    | Entry price for the position (2 decimal places)             |
 | execution_price    | string    | Actual execution price (2 decimal places)                   |
@@ -803,32 +803,32 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 ### Response Fields
 
-| Field              | Data_Type | Description                                                     |
-| ------------------ | --------- | --------------------------------------------------------------- |
-| id                 | integer   | Internal order ID                                               |
-| uuid               | string    | Unique order identifier                                         |
-| account_id         | string    | Account public key associated with the order                    |
-| position_type      | string    | Position direction ("LONG" or "SHORT")                          |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED", "SETTLED") |
-| order_type         | string    | Order type ("MARKET", "LIMIT")                                  |
-| entryprice         | string    | Entry price for the position (2 decimal places)                 |
-| execution_price    | string    | Actual execution price (2 decimal places)                       |
-| positionsize       | string    | Position size in base currency (2 decimal places)               |
-| leverage           | string    | Leverage multiplier (2 decimal places)                          |
-| initial_margin     | string    | Initial margin requirement (2 decimal places)                   |
-| available_margin   | string    | Available margin for the position (2 decimal places)            |
-| timestamp          | string    | Order creation timestamp (ISO 8601 format)                      |
-| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)     |
-| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                    |
-| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)               |
-| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)      |
-| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)               |
-| settlement_price   | string    | Settlement price if order is settled (2 decimal places)         |
-| entry_nonce        | integer   | Entry transaction nonce                                         |
-| exit_nonce         | integer   | Exit transaction nonce                                          |
-| entry_sequence     | integer   | Entry sequence number                                           |
-| fee_filled         | string    | Fee paid when order was filled (4 decimal places)               |
-| fee_settled        | string    | Fee paid when order was settled (4 decimal places)              |
+| Field              | Data_Type | Description                                                        |
+| ------------------ | --------- | ------------------------------------------------------------------ |
+| id                 | integer   | Internal order ID                                                  |
+| uuid               | string    | Unique order identifier                                            |
+| account_id         | string    | Account public key associated with the order                       |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                             |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED", "SETTLED") |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                                     |
+| entryprice         | string    | Entry price for the position (2 decimal places)                    |
+| execution_price    | string    | Actual execution price (2 decimal places)                          |
+| positionsize       | string    | Position size in base currency (2 decimal places)                  |
+| leverage           | string    | Leverage multiplier (2 decimal places)                             |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)                      |
+| available_margin   | string    | Available margin for the position (2 decimal places)               |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                         |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)        |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                       |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)                  |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)         |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)                  |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)            |
+| entry_nonce        | integer   | Entry transaction nonce                                            |
+| exit_nonce         | integer   | Exit transaction nonce                                             |
+| entry_sequence     | integer   | Entry sequence number                                              |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)                  |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)                 |
 
 ---
 
@@ -928,32 +928,32 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 ### Response Fields
 
-| Field              | Data_Type | Description                                                     |
-| ------------------ | --------- | --------------------------------------------------------------- |
-| id                 | integer   | Internal order ID                                               |
-| uuid               | string    | Unique order identifier                                         |
-| account_id         | string    | Account public key associated with the order                    |
-| position_type      | string    | Position direction ("LONG" or "SHORT")                          |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED", "SETTLED") |
-| order_type         | string    | Order type ("MARKET", "LIMIT")                                  |
-| entryprice         | string    | Entry price for the position (2 decimal places)                 |
-| execution_price    | string    | Actual execution price (2 decimal places)                       |
-| positionsize       | string    | Position size in base currency (2 decimal places)               |
-| leverage           | string    | Leverage multiplier (2 decimal places)                          |
-| initial_margin     | string    | Initial margin requirement (2 decimal places)                   |
-| available_margin   | string    | Available margin for the position (2 decimal places)            |
-| timestamp          | string    | Order creation timestamp (ISO 8601 format)                      |
-| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)     |
-| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                    |
-| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)               |
-| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)      |
-| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)               |
-| settlement_price   | string    | Settlement price if order is settled (2 decimal places)         |
-| entry_nonce        | integer   | Entry transaction nonce                                         |
-| exit_nonce         | integer   | Exit transaction nonce                                          |
-| entry_sequence     | integer   | Entry sequence number                                           |
-| fee_filled         | string    | Fee paid when order was filled (4 decimal places)               |
-| fee_settled        | string    | Fee paid when order was settled (4 decimal places)              |
+| Field              | Data_Type | Description                                                        |
+| ------------------ | --------- | ------------------------------------------------------------------ |
+| id                 | integer   | Internal order ID                                                  |
+| uuid               | string    | Unique order identifier                                            |
+| account_id         | string    | Account public key associated with the order                       |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                             |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED", "SETTLED") |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                                     |
+| entryprice         | string    | Entry price for the position (2 decimal places)                    |
+| execution_price    | string    | Actual execution price (2 decimal places)                          |
+| positionsize       | string    | Position size in base currency (2 decimal places)                  |
+| leverage           | string    | Leverage multiplier (2 decimal places)                             |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)                      |
+| available_margin   | string    | Available margin for the position (2 decimal places)               |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                         |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)        |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                       |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)                  |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)         |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)                  |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)            |
+| entry_nonce        | integer   | Entry transaction nonce                                            |
+| exit_nonce         | integer   | Exit transaction nonce                                             |
+| entry_sequence     | integer   | Entry sequence number                                              |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)                  |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)                 |
 
 ---
 
@@ -1219,7 +1219,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 | uuid               | string    | Unique order identifier                                     |
 | account_id         | string    | Account public key associated with the order                |
 | position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
 | order_type         | string    | Order type ("MARKET", "LIMIT")                              |
 | entryprice         | string    | Entry price for the position (2 decimal places)             |
 | execution_price    | string    | Actual execution price (2 decimal places)                   |
@@ -1425,7 +1425,7 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 | uuid               | string    | Unique order identifier                                     |
 | account_id         | string    | Account public key associated with the order                |
 | position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
 | order_type         | string    | Order type ("MARKET", "LIMIT")                              |
 | entryprice         | string    | Entry price for the position (2 decimal places)             |
 | execution_price    | string    | Actual execution price (2 decimal places)                   |
@@ -1539,31 +1539,31 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 
 ### Response Fields
 
-| Field                 | Data_Type | Description                                          |
-| --------------------- | --------- | ---------------------------------------------------- |
-| id                    | integer   | Internal lend order ID                               |
-| uuid                  | string    | Unique lend order identifier                         |
-| account_id            | string    | Account public key associated with the lend order    |
-| balance               | string    | Current balance in the lend order (2 decimal places) |
-| order_status          | string    | Current order status ("FILLED", "OPEN", "CANCELLED") |
-| order_type            | string    | Order type ("LEND")                                  |
-| entry_nonce           | integer   | Entry transaction nonce                              |
-| exit_nonce            | integer   | Exit transaction nonce                               |
-| deposit               | string    | Initial deposit amount (2 decimal places)            |
-| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)         |
-| timestamp             | string    | Order creation timestamp (ISO 8601 format)           |
-| npoolshare            | string    | Number of pool shares (2 decimal places)             |
-| nwithdraw             | string    | Withdrawal amount (2 decimal places)                 |
-| payment               | string    | Payment amount (2 decimal places)                    |
-| tlv0                  | string    | Total locked value tier 0 (2 decimal places)         |
-| tps0                  | string    | Total pool shares tier 0 (2 decimal places)          |
-| tlv1                  | string    | Total locked value tier 1 (2 decimal places)         |
-| tps1                  | string    | Total pool shares tier 1 (2 decimal places)          |
-| tlv2                  | string    | Total locked value tier 2 (2 decimal places)         |
-| tps2                  | string    | Total pool shares tier 2 (2 decimal places)          |
-| tlv3                  | string    | Total locked value tier 3 (2 decimal places)         |
-| tps3                  | string    | Total pool shares tier 3 (2 decimal places)          |
-| entry_sequence        | integer   | Entry sequence number                                |
+| Field                 | Data_Type | Description                                             |
+| --------------------- | --------- | ------------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                                  |
+| uuid                  | string    | Unique lend order identifier                            |
+| account_id            | string    | Account public key associated with the lend order       |
+| balance               | string    | Current balance in the lend order (2 decimal places)    |
+| order_status          | string    | Current order status ("FILLED", "PENDING", "CANCELLED") |
+| order_type            | string    | Order type ("LEND")                                     |
+| entry_nonce           | integer   | Entry transaction nonce                                 |
+| exit_nonce            | integer   | Exit transaction nonce                                  |
+| deposit               | string    | Initial deposit amount (2 decimal places)               |
+| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)            |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)              |
+| npoolshare            | string    | Number of pool shares (2 decimal places)                |
+| nwithdraw             | string    | Withdrawal amount (2 decimal places)                    |
+| payment               | string    | Payment amount (2 decimal places)                       |
+| tlv0                  | string    | Total locked value tier 0 (2 decimal places)            |
+| tps0                  | string    | Total pool shares tier 0 (2 decimal places)             |
+| tlv1                  | string    | Total locked value tier 1 (2 decimal places)            |
+| tps1                  | string    | Total pool shares tier 1 (2 decimal places)             |
+| tlv2                  | string    | Total locked value tier 2 (2 decimal places)            |
+| tps2                  | string    | Total pool shares tier 2 (2 decimal places)             |
+| tlv3                  | string    | Total locked value tier 3 (2 decimal places)            |
+| tps3                  | string    | Total pool shares tier 3 (2 decimal places)             |
+| entry_sequence        | integer   | Entry sequence number                                   |
 
 ---
 

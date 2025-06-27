@@ -1012,24 +1012,24 @@ The `transaction_hashes` method accepts one of three parameter variants:
 
 #### Variant 1: Query by Account ID
 
-| Params           | Data_Type | Required | Values                                                                  |
-| ---------------- | --------- | -------- | ----------------------------------------------------------------------- |
-| AccountId.id     | string    | Yes      | Account public key/identifier                                           |
-| AccountId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+| Params           | Data_Type | Required | Values                                                                     |
+| ---------------- | --------- | -------- | -------------------------------------------------------------------------- |
+| AccountId.id     | string    | Yes      | Account public key/identifier                                              |
+| AccountId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
 
 #### Variant 2: Query by Transaction/Order ID
 
-| Params      | Data_Type | Required | Values                                                                  |
-| ----------- | --------- | -------- | ----------------------------------------------------------------------- |
-| TxId.id     | string    | Yes      | Transaction/Order UUID                                                  |
-| TxId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+| Params      | Data_Type | Required | Values                                                                     |
+| ----------- | --------- | -------- | -------------------------------------------------------------------------- |
+| TxId.id     | string    | Yes      | Transaction/Order UUID                                                     |
+| TxId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
 
 #### Variant 3: Query by Request ID
 
-| Params           | Data_Type | Required | Values                                                                  |
-| ---------------- | --------- | -------- | ----------------------------------------------------------------------- |
-| RequestId.id     | string    | Yes      | Unique request identifier                                               |
-| RequestId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "OPEN", "CANCELLED") |
+| Params           | Data_Type | Required | Values                                                                     |
+| ---------------- | --------- | -------- | -------------------------------------------------------------------------- |
+| RequestId.id     | string    | Yes      | Unique request identifier                                                  |
+| RequestId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
 
 ### Response Fields
 
@@ -1396,7 +1396,7 @@ Get trader order information by account ID
 | uuid               | string    | Unique order identifier                                     |
 | account_id         | string    | Account public key associated with the order                |
 | position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
 | order_type         | string    | Order type ("MARKET", "LIMIT")                              |
 | entryprice         | string    | Entry price for the position (2 decimal places)             |
 | execution_price    | string    | Actual execution price (2 decimal places)                   |
@@ -1507,31 +1507,31 @@ Get lend order information by account ID
 
 ### Response Fields
 
-| Field                 | Data_Type | Description                                          |
-| --------------------- | --------- | ---------------------------------------------------- |
-| id                    | integer   | Internal lend order ID                               |
-| uuid                  | string    | Unique lend order identifier                         |
-| account_id            | string    | Account public key associated with the lend order    |
-| balance               | string    | Current balance in the lend order (2 decimal places) |
-| order_status          | string    | Current order status ("FILLED", "OPEN", "CANCELLED") |
-| order_type            | string    | Order type ("MARKET", "LIMIT")                       |
-| entry_nonce           | integer   | Entry transaction nonce                              |
-| exit_nonce            | integer   | Exit transaction nonce                               |
-| deposit               | string    | Initial deposit amount (2 decimal places)            |
-| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)         |
-| timestamp             | string    | Order creation timestamp (ISO 8601 format)           |
-| npoolshare            | string    | Number of pool shares (2 decimal places)             |
-| nwithdraw             | string    | Withdrawal amount (2 decimal places)                 |
-| payment               | string    | Payment amount (2 decimal places)                    |
-| tlv0                  | string    | Total locked value tier 0 (2 decimal places)         |
-| tps0                  | string    | Total pool shares tier 0 (2 decimal places)          |
-| tlv1                  | string    | Total locked value tier 1 (2 decimal places)         |
-| tps1                  | string    | Total pool shares tier 1 (2 decimal places)          |
-| tlv2                  | string    | Total locked value tier 2 (2 decimal places)         |
-| tps2                  | string    | Total pool shares tier 2 (2 decimal places)          |
-| tlv3                  | string    | Total locked value tier 3 (2 decimal places)         |
-| tps3                  | string    | Total pool shares tier 3 (2 decimal places)          |
-| entry_sequence        | integer   | Entry sequence number                                |
+| Field                 | Data_Type | Description                                             |
+| --------------------- | --------- | ------------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                                  |
+| uuid                  | string    | Unique lend order identifier                            |
+| account_id            | string    | Account public key associated with the lend order       |
+| balance               | string    | Current balance in the lend order (2 decimal places)    |
+| order_status          | string    | Current order status ("FILLED", "PENDING", "CANCELLED") |
+| order_type            | string    | Order type ("MARKET", "LIMIT")                          |
+| entry_nonce           | integer   | Entry transaction nonce                                 |
+| exit_nonce            | integer   | Exit transaction nonce                                  |
+| deposit               | string    | Initial deposit amount (2 decimal places)               |
+| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)            |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)              |
+| npoolshare            | string    | Number of pool shares (2 decimal places)                |
+| nwithdraw             | string    | Withdrawal amount (2 decimal places)                    |
+| payment               | string    | Payment amount (2 decimal places)                       |
+| tlv0                  | string    | Total locked value tier 0 (2 decimal places)            |
+| tps0                  | string    | Total pool shares tier 0 (2 decimal places)             |
+| tlv1                  | string    | Total locked value tier 1 (2 decimal places)            |
+| tps1                  | string    | Total pool shares tier 1 (2 decimal places)             |
+| tlv2                  | string    | Total locked value tier 2 (2 decimal places)            |
+| tps2                  | string    | Total pool shares tier 2 (2 decimal places)             |
+| tlv3                  | string    | Total locked value tier 3 (2 decimal places)            |
+| tps3                  | string    | Total pool shares tier 3 (2 decimal places)             |
+| entry_sequence        | integer   | Entry sequence number                                   |
 
 ## Submit Trade Order
 

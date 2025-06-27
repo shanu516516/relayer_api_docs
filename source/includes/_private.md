@@ -1,51 +1,64 @@
 # Private API
 
-The Private API requires authentication and provides secure access to trading, lending, and account management functionality.
+**Endpoint URL**
 
-## Authentication Requirements
+`API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest`
 
-### Required Headers
+`API_ENDPOINT_STAGING = https://app.twilight.rest`
 
-All private API requests must include the following authentication headers:
+## Authentication
 
-| Header Name       | Data Type | Description                                    | Example                                                              |
-| ----------------- | --------- | ---------------------------------------------- | -------------------------------------------------------------------- |
-| `relayer-api-key` | string    | Your unique API key obtained from registration | `"7d4fd427-ab9f-4a4d-8163-7faddb0c50e2"`                             |
-| `signature`       | string    | HMAC-SHA256 signature of the request           | `"34b656edeca51b0a2ed85cc804757e163a55cdca671624c5954370bf93dba10a"` |
-| `datetime`        | string    | Unix timestamp in milliseconds                 | `"1705928223"`                                                       |
-| `Content-Type`    | string    | Must be set to application/json                | `"application/json"`                                                 |
+Authentication is required for all private API methods using the following headers:
+
+| Header Name       | Description                                                     | Required |
+| ----------------- | --------------------------------------------------------------- | -------- |
+| `relayer-api-key` | Your unique API key obtained from the `/register` endpoint      | Yes      |
+| `signature`       | HMAC-SHA256 signature of the request body using your API secret | Yes      |
+| `datetime`        | Unix timestamp in milliseconds                                  | Yes      |
+
+### JavaScript Methods Used in Examples
+
+```javascript
+const CryptoJS = require("crypto-js");
+
+function generateSignature(body, secret) {
+  return CryptoJS.HmacSHA256(body, secret).toString();
+}
+
+function getCurrentTimestamp() {
+  return Date.now().toString();
+}
+```
 
 ### Request Structure
 
 All private API requests follow this structure:
 
-| Property  | Data Type | Required | Description                                   |
-| --------- | --------- | -------- | --------------------------------------------- |
-| `jsonrpc` | string    | Yes      | JSON-RPC protocol version (always `"2.0"`)    |
-| `method`  | string    | Yes      | The RPC method name to invoke                 |
-| `id`      | number    | Yes      | Unique identifier for the request             |
-| `params`  | object    | Varies   | Method-specific parameters (null if not used) |
+| Component    | Description                    |
+| ------------ | ------------------------------ |
+| URL          | `API_ENDPOINT/api/private`     |
+| Method       | `POST`                         |
+| Content-Type | `application/json`             |
+| Body         | JSON-RPC 2.0 formatted request |
 
-**Endpoint URLs**
+### Authentication Process
 
-| Environment | URL                             |
-| ----------- | ------------------------------- |
-| Production  | `https://relayer.twilight.rest` |
-| Staging     | `https://app.twilight.rest`     |
+1. Obtain `api_key` and `api_secret` from the `/register` endpoint
+2. Create JSON-RPC request body
+3. Generate HMAC-SHA256 signature of the body using your `api_secret`
+4. Include required headers in your request
+5. Send POST request to the private API endpoint
 
-## API Methods
+---
 
 ## Submit Lend Order Zkos
 
 ```javascript
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("relayer-api-key", "e56d9635-b1fd-4e0d-9902-a356ea1a54ae");
-myHeaders.append(
-  "signature",
-  "34b656edeca51b0a2ed85cc804757e163a55cdca671624c5954370bf93dba10a"
-);
-myHeaders.append("datetime", "1705928223");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
@@ -74,12 +87,23 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": "OK",
+  "result": {
+    "msg": "Order request submitted successfully",
+    "id_key": "REQIDABCD1234567890ABCDEF1234567890ABCDEF"
+  },
   "id": 123
 }
 ```
 
-Submit Lend Order Zkos
+**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets using zero-knowledge proofs.
+
+**Use Cases:**
+
+- Yield farming and passive income generation through DeFi lending strategies
+- Liquidity provision to support margin trading and leverage operations on the platform
+- Portfolio diversification with fixed-income alternatives and lending products
+- Capital allocation optimization for unused trading capital and idle funds
+- Automated lending strategies and rebalancing for institutional accounts
 
 ### HTTP Method
 
@@ -91,21 +115,27 @@ Submit Lend Order Zkos
 
 ### Message Parameters
 
-| Params | Data_Type | Values             |
-| ------ | --------- | ------------------ |
-| data   | string    | Hex from zkos wasm |
+| Params | Data_Type | Required | Values                                               |
+| ------ | --------- | -------- | ---------------------------------------------------- |
+| data   | string    | Yes      | Hex-encoded zkOS transaction data for the lend order |
+
+### Response Fields
+
+| Field  | Data_Type | Description                                     |
+| ------ | --------- | ----------------------------------------------- |
+| msg    | string    | Success message confirming order submission     |
+| id_key | string    | Unique request identifier for tracking purposes |
+
+---
 
 ## Submit Trade Order Zkos
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
-myHeaders.append("datetime", "1706613208905");
 myHeaders.append("Content-Type", "application/json");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
@@ -134,12 +164,23 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": "OK",
+  "result": {
+    "msg": "Order request submitted successfully",
+    "id_key": "REQIDABCD1234567890ABCDEF1234567890ABCDEF"
+  },
   "id": 123
 }
 ```
 
-Submit Trade Order Zkos
+**Description:** Submits a new perpetual contract trading order using zero-knowledge proofs for privacy-preserving execution.
+
+**Use Cases:**
+
+- Direct order placement for manual and algorithmic trading strategies
+- High-frequency trading and automated market making operations
+- Portfolio rebalancing and risk management order execution
+- Strategic position building and liquidation for institutional trading
+- Privacy-preserving trading with zero-knowledge proof verification
 
 ### HTTP Method
 
@@ -151,88 +192,34 @@ Submit Trade Order Zkos
 
 ### Message Parameters
 
-| Params | Data_Type | Values             |
-| ------ | --------- | ------------------ |
-| data   | string    | Hex from zkos wasm |
+| Params | Data_Type | Required | Values                                                |
+| ------ | --------- | -------- | ----------------------------------------------------- |
+| data   | string    | Yes      | Hex-encoded zkOS transaction data for the trade order |
 
-## Settle Lend Order
+### Response Fields
 
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
-myHeaders.append("datetime", "1706613208905");
-myHeaders.append("Content-Type", "application/json");
+| Field  | Data_Type | Description                                     |
+| ------ | --------- | ----------------------------------------------- |
+| msg    | string    | Success message confirming order submission     |
+| id_key | string    | Unique request identifier for tracking purposes |
 
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "settle_lend_order",
-  id: 123,
-  params: {
-    data: "0a000000000000006163636f756e745f69640000000001000000000000000000344000000000006af84000000000006af84004000000000000000017e140000000000017e140000000000000000060a86ee9d8da7e431b707fb1e344eea721fab8fe2b1ba9461a23182bf9b6d51e005a0cfa6cb6d5149e4d1602863014a1411fdda83ee83c6ef8b9e9934a4211ad4c62cb8729fda0d937220b11650d2eb063b7dfc5e26ee867597a2d69f52749b3118a000000000000003063376363666332356563306335333561383233326537383564646563333939373264633438653235616535373065333638623933383464633631343765633633396234656137313138623030303238393463396432643962666361663732643437613061343938393335313861346366623330613065383162613334613531363834653266303565390001000000010000002a000000000000003138663265626461313733666663366164326533623464336133383634613936616538613666376533308a000000000000003063376363666332356563306335333561383233326537383564646563333939373264633438653235616535373065333638623933383464633631343765633633396234656137313138623030303238393463396432643962666361663732643437613061343938393335313861346366623330613065383162613334613531363834653266303565390100000000000000a0860100000000000000000000000000b899875f246706825d9a849a195da763b3718fc2bdf44cc4eccbb447fe484d010104000000000000000300000001000000003c534c1000000000000000000000000000000000000000000000000000000002000000010000000000000014000000000000000000000000000000b899875f246706825d9a849a195da763b3718fc2bdf44cc4eccbb447fe484d010300000001000000b888000000000000000000000000000000000000000000000000000000000000030000000100000001000000000000000000000000000000000000000000000000000000000000000000000040000000000000004ea572adc412934d369e32e695dbc3eb00d2179cc725365a22e222a6d8f1b254cfb35aa583cd29e1d60d80fc632b557c8388ddd80d9c65d1e0f7547914608a05010000000100000000000000708bceb6fb2e6b61320047c873243ec510e3da990436e6e51884a226ba8fe30a010000000000000075bc2d792cbe4f8852a58874a3f58301f82c1dd82916076e7da1f805dd88cb070000000000000000c6d6a65205e48547a1baa04fa2a0cbd918957b952ee56eb19eb88cd6a5c47106",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api/private", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": "OK",
-  "id": 123
-}
-```
-
-Settle Lend Order
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`settle_lend_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values             |
-| ------ | --------- | ------------------ |
-| data   | string    | Hex from zkos wasm |
+---
 
 ## Settle Trade Order
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
-myHeaders.append("datetime", "1706613208905");
 myHeaders.append("Content-Type", "application/json");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "settle_trade_order",
   id: 123,
   params: {
-    data: "0a000000000000006163636f756e745f69640000000001000000000000000000344000000000006af84000000000006af84004000000000000000017e140000000000017e140000000000000000060a86ee9d8da7e431b707fb1e344eea721fab8fe2b1ba9461a23182bf9b6d51e005a0cfa6cb6d5149e4d1602863014a1411fdda83ee83c6ef8b9e9934a4211ad4c62cb8729fda0d937220b11650d2eb063b7dfc5e26ee867597a2d69f52749b3118a000000000000003063376363666332356563306335333561383233326537383564646563333939373264633438653235616535373065333638623933383464633631343765633633396234656137313138623030303238393463396432643962666361663732643437613061343938393335313861346366623330613065383162613334613531363834653266303565390001000000010000002a000000000000003138663265626461313733666663366164326533623464336133383634613936616538613666376533308a000000000000003063376363666332356563306335333561383233326537383564646563333939373264633438653235616535373065333638623933383464633631343765633633396234656137313138623030303238393463396432643962666361663732643437613061343938393335313861346366623330613065383162613334613531363834653266303565390100000000000000a0860100000000000000000000000000b899875f246706825d9a849a195da763b3718fc2bdf44cc4eccbb447fe484d010104000000000000000300000001000000003c534c1000000000000000000000000000000000000000000000000000000002000000010000000000000014000000000000000000000000000000b899875f246706825d9a849a195da763b3718fc2bdf44cc4eccbb447fe484d010300000001000000b888000000000000000000000000000000000000000000000000000000000000030000000100000001000000000000000000000000000000000000000000000000000000000000000000000040000000000000004ea572adc412934d369e32e695dbc3eb00d2179cc725365a22e222a6d8f1b254cfb35aa583cd29e1d60d80fc632b557c8388ddd80d9c65d1e0f7547914608a05010000000100000000000000708bceb6fb2e6b61320047c873243ec510e3da990436e6e51884a226ba8fe30a010000000000000075bc2d792cbe4f8852a58874a3f58301f82c1dd82916076e7da1f805dd88cb070000000000000000c6d6a65205e48547a1baa04fa2a0cbd918957b952ee56eb19eb88cd6a5c47106",
+    data: "0x48656c6c6f576f726c64",
   },
 });
 
@@ -254,12 +241,23 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": "OK",
+  "result": {
+    "msg": "Order request submitted successfully",
+    "id_key": "REQIDABCD1234567890ABCDEF1234567890ABCDEF"
+  },
   "id": 123
 }
 ```
 
-Settle Trade Order
+**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances with cryptographic verification.
+
+**Use Cases:**
+
+- Order finalization and trade confirmation for executed positions
+- Settlement timing optimization for tax and accounting purposes
+- Automated settlement workflows for algorithmic trading systems
+- Risk management through controlled settlement processes
+- Compliance and audit trail maintenance for trade settlement records
 
 ### HTTP Method
 
@@ -271,28 +269,34 @@ Settle Trade Order
 
 ### Message Parameters
 
-| Params | Data_Type | Values             |
-| ------ | --------- | ------------------ |
-| data   | string    | Hex from zkos wasm |
+| Params | Data_Type | Required | Values                                               |
+| ------ | --------- | -------- | ---------------------------------------------------- |
+| data   | string    | Yes      | Hex-encoded zkOS settlement data for the trade order |
 
-## Cancel Trader Order
+### Response Fields
+
+| Field  | Data_Type | Description                                     |
+| ------ | --------- | ----------------------------------------------- |
+| msg    | string    | Success message confirming order submission     |
+| id_key | string    | Unique request identifier for tracking purposes |
+
+---
+
+## Settle Lend Order
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
-myHeaders.append("datetime", "1706613208905");
 myHeaders.append("Content-Type", "application/json");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
-  method: "cancel_trader_order",
+  method: "settle_lend_order",
   id: 123,
   params: {
-    data: "hex_encoded_cancellation_data",
+    data: "0x48656c6c6f576f726c64",
   },
 });
 
@@ -314,12 +318,100 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": "OK",
+  "result": {
+    "msg": "Order request submitted successfully",
+    "id_key": "REQIDABCD1234567890ABCDEF1234567890ABCDEF"
+  },
   "id": 123
 }
 ```
 
-Cancel an existing trader order
+**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares with yield calculations.
+
+**Use Cases:**
+
+- Lending position finalization and yield calculation confirmation
+- Withdrawal processing and capital reallocation for lending strategies
+- Automated settlement for DeFi lending and yield optimization protocols
+- Pool share reconciliation and accurate yield distribution
+- Compliance reporting for lending income and tax calculation purposes
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`settle_lend_order`
+
+### Message Parameters
+
+| Params | Data_Type | Required | Values                                              |
+| ------ | --------- | -------- | --------------------------------------------------- |
+| data   | string    | Yes      | Hex-encoded zkOS settlement data for the lend order |
+
+### Response Fields
+
+| Field  | Data_Type | Description                                     |
+| ------ | --------- | ----------------------------------------------- |
+| msg    | string    | Success message confirming order submission     |
+| id_key | string    | Unique request identifier for tracking purposes |
+
+---
+
+## Cancel Trader Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "cancel_trader_order",
+  id: 123,
+  params: {
+    data: "0x48656c6c6f576f726c64",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api/private", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "msg": "Order request submitted successfully",
+    "id_key": "REQIDABCD1234567890ABCDEF1234567890ABCDEF"
+  },
+  "id": 123
+}
+```
+
+**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook with cryptographic verification.
+
+**Use Cases:**
+
+- Risk management through rapid order cancellation during market volatility
+- Strategy adjustment and order modification for changing market conditions
+- Automated order management and stop-loss implementation for trading algorithms
+- Position size adjustment and order replacement for optimal execution
+- Emergency order cancellation and risk mitigation during system issues
 
 ### HTTP Method
 
@@ -331,29 +423,40 @@ Cancel an existing trader order
 
 ### Message Parameters
 
-| Params | Data_Type | Values                                             |
-| ------ | --------- | -------------------------------------------------- |
-| data   | string    | Hex-encoded cancellation data for the trader order |
+| Params | Data_Type | Required | Values                                                  |
+| ------ | --------- | -------- | ------------------------------------------------------- |
+| data   | string    | Yes      | Hex-encoded zkOS cancellation data for the trader order |
+
+### Response Fields
+
+| Field  | Data_Type | Description                                     |
+| ------ | --------- | ----------------------------------------------- |
+| msg    | string    | Success message confirming order submission     |
+| id_key | string    | Unique request identifier for tracking purposes |
+
+---
 
 ## Submit Bulk Order
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
-myHeaders.append("datetime", "1706613208905");
 myHeaders.append("Content-Type", "application/json");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "submit_bulk_order",
   id: 123,
-  params: {
-    data: "hex_encoded_bulk_order_data",
-  },
+  params: [
+    {
+      data: "0x48656c6c6f576f726c64",
+    },
+    {
+      data: "0x48656c6c6f576f726c65",
+    },
+  ],
 });
 
 var requestOptions = {
@@ -379,7 +482,15 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 }
 ```
 
-Submit multiple orders in a single request
+**Description:** Submits multiple trading orders in a single request for efficient batch processing and reduced latency.
+
+**Use Cases:**
+
+- High-frequency trading strategies requiring multiple simultaneous orders
+- Portfolio rebalancing with multiple position adjustments
+- Market making strategies with bid/ask order pairs
+- Algorithmic trading with complex multi-leg strategies
+- Institutional trading with large order coordination
 
 ### HTTP Method
 
@@ -391,27 +502,32 @@ Submit multiple orders in a single request
 
 ### Message Parameters
 
-| Params | Data_Type | Values                                                 |
-| ------ | --------- | ------------------------------------------------------ |
-| data   | string    | Hex-encoded bulk order data containing multiple orders |
+| Params          | Data_Type | Required | Values                                            |
+| --------------- | --------- | -------- | ------------------------------------------------- |
+| Array of orders | array     | Yes      | Array of order objects with hex-encoded zkOS data |
+
+### Response Fields
+
+| Field  | Data_Type | Description                                                     |
+| ------ | --------- | --------------------------------------------------------------- |
+| result | string    | Status confirmation ("OK" indicates successful bulk submission) |
+
+---
 
 ## Open Order
 
 ```javascript
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append("datetime", "1706618707");
-myHeaders.append(
-  "signature",
-  "1de1368e257e5399097af20d182d8462e25a9898bbdb1e8d2ec89eabc3977332"
-);
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "open_orders",
   id: 123,
-  params: null,
+  params: {},
 });
 
 var requestOptions = {
@@ -434,59 +550,45 @@ fetch("API_ENDPOINT/api/private", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-      "available_margin": "10",
-      "bankruptcy_price": "38644.281818181814742274582386016845703125",
-      "bankruptcy_value": "110",
-      "entry_nonce": 0,
-      "entry_sequence": 1,
-      "entryprice": "42508.7099999999991268850862979888916015625",
-      "execution_price": "30000",
-      "exit_nonce": 0,
       "id": 50,
-      "initial_margin": "10",
-      "leverage": "10",
-      "liquidation_price": "38834.039054470704286359250545501708984375",
-      "maintenance_margin": "0.53749999999999997779553950749686919152736663818359375",
+      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+      "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+      "position_type": "LONG",
       "order_status": "FILLED",
       "order_type": "MARKET",
-      "position_type": "LONG",
+      "entryprice": "42508.71",
+      "execution_price": "30000",
       "positionsize": "4250871",
-      "settlement_price": "0",
-      "timestamp": "2024-01-31T11:14:45.575359Z",
-      "unrealized_pnl": "0",
-      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8"
-    },
-    {
-      "account_id": "0c7ccfc25ec0c535a8232e785ddec39972dc48e25ae570e368b9384dc6147ec639b4ea7118b0002894c9d2d9bfcaf72d47a0a49893518a4cfb30a0e81ba34a51684e2f05e9",
-      "available_margin": "8.7493463536062794361214400851167738437652587890625",
-      "bankruptcy_price": "41368.4380952380961389280855655670166015625",
-      "bankruptcy_value": "210",
-      "entry_nonce": 0,
-      "entry_sequence": 2,
-      "entryprice": "43436.860000000000582076609134674072265625",
-      "execution_price": "35000",
-      "exit_nonce": 0,
-      "id": 49,
+      "leverage": "10",
       "initial_margin": "10",
-      "leverage": "20",
-      "liquidation_price": "41526.63479923518025316298007965087890625",
-      "maintenance_margin": "0.8000000000000000444089209850062616169452667236328125",
-      "order_status": "FILLED",
-      "order_type": "MARKET",
-      "position_type": "LONG",
-      "positionsize": "8687372",
-      "settlement_price": "0",
-      "timestamp": "2024-01-31T11:00:00.041895Z",
+      "available_margin": "10",
+      "timestamp": "2024-01-31T11:14:45.575359Z",
+      "bankruptcy_price": "38644.28",
+      "bankruptcy_value": "110",
+      "maintenance_margin": "0.5375",
+      "liquidation_price": "38834.04",
       "unrealized_pnl": "0",
-      "uuid": "2617f986-7fe6-4497-9e8f-aa1b77de0239"
+      "settlement_price": "0",
+      "entry_nonce": 0,
+      "exit_nonce": 0,
+      "entry_sequence": 1,
+      "fee_filled": "0",
+      "fee_settled": "0"
     }
   ],
   "id": 123
 }
 ```
 
-Open Order
+**Description:** Retrieves all open trading orders for the authenticated account, showing unfilled and partially filled positions.
+
+**Use Cases:**
+
+- Real-time portfolio monitoring and open position tracking
+- Risk management and exposure calculation for active trades
+- Order management and strategy adjustment based on current positions
+- Automated trading system position reconciliation
+- Performance monitoring and position size optimization
 
 ### HTTP Method
 
@@ -498,28 +600,59 @@ Open Order
 
 ### Message Parameters
 
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
+| Params | Data_Type | Required | Values                 |
+| ------ | --------- | -------- | ---------------------- |
+| N/A    | null      | No       | No parameters required |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                                 |
+| ------------------ | --------- | ----------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                           |
+| uuid               | string    | Unique order identifier                                     |
+| account_id         | string    | Account public key associated with the order                |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
+| entryprice         | string    | Entry price for the position (2 decimal places)             |
+| execution_price    | string    | Actual execution price (2 decimal places)                   |
+| positionsize       | string    | Position size in base currency (2 decimal places)           |
+| leverage           | string    | Leverage multiplier (2 decimal places)                      |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
+| available_margin   | string    | Available margin for the position (2 decimal places)        |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
+| entry_nonce        | integer   | Entry transaction nonce                                     |
+| exit_nonce         | integer   | Exit transaction nonce                                      |
+| entry_sequence     | integer   | Entry sequence number                                       |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+
+---
 
 ## Order History By Id
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append(
-  "signature",
-  "f4604863b412e0f952a3b59654780a6cca40a752fb29cfa38c30c25b305e69cd"
-);
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("datetime", "1706618869536");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "order_history",
   id: 123,
   params: {
-    OrderId: "7c9a959b-2ae2-461b-b199-125e1cb5c9c6",
+    limit: 10,
+    offset: 0,
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-12-31T23:59:59Z",
   },
 });
 
@@ -543,35 +676,45 @@ fetch("API_ENDPOINT/api/private", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-      "available_margin": "10",
-      "bankruptcy_price": "38644.281818181814742274582386016845703125",
-      "bankruptcy_value": "110",
-      "entry_nonce": 0,
-      "entry_sequence": 1,
-      "entryprice": "42508.7099999999991268850862979888916015625",
-      "execution_price": "30000",
-      "exit_nonce": 0,
       "id": 50,
-      "initial_margin": "10",
-      "leverage": "10",
-      "liquidation_price": "38834.039054470704286359250545501708984375",
-      "maintenance_margin": "0.53749999999999997779553950749686919152736663818359375",
+      "uuid": "7c9a959b-2ae2-461b-b199-125e1cb5c9c6",
+      "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+      "position_type": "LONG",
       "order_status": "FILLED",
       "order_type": "MARKET",
-      "position_type": "LONG",
+      "entryprice": "42508.71",
+      "execution_price": "30000",
       "positionsize": "4250871",
-      "settlement_price": "0",
+      "leverage": "10",
+      "initial_margin": "10",
+      "available_margin": "10",
       "timestamp": "2024-01-31T11:14:45.575359Z",
+      "bankruptcy_price": "38644.28",
+      "bankruptcy_value": "110",
+      "maintenance_margin": "0.5375",
+      "liquidation_price": "38834.04",
       "unrealized_pnl": "0",
-      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8"
+      "settlement_price": "0",
+      "entry_nonce": 0,
+      "exit_nonce": 0,
+      "entry_sequence": 1,
+      "fee_filled": "0",
+      "fee_settled": "0"
     }
   ],
   "id": 123
 }
 ```
 
-Order History By Id
+**Description:** Retrieves historical trading order data for the authenticated account with filtering and pagination options.
+
+**Use Cases:**
+
+- Trading performance analysis and strategy evaluation
+- Tax reporting and compliance documentation for regulatory requirements
+- Risk assessment and historical position review
+- Algorithmic trading strategy backtesting with real execution data
+- Customer service and dispute resolution with complete order history
 
 ### HTTP Method
 
@@ -583,33 +726,60 @@ Order History By Id
 
 ### Message Parameters
 
-| Params  | Data_Type | Values        |
-| ------- | --------- | ------------- |
-| OrderId | string    | UUID of order |
+| Params | Data_Type | Required | Values                                    |
+| ------ | --------- | -------- | ----------------------------------------- |
+| limit  | integer   | No       | Number of records to return (default: 50) |
+| offset | integer   | No       | Number of records to skip (default: 0)    |
+| from   | datetime  | No       | Start date for filtering                  |
+| to     | datetime  | No       | End date for filtering                    |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                                     |
+| ------------------ | --------- | --------------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                               |
+| uuid               | string    | Unique order identifier                                         |
+| account_id         | string    | Account public key associated with the order                    |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                          |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED", "SETTLED") |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                                  |
+| entryprice         | string    | Entry price for the position (2 decimal places)                 |
+| execution_price    | string    | Actual execution price (2 decimal places)                       |
+| positionsize       | string    | Position size in base currency (2 decimal places)               |
+| leverage           | string    | Leverage multiplier (2 decimal places)                          |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)                   |
+| available_margin   | string    | Available margin for the position (2 decimal places)            |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                      |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)     |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                    |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)               |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)      |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)               |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)         |
+| entry_nonce        | integer   | Entry transaction nonce                                         |
+| exit_nonce         | integer   | Exit transaction nonce                                          |
+| entry_sequence     | integer   | Entry sequence number                                           |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)               |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)              |
+
+---
 
 ## Order History By Client
 
 ```javascript
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append(
-  "signature",
-  "75d3ec784cc428a84fa63c52d81b63e0eb64e150158d0a791d0c642762478cc4"
-);
-myHeaders.append("datetime", "1706619993");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "order_history",
   id: 123,
   params: {
-    ClientId: {
-      from: "2024-01-13T00:00:00Z",
-      to: "2024-02-15T01:00:00Z",
-      offset: 0,
-      limit: 2,
-    },
+    limit: 5,
+    offset: 10,
   },
 });
 
@@ -633,59 +803,45 @@ fetch("API_ENDPOINT/api/private", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "account_id": "0c101304bde59a949ab3a00abc0a2b15d71f713ace2f372c789c3f8bcfbedbdb7e12eccdf9d504002e5a775b1e4c756cd601266fa0feae1d3c35500132b23c4062a3f9108f",
-      "available_margin": "10",
-      "bankruptcy_price": "47185.3555555555576574988663196563720703125",
-      "bankruptcy_value": "90",
-      "entry_nonce": 0,
-      "entry_sequence": 2,
-      "entryprice": "42466.8199999999997089616954326629638671875",
-      "execution_price": "30000",
-      "exit_nonce": 0,
-      "id": 51,
-      "initial_margin": "10",
-      "leverage": "10",
-      "liquidation_price": "46918.1825714680235250853002071380615234375",
-      "maintenance_margin": "0.5124999999999999555910790149937383830547332763671875",
-      "order_status": "FILLED",
-      "order_type": "MARKET",
-      "position_type": "SHORT",
-      "positionsize": "4246682",
-      "settlement_price": "0",
-      "timestamp": "2024-01-31T11:20:37.427721Z",
-      "unrealized_pnl": "0",
-      "uuid": "15a35bcd-46c6-42bf-8746-be141dd573b5"
-    },
-    {
+      "id": 45,
+      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
       "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-      "available_margin": "10",
-      "bankruptcy_price": "38644.281818181814742274582386016845703125",
-      "bankruptcy_value": "110",
-      "entry_nonce": 0,
-      "entry_sequence": 1,
-      "entryprice": "42508.7099999999991268850862979888916015625",
-      "execution_price": "30000",
-      "exit_nonce": 0,
-      "id": 50,
-      "initial_margin": "10",
-      "leverage": "10",
-      "liquidation_price": "38834.039054470704286359250545501708984375",
-      "maintenance_margin": "0.53749999999999997779553950749686919152736663818359375",
-      "order_status": "FILLED",
-      "order_type": "MARKET",
       "position_type": "LONG",
+      "order_status": "SETTLED",
+      "order_type": "MARKET",
+      "entryprice": "42508.71",
+      "execution_price": "43000",
       "positionsize": "4250871",
-      "settlement_price": "0",
-      "timestamp": "2024-01-31T11:14:45.575359Z",
+      "leverage": "10",
+      "initial_margin": "10",
+      "available_margin": "10",
+      "timestamp": "2024-01-30T11:14:45.575359Z",
+      "bankruptcy_price": "38644.28",
+      "bankruptcy_value": "110",
+      "maintenance_margin": "0.5375",
+      "liquidation_price": "38834.04",
       "unrealized_pnl": "0",
-      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8"
+      "settlement_price": "43000",
+      "entry_nonce": 0,
+      "exit_nonce": 0,
+      "entry_sequence": 1,
+      "fee_filled": "12.75",
+      "fee_settled": "19.13"
     }
   ],
   "id": 123
 }
 ```
 
-Order History By ClientId
+**Description:** Retrieves paginated order history for client-specific analysis and reporting with customizable filtering options.
+
+**Use Cases:**
+
+- Client portfolio management and performance tracking
+- Detailed trade analysis for strategy optimization
+- Historical data export for external analysis tools
+- Compliance reporting with granular order details
+- Customer account reconciliation and audit support
 
 ### HTTP Method
 
@@ -697,39 +853,58 @@ Order History By ClientId
 
 ### Message Parameters
 
-| Params   | Data_Type        | Values                                                                                    |
-| -------- | ---------------- | ----------------------------------------------------------------------------------------- |
-| ClientId | object           | <a href="#clientid">ClientId</a>                                                          |
-| ClientId | object (example) | `{"from": "2024-01-13T00:00:00Z", "to": "2024-02-15T01:00:00Z", "offset": 0, "limit": 2}` |
+| Params | Data_Type | Required | Values                      |
+| ------ | --------- | -------- | --------------------------- |
+| limit  | integer   | No       | Number of records to return |
+| offset | integer   | No       | Pagination offset           |
 
-### ClientId
+### Response Fields
 
-| Params | Data_Type | Values             |
-| ------ | --------- | ------------------ |
-| from   | datetime  | Start time         |
-| to     | datetime  | End time           |
-| offset | integer   | Page number        |
-| limit  | integer   | `Number of entries |
+| Field              | Data_Type | Description                                                     |
+| ------------------ | --------- | --------------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                               |
+| uuid               | string    | Unique order identifier                                         |
+| account_id         | string    | Account public key associated with the order                    |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                          |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED", "SETTLED") |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                                  |
+| entryprice         | string    | Entry price for the position (2 decimal places)                 |
+| execution_price    | string    | Actual execution price (2 decimal places)                       |
+| positionsize       | string    | Position size in base currency (2 decimal places)               |
+| leverage           | string    | Leverage multiplier (2 decimal places)                          |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)                   |
+| available_margin   | string    | Available margin for the position (2 decimal places)            |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                      |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places)     |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                    |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)               |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)      |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)               |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)         |
+| entry_nonce        | integer   | Entry transaction nonce                                         |
+| exit_nonce         | integer   | Exit transaction nonce                                          |
+| entry_sequence     | integer   | Entry sequence number                                           |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)               |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)              |
+
+---
 
 ## Trade Volume
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "82df7a176dbe4a4d9e5147bcc7b63512e7e2005be8fc5382b2ab01607f379a0e"
-);
-myHeaders.append("datetime", "1706620452985");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "trade_volume",
   id: 123,
   params: {
-    start: "2023-09-25T00:00:00Z",
-    end: "2024-02-26T00:00:00Z",
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-12-31T23:59:59Z",
   },
 });
 
@@ -751,12 +926,25 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": 4,
+  "result": {
+    "total_usd_volume": "1234567.89",
+    "total_btc_volume": "28.456789",
+    "order_count": 42,
+    "average_order_size": "29418.28"
+  },
   "id": 123
 }
 ```
 
-Get trading volume for a specific time period
+**Description:** Calculates total trading volume statistics for the authenticated account over specified time periods.
+
+**Use Cases:**
+
+- Trading performance metrics and volume-based analysis
+- Fee calculation and rebate qualification verification
+- Portfolio performance attribution and turnover analysis
+- Risk management through volume exposure monitoring
+- Institutional reporting and client activity summaries
 
 ### HTTP Method
 
@@ -768,24 +956,32 @@ Get trading volume for a specific time period
 
 ### Message Parameters
 
-| Params | Data_Type | Values     |
-| ------ | --------- | ---------- |
-| start  | datetime  | Start time |
-| end    | datetime  | End time   |
+| Params | Data_Type | Required | Values                            |
+| ------ | --------- | -------- | --------------------------------- |
+| from   | datetime  | No       | Start date for volume calculation |
+| to     | datetime  | No       | End date for volume calculation   |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                    |
+| ------------------ | --------- | ---------------------------------------------- |
+| total_usd_volume   | string    | Total trading volume in USD (2 decimal places) |
+| total_btc_volume   | string    | Total trading volume in BTC (6 decimal places) |
+| order_count        | integer   | Total number of orders executed                |
+| average_order_size | string    | Average order size in USD (2 decimal places)   |
+
+---
 
 ## Get Funding Payment
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "7d4fd427-ab9f-4a4d-8163-7faddb0c50e2");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "285d6ca0867a6b20a8eb4a018394f290f8ffb2b0a9b36ba6bd992ad536072932"
-);
-myHeaders.append("datetime", "1709098568058");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
-const raw = JSON.stringify({
+var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "get_funding_payment",
   id: 123,
@@ -794,7 +990,7 @@ const raw = JSON.stringify({
   },
 });
 
-const requestOptions = {
+var requestOptions = {
   method: "POST",
   headers: myHeaders,
   body: raw,
@@ -813,16 +1009,25 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "funding_payment": "0",
-    "funding_rate": "-0.123713",
     "order_id": "a4340b19-cd90-411e-adfc-a3695109d7a2",
-    "price": "57208.00"
+    "funding_payment": "12.45",
+    "funding_rate": "0.001",
+    "position_size": "1000000",
+    "timestamp": "2024-02-28T12:00:00Z"
   },
   "id": 123
 }
 ```
 
-Get funding payment details by ID
+**Description:** Retrieves funding payment information for a specific order, showing the cost or income from holding perpetual positions.
+
+**Use Cases:**
+
+- Cost calculation for holding perpetual contract positions over time
+- Funding payment history tracking for accounting and tax purposes
+- Arbitrage strategy analysis and funding rate opportunity identification
+- Risk management for long-term position holding costs
+- Performance attribution analysis including funding payment impacts
 
 ### HTTP Method
 
@@ -834,27 +1039,36 @@ Get funding payment details by ID
 
 ### Message Parameters
 
-| Params | Data_Type | Values        |
-| ------ | --------- | ------------- |
-| id     | string    | UUID of order |
+| Params | Data_Type | Required | Values                                |
+| ------ | --------- | -------- | ------------------------------------- |
+| id     | string    | Yes      | Order UUID for funding payment lookup |
+
+### Response Fields
+
+| Field           | Data_Type | Description                                      |
+| --------------- | --------- | ------------------------------------------------ |
+| order_id        | string    | Order UUID that was queried                      |
+| funding_payment | string    | Funding payment amount (2 decimal places)        |
+| funding_rate    | string    | Applied funding rate (4 decimal places)          |
+| position_size   | string    | Position size for calculation (2 decimal places) |
+| timestamp       | string    | Timestamp of funding payment (ISO 8601 format)   |
+
+---
 
 ## Last Order Detail
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "d31a4c9191f6ae3b1d5c7d60913cefa516deca4a2ecf26b59602fe2527dd0788"
-);
-myHeaders.append("datetime", "1706620829597");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "last_order_detail",
   id: 123,
-  params: null,
+  params: {},
 });
 
 var requestOptions = {
@@ -876,36 +1090,44 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "account_id": "0c101304bde59a949ab3a00abc0a2b15d71f713ace2f372c789c3f8bcfbedbdb7e12eccdf9d504002e5a775b1e4c756cd601266fa0feae1d3c35500132b23c4062a3f9108f",
-    "available_margin": "10",
-    "bankruptcy_price": "47185.3555555555576574988663196563720703125",
-    "bankruptcy_value": "90",
-    "entry_nonce": 0,
-    "entry_sequence": 2,
-    "entryprice": "42466.8199999999997089616954326629638671875",
-    "execution_price": "30000",
-    "exit_nonce": 0,
-    "id": 51,
-    "initial_margin": "10",
-    "leverage": "10",
-    "liquidation_price": "46918.1825714680235250853002071380615234375",
-    "maintenance_margin": "0.5124999999999999555910790149937383830547332763671875",
+    "id": 42,
+    "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "position_type": "LONG",
     "order_status": "FILLED",
     "order_type": "MARKET",
-    "position_type": "SHORT",
-    "positionsize": "4246682",
-    "settlement_price": "0",
-    "timestamp": "2024-01-31T11:20:37.427721Z",
+    "entryprice": "42508.71",
+    "execution_price": "30000",
+    "positionsize": "4250871",
+    "leverage": "10",
+    "initial_margin": "10",
+    "available_margin": "10",
+    "timestamp": "2024-01-31T11:14:45.575359Z",
+    "bankruptcy_price": "38644.28",
+    "bankruptcy_value": "110",
+    "maintenance_margin": "0.5375",
+    "liquidation_price": "38834.04",
     "unrealized_pnl": "0",
+    "settlement_price": "0",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "entry_sequence": 1,
     "fee_filled": "0",
-    "fee_settled": "0",
-    "uuid": "15a35bcd-46c6-42bf-8746-be141dd573b5"
+    "fee_settled": "0"
   },
   "id": 123
 }
 ```
 
-Get details of the last order
+**Description:** Retrieves details of the most recent trading order for the authenticated account.
+
+**Use Cases:**
+
+- Quick access to latest trading activity and order status
+- Trading application UI updates with most recent order information
+- Automated trading system verification of last order execution
+- Customer service quick lookup for recent order inquiries
+- Real-time trading dashboard with latest order status
 
 ### HTTP Method
 
@@ -917,27 +1139,55 @@ Get details of the last order
 
 ### Message Parameters
 
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
+| Params | Data_Type | Required | Values                 |
+| ------ | --------- | -------- | ---------------------- |
+| N/A    | null      | No       | No parameters required |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                                 |
+| ------------------ | --------- | ----------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                           |
+| uuid               | string    | Unique order identifier                                     |
+| account_id         | string    | Account public key associated with the order                |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
+| entryprice         | string    | Entry price for the position (2 decimal places)             |
+| execution_price    | string    | Actual execution price (2 decimal places)                   |
+| positionsize       | string    | Position size in base currency (2 decimal places)           |
+| leverage           | string    | Leverage multiplier (2 decimal places)                      |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
+| available_margin   | string    | Available margin for the position (2 decimal places)        |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
+| entry_nonce        | integer   | Entry transaction nonce                                     |
+| exit_nonce         | integer   | Exit transaction nonce                                      |
+| entry_sequence     | integer   | Entry sequence number                                       |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+
+---
 
 ## Lend Pool Info
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "976d86db2cb544143454ff7e73d79d23c4836a0f3cab41adbf926de8886050aa"
-);
-myHeaders.append("datetime", "1706620896069");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "lend_pool_info",
   id: 123,
-  params: null,
+  params: {},
 });
 
 var requestOptions = {
@@ -959,20 +1209,27 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "aggregate_log_sequence": 1,
-    "id": 1,
-    "last_snapshot_id": 0,
-    "nonce": 0,
-    "pending_orders": 0,
-    "sequence": 0,
-    "total_locked_value": "0",
-    "total_pool_share": "0"
+    "sequence": 43566,
+    "nonce": 8,
+    "total_pool_share": "2300000",
+    "total_locked_value": "20048615383",
+    "pending_orders": 5,
+    "aggregate_log_sequence": 123423,
+    "last_snapshot_id": 8765
   },
   "id": 123
 }
 ```
 
-Lend Pool Info
+**Description:** Retrieves comprehensive information about the lending pool including total value locked, pool shares, and operational metrics.
+
+**Use Cases:**
+
+- Lending pool performance monitoring and yield calculation
+- DeFi analytics and total value locked (TVL) tracking
+- Pool utilization analysis for capital efficiency assessment
+- Lending strategy optimization based on pool metrics
+- Risk assessment for lending operations and pool health monitoring
 
 ### HTTP Method
 
@@ -984,21 +1241,32 @@ Lend Pool Info
 
 ### Message Parameters
 
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
+| Params | Data_Type | Required | Values                 |
+| ------ | --------- | -------- | ---------------------- |
+| N/A    | null      | No       | No parameters required |
+
+### Response Fields
+
+| Field                  | Data_Type | Description                                       |
+| ---------------------- | --------- | ------------------------------------------------- |
+| sequence               | integer   | Current pool sequence number                      |
+| nonce                  | integer   | Pool operation nonce                              |
+| total_pool_share       | string    | Total pool shares issued (2 decimal places)       |
+| total_locked_value     | string    | Total value locked in the pool (2 decimal places) |
+| pending_orders         | integer   | Number of pending lending orders                  |
+| aggregate_log_sequence | integer   | Aggregate log sequence for pool operations        |
+| last_snapshot_id       | integer   | ID of the last pool snapshot                      |
+
+---
 
 ## Trade Order Info
 
 ```javascript
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "d940b5080923f12464cb17c5590d2610a716476f8fde792e0f6b5dace951c461"
-);
-myHeaders.append("datetime", "1706621038691");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
@@ -1028,36 +1296,44 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "account_id": "0c7ccfc25ec0c535a8232e785ddec39972dc48e25ae570e368b9384dc6147ec639b4ea7118b0002894c9d2d9bfcaf72d47a0a49893518a4cfb30a0e81ba34a51684e2f05e9",
-    "available_margin": "10",
-    "bankruptcy_price": "41365.2857142857174039818346500396728515625",
-    "bankruptcy_value": "209.999999999999971578290569595992565155029296875",
-    "entry_nonce": 0,
-    "entry_sequence": 1,
-    "entryprice": "43433.550000000002910383045673370361328125",
-    "execution_price": "35000",
-    "exit_nonce": 0,
-    "id": 1,
-    "initial_margin": "10",
-    "leverage": "20",
-    "liquidation_price": "41523.4703632887176354415714740753173828125",
-    "maintenance_margin": "0.8000000000000000444089209850062616169452667236328125",
+    "id": 50,
+    "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "position_type": "LONG",
     "order_status": "FILLED",
     "order_type": "MARKET",
-    "position_type": "LONG",
-    "positionsize": "8686710",
-    "settlement_price": "0",
-    "timestamp": "2024-01-30T11:13:23.386791Z",
+    "entryprice": "42508.71",
+    "execution_price": "30000",
+    "positionsize": "4250871",
+    "leverage": "10",
+    "initial_margin": "10",
+    "available_margin": "10",
+    "timestamp": "2024-01-31T11:14:45.575359Z",
+    "bankruptcy_price": "38644.28",
+    "bankruptcy_value": "110",
+    "maintenance_margin": "0.5375",
+    "liquidation_price": "38834.04",
     "unrealized_pnl": "0",
+    "settlement_price": "0",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "entry_sequence": 1,
     "fee_filled": "0",
-    "fee_settled": "0",
-    "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"
+    "fee_settled": "0"
   },
   "id": 123
 }
 ```
 
-Trade Order Info
+**Description:** Retrieves detailed information for a specific trading order by its unique identifier.
+
+**Use Cases:**
+
+- Order status verification and execution confirmation for specific trades
+- Risk management and position monitoring for individual orders
+- Customer service and order inquiry resolution
+- Trading algorithm verification and order tracking
+- Audit trail and compliance monitoring for specific transactions
 
 ### HTTP Method
 
@@ -1069,21 +1345,49 @@ Trade Order Info
 
 ### Message Parameters
 
-| Params | Data_Type | Values        |
-| ------ | --------- | ------------- |
-| id     | string    | UUID of order |
+| Params | Data_Type | Required | Values                                   |
+| ------ | --------- | -------- | ---------------------------------------- |
+| id     | string    | Yes      | Order UUID for the specific trader order |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                                 |
+| ------------------ | --------- | ----------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                           |
+| uuid               | string    | Unique order identifier                                     |
+| account_id         | string    | Account public key associated with the order                |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
+| order_status       | string    | Current order status ("FILLED", "OPEN", "CANCELLED")        |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
+| entryprice         | string    | Entry price for the position (2 decimal places)             |
+| execution_price    | string    | Actual execution price (2 decimal places)                   |
+| positionsize       | string    | Position size in base currency (2 decimal places)           |
+| leverage           | string    | Leverage multiplier (2 decimal places)                      |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
+| available_margin   | string    | Available margin for the position (2 decimal places)        |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
+| entry_nonce        | integer   | Entry transaction nonce                                     |
+| exit_nonce         | integer   | Exit transaction nonce                                      |
+| entry_sequence     | integer   | Entry sequence number                                       |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+
+---
 
 ## Lend Order Info
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append(
-  "signature",
-  "76fbd9f82340214670ab079163a21a2fb6611945161761f39fc9284179c4a0af"
-);
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("datetime", "1706621380052");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
@@ -1113,36 +1417,43 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "account_id": "0c7ccfc25ec0c535a8232e785ddec39972dc48e25ae570e368b9384dc6147ec639b4ea7118b0002894c9d2d9bfcaf72d47a0a49893518a4cfb30a0e81ba34a51684e2f05e9",
-    "available_margin": "10",
-    "bankruptcy_price": "41365.2857142857174039818346500396728515625",
-    "bankruptcy_value": "209.999999999999971578290569595992565155029296875",
-    "entry_nonce": 0,
-    "entry_sequence": 1,
-    "entryprice": "43433.550000000002910383045673370361328125",
-    "execution_price": "35000",
-    "exit_nonce": 0,
-    "id": 1,
-    "initial_margin": "10",
-    "leverage": "20",
-    "liquidation_price": "41523.4703632887176354415714740753173828125",
-    "maintenance_margin": "0.8000000000000000444089209850062616169452667236328125",
+    "id": 25,
+    "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "balance": "153620",
     "order_status": "FILLED",
-    "order_type": "MARKET",
-    "position_type": "LONG",
-    "positionsize": "8686710",
-    "settlement_price": "0",
-    "timestamp": "2024-01-30T11:13:23.386791Z",
-    "unrealized_pnl": "0",
-    "fee_filled": "0",
-    "fee_settled": "0",
-    "uuid": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"
+    "order_type": "LEND",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "deposit": "153620",
+    "new_lend_state_amount": "153620",
+    "timestamp": "2024-02-28T04:59:44.020048Z",
+    "npoolshare": "100",
+    "nwithdraw": "0",
+    "payment": "0",
+    "tlv0": "0",
+    "tps0": "0",
+    "tlv1": "0",
+    "tps1": "0",
+    "tlv2": "0",
+    "tps2": "0",
+    "tlv3": "0",
+    "tps3": "0",
+    "entry_sequence": 10
   },
   "id": 123
 }
 ```
 
-Lend Order Info
+**Description:** Retrieves detailed information for a specific lending order including pool share calculations and yield metrics.
+
+**Use Cases:**
+
+- Lending position monitoring and yield tracking for DeFi strategies
+- Pool share management and withdrawal planning for liquidity providers
+- Performance analysis and ROI calculation for lending portfolios
+- Risk assessment and exposure management for lending activities
+- Compliance reporting and audit trail for lending operations
 
 ### HTTP Method
 
@@ -1154,28 +1465,56 @@ Lend Order Info
 
 ### Message Parameters
 
-| Params | Data_Type | Values        |
-| ------ | --------- | ------------- |
-| id     | string    | UUID of order |
+| Params | Data_Type | Required | Values                                 |
+| ------ | --------- | -------- | -------------------------------------- |
+| id     | string    | Yes      | Order UUID for the specific lend order |
 
-## Unrealized Pnl Pubkey
+### Response Fields
+
+| Field                 | Data_Type | Description                                          |
+| --------------------- | --------- | ---------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                               |
+| uuid                  | string    | Unique lend order identifier                         |
+| account_id            | string    | Account public key associated with the lend order    |
+| balance               | string    | Current balance in the lend order (2 decimal places) |
+| order_status          | string    | Current order status ("FILLED", "OPEN", "CANCELLED") |
+| order_type            | string    | Order type ("LEND")                                  |
+| entry_nonce           | integer   | Entry transaction nonce                              |
+| exit_nonce            | integer   | Exit transaction nonce                               |
+| deposit               | string    | Initial deposit amount (2 decimal places)            |
+| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)         |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)           |
+| npoolshare            | string    | Number of pool shares (2 decimal places)             |
+| nwithdraw             | string    | Withdrawal amount (2 decimal places)                 |
+| payment               | string    | Payment amount (2 decimal places)                    |
+| tlv0                  | string    | Total locked value tier 0 (2 decimal places)         |
+| tps0                  | string    | Total pool shares tier 0 (2 decimal places)          |
+| tlv1                  | string    | Total locked value tier 1 (2 decimal places)         |
+| tps1                  | string    | Total pool shares tier 1 (2 decimal places)          |
+| tlv2                  | string    | Total locked value tier 2 (2 decimal places)         |
+| tps2                  | string    | Total pool shares tier 2 (2 decimal places)          |
+| tlv3                  | string    | Total locked value tier 3 (2 decimal places)         |
+| tps3                  | string    | Total pool shares tier 3 (2 decimal places)          |
+| entry_sequence        | integer   | Entry sequence number                                |
+
+---
+
+## Unrealized PnL Pubkey
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "1ce608176c6c7de4789438fee598e4f48499e14b2b5fd7e99c57b0abf3481307"
-);
-myHeaders.append("datetime", "1706621523812");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "unrealized_pnl",
   id: 123,
   params: {
-    id: "0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22",
+    pubkey:
+      "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
   },
 });
 
@@ -1198,14 +1537,23 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "order_ids": [],
-    "pnl": 0.0
+    "total_unrealized_pnl": "245.67",
+    "position_count": 3,
+    "total_position_value": "15000.00"
   },
   "id": 123
 }
 ```
 
-Unrealized Pnl Pubkey
+**Description:** Calculates unrealized profit and loss for all open positions associated with a specific public key.
+
+**Use Cases:**
+
+- Real-time portfolio valuation and mark-to-market calculations
+- Risk management and exposure monitoring for active positions
+- Performance tracking and profitability analysis
+- Margin requirement calculation and liquidation risk assessment
+- Portfolio management dashboard and trading interface updates
 
 ### HTTP Method
 
@@ -1217,28 +1565,35 @@ Unrealized Pnl Pubkey
 
 ### Message Parameters
 
-| Params | Data_Type | Values          |
-| ------ | --------- | --------------- |
-| id     | string    | User account id |
+| Params | Data_Type | Required | Values                                 |
+| ------ | --------- | -------- | -------------------------------------- |
+| pubkey | string    | No       | Account public key for PnL calculation |
 
-## Unrealized Pnl OrderId
+### Response Fields
+
+| Field                | Data_Type | Description                                                  |
+| -------------------- | --------- | ------------------------------------------------------------ |
+| total_unrealized_pnl | string    | Total unrealized PnL across all positions (2 decimal places) |
+| position_count       | integer   | Number of open positions                                     |
+| total_position_value | string    | Total value of all positions (2 decimal places)              |
+
+---
+
+## Unrealized PnL OrderId
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append(
-  "signature",
-  "97895f93e4b6e7c3d1ade05ef9cc63975deb8f6dee5b968d4889a70da92a97cc"
-);
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
-myHeaders.append("datetime", "1706621687195");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "unrealized_pnl",
   id: 123,
   params: {
-    OrderId: "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+    order_id: "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
   },
 });
 
@@ -1261,14 +1616,25 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "order_ids": ["49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf"],
-    "pnl": 0.0
+    "unrealized_pnl": "125.34",
+    "order_id": "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
+    "current_price": "43500.00",
+    "entry_price": "42508.71",
+    "position_size": "4250871"
   },
   "id": 123
 }
 ```
 
-Unrealized Pnl OrderId
+**Description:** Calculates unrealized profit and loss for a specific order by its unique identifier.
+
+**Use Cases:**
+
+- Individual position performance monitoring and profit tracking
+- Risk assessment for specific trading positions
+- Order-level profitability analysis and strategy evaluation
+- Position sizing and risk management for specific trades
+- Real-time P&L updates for trading applications and dashboards
 
 ### HTTP Method
 
@@ -1280,27 +1646,36 @@ Unrealized Pnl OrderId
 
 ### Message Parameters
 
-| Params  | Data_Type | Values        |
-| ------- | --------- | ------------- |
-| OrderId | string    | UUID of order |
+| Params   | Data_Type | Required | Values                                  |
+| -------- | --------- | -------- | --------------------------------------- |
+| order_id | string    | No       | Specific order UUID for PnL calculation |
 
-## Unrealized Pnl All
+### Response Fields
+
+| Field          | Data_Type | Description                                              |
+| -------------- | --------- | -------------------------------------------------------- |
+| unrealized_pnl | string    | Unrealized PnL for the specific order (2 decimal places) |
+| order_id       | string    | Order UUID that was queried                              |
+| current_price  | string    | Current market price (2 decimal places)                  |
+| entry_price    | string    | Order entry price (2 decimal places)                     |
+| position_size  | string    | Position size (2 decimal places)                         |
+
+---
+
+## Unrealized PnL All
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("relayer-api-key", "1f9500c6-6371-41a4-bdef-5fb7f7709186");
 myHeaders.append("Content-Type", "application/json");
-myHeaders.append(
-  "signature",
-  "c56d25fb3998af90814716128f93169fce5ee143597b5e5c8cbc6a1264a72398"
-);
-myHeaders.append("datetime", "1706621762s");
+myHeaders.append("relayer-api-key", "your-api-key");
+myHeaders.append("signature", generateSignature(raw, "your-api-secret"));
+myHeaders.append("datetime", getCurrentTimestamp());
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
   method: "unrealized_pnl",
   id: 123,
-  params: "All",
+  params: {},
 });
 
 var requestOptions = {
@@ -1322,19 +1697,24 @@ fetch("API_ENDPOINT/api/private", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "order_ids": [
-      "49251ba1-30eb-4545-9e4e-1bdf2ec9c3cf",
-      "2617f986-7fe6-4497-9e8f-aa1b77de0239",
-      "3374714d-8a95-4096-855f-7e2675fe0dc8",
-      "15a35bcd-46c6-42bf-8746-be141dd573b5"
-    ],
-    "pnl": 0.0
+    "total_unrealized_pnl": "342.15",
+    "position_count": 5,
+    "total_position_value": "25000.00",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b"
   },
   "id": 123
 }
 ```
 
-Unrealized Pnl All
+**Description:** Calculates total unrealized profit and loss for all open positions in the authenticated account.
+
+**Use Cases:**
+
+- Complete portfolio performance monitoring and total return calculation
+- Risk management and overall exposure assessment for the entire account
+- Margin requirement calculation and account health monitoring
+- Portfolio management and performance reporting for all positions
+- Real-time account valuation and net worth calculation
 
 ### HTTP Method
 
@@ -1346,6 +1726,15 @@ Unrealized Pnl All
 
 ### Message Parameters
 
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
+| Params | Data_Type | Required | Values                                         |
+| ------ | --------- | -------- | ---------------------------------------------- |
+| N/A    | null      | No       | No parameters required (returns all positions) |
+
+### Response Fields
+
+| Field                | Data_Type | Description                                                  |
+| -------------------- | --------- | ------------------------------------------------------------ |
+| total_unrealized_pnl | string    | Total unrealized PnL across all positions (2 decimal places) |
+| position_count       | integer   | Number of open positions                                     |
+| total_position_value | string    | Total value of all positions (2 decimal places)              |
+| account_id           | string    | Account public key associated with the positions             |

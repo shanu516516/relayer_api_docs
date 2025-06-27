@@ -72,7 +72,17 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr)
+**Description:** Retrieves OHLCV (Open, High, Low, Close, Volume) candle data for technical analysis and chart visualization of BTC-USD perpetual contracts.
+
+**Use Cases:**
+
+- Technical analysis for trading strategies and pattern recognition
+- Chart visualization for web and mobile trading applications
+- Algorithm development for automated trading systems
+- Market trend analysis and volatility assessment
+- Historical backtesting of trading strategies
+
+Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, daily change)
 
 ### HTTP Method
 
@@ -131,6 +141,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Retrieves the current funding rate for BTC-USD perpetual contracts, essential for understanding the cost of holding positions and market sentiment.
+
+**Use Cases:**
+
+- Position cost calculation for margin trading and leverage strategies
+- Market sentiment analysis to gauge bullish/bearish positioning
+- Arbitrage opportunities between funding rates across Relayer-matchbooks
+- Risk management for long-term position holding
+- Algorithmic trading signal generation based on funding rate trends
 
 Current funding rate
 
@@ -208,6 +228,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Provides historical funding rate data for analyzing past market conditions and developing predictive models for funding rate movements.
+
+**Use Cases:**
+
+- Historical analysis for funding rate pattern recognition and forecasting
+- Backtesting of funding rate arbitrage strategies across different time periods
+- Research and development of predictive models for funding rate movements
+- Compliance reporting and audit trail for regulatory requirements
+- Performance attribution analysis for portfolio management
+
 Historical funding rate
 
 ### HTTP Method
@@ -265,6 +295,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Displays the current order book with open limit orders, showing market depth and liquidity for both buy (bid) and sell (ask) sides.
+
+**Use Cases:**
+
+- Market depth analysis for optimal order placement and execution strategies
+- Liquidity assessment before placing large orders to minimize slippage
+- Market making strategies and spread analysis for profit opportunities
+- Real-time price discovery and support/resistance level identification
+- Order book imbalance detection for short-term trading signals
 
 Open Limit Order
 
@@ -333,6 +373,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Retrieves the latest executed trades on the Relayer-matchbook, showing real-time market activity and price discovery.
+
+**Use Cases:**
+
+- Real-time trade monitoring for market sentiment analysis
+- Price trend analysis and momentum detection for trading strategies
+- Trade volume analysis for liquidity assessment and market depth evaluation
+- Last price validation and market data feed synchronization
+- Historical trade reconstruction for compliance and audit purposes
+
 Recent Trade Order
 
 ### HTTP Method
@@ -389,6 +439,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Provides aggregate position size information across all market participants, showing total open interest and market exposure distribution.
+
+**Use Cases:**
+
+- Open interest analysis for market sentiment and trend confirmation
+- Risk management for position sizing and exposure calculation
+- Market capacity assessment for large order planning
+- Long/short ratio analysis for contrarian trading strategies
+- Liquidity planning and market impact estimation
+
 Position Size
 
 ### HTTP Method
@@ -444,6 +504,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Returns the current BTC-USD price from the perpetual contract, providing real-time price information for trading and valuation.
+
+**Use Cases:**
+
+- Real-time price feeds for trading applications and market data display
+- Portfolio valuation and mark-to-market calculations
+- Price alerts and notification systems for traders
+- Risk management and position monitoring systems
+- Market data synchronization and price validation
 
 Btc Usd Price
 
@@ -518,6 +588,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Retrieves historical BTC-USD price data for backtesting, analysis, and research purposes across specified time ranges.
+
+**Use Cases:**
+
+- Historical backtesting of trading strategies and algorithm development
+- Price trend analysis and technical indicator calculation
+- Research and academic studies on cryptocurrency market behavior
+- Compliance reporting and regulatory data requirements
+- Performance attribution and risk analysis for portfolio management
+
 Historical BTC price
 
 ### HTTP Method
@@ -578,6 +658,16 @@ fetch("API_ENDPOINT/register", requestOptions)
 }
 ```
 
+**Description:** Authentication endpoint that generates API credentials for accessing private trading and account management functions.
+
+**Use Cases:**
+
+- Initial user registration and API access setup
+- Credential renewal and security key rotation
+- Multi-application access management for trading platforms
+- Third-party integration and automated trading system setup
+- Secure API access for institutional trading accounts
+
 Endpoint to get `api_key` and `api_secret` for private API endpoints.
 
 ### HTTP Method
@@ -630,6 +720,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Returns the current server timestamp for time synchronization and ensuring accurate order timestamping.
+
+**Use Cases:**
+
+- Client-server time synchronization for accurate order placement
+- Timestamp validation for API requests and signature generation
+- Latency measurement and network performance monitoring
+- Event sequencing and order book consistency verification
+- Audit trail and compliance logging with accurate timestamps
 
 Server time
 
@@ -708,6 +808,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes.
+
+**Use Cases:**
+
+- Transaction verification and blockchain confirmation tracking
+- Audit trail maintenance for regulatory compliance and reporting
+- Order execution transparency and proof of settlement
+- Dispute resolution and transaction history verification
+- Integration with blockchain explorers for transaction monitoring
+
 Transaction Hash
 
 ### HTTP Method
@@ -766,6 +876,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Returns the current trading fee structure for different order types and execution scenarios on the Relayer-matchbook.
+
+**Use Cases:**
+
+- Trading cost calculation and profitability analysis for different strategies
+- Fee optimization strategies for high-frequency and algorithmic trading
+- Order type selection based on fee structure and market conditions
+- Cost-benefit analysis for market making vs. taking strategies
+- Compliance and transparency for fee disclosure requirements
 
 Current fee rate
 
@@ -849,6 +969,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Provides historical trading fee data for analyzing fee trends and optimizing trading strategies over time.
+
+**Use Cases:**
+
+- Historical fee analysis for trading strategy optimization and cost modeling
+- Backtesting with accurate fee calculations for realistic performance metrics
+- Fee trend analysis for predicting future fee changes and planning
+- Compliance reporting and audit requirements for fee transparency
+- Cost analysis for institutional trading and volume-based fee negotiations
+
 Historical fee rate
 
 ### HTTP Method
@@ -903,6 +1033,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.
+
+**Use Cases:**
+
+- Yield calculation and return on investment analysis for lending strategies
+- Pool performance monitoring and comparative analysis across time periods
+- Liquidity provision optimization and capital allocation decisions
+- DeFi yield farming integration and automated rebalancing strategies
+- Portfolio valuation for mixed trading and lending positions
 
 Current pool share value (value of 100 pool shares)
 
@@ -983,6 +1123,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.
+
+**Use Cases:**
+
+- Order status verification and execution confirmation for specific traders
+- Risk management and position monitoring for trading algorithms
+- Compliance monitoring and audit trail verification for regulatory purposes
+- Portfolio management and performance tracking for individual accounts
+- Customer service and order dispute resolution with privacy protection
+
 Get trader order information by account ID
 
 ### HTTP Method
@@ -1061,6 +1211,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.
+
+**Use Cases:**
+
+- Lending position monitoring and yield tracking for DeFi strategies
+- Pool share management and withdrawal planning for liquidity providers
+- Performance analysis and ROI calculation for lending portfolios
+- Risk assessment and exposure management for lending activities
+- Compliance reporting and audit trail for lending operations
+
 Get lend order information by account ID
 
 ### HTTP Method
@@ -1118,7 +1278,17 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-Submit a new trade order to the exchange
+**Description:** Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.
+
+**Use Cases:**
+
+- Direct order placement for manual and algorithmic trading strategies
+- High-frequency trading and automated market making operations
+- Portfolio rebalancing and risk management order execution
+- Strategic position building and liquidation for institutional trading
+- Integration with trading bots and automated trading systems
+
+Submit a new trade order to the Relayer-matchbook
 
 ### HTTP Method
 
@@ -1174,6 +1344,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets.
+
+**Use Cases:**
+
+- Yield farming and passive income generation through lending strategies
+- Liquidity provision to support margin trading and leverage operations
+- Portfolio diversification with DeFi lending products and fixed-income alternatives
+- Capital allocation optimization for unused trading capital
+- Automated lending strategies and rebalancing for institutional accounts
 
 Submit a new lend order to the lending pool
 
@@ -1232,6 +1412,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.
+
+**Use Cases:**
+
+- Order finalization and trade confirmation for executed positions
+- Settlement timing optimization for tax and accounting purposes
+- Automated settlement workflows for algorithmic trading systems
+- Risk management through controlled settlement processes
+- Compliance and audit trail maintenance for trade settlement records
+
 Settle an existing trade order
 
 ### HTTP Method
@@ -1289,6 +1479,16 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
+**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.
+
+**Use Cases:**
+
+- Lending position finalization and yield calculation confirmation
+- Withdrawal processing and capital reallocation for lending strategies
+- Automated settlement for DeFi lending and yield optimization protocols
+- Pool share reconciliation and accurate yield distribution
+- Compliance reporting for lending income and tax calculation purposes
+
 Settle an existing lend order
 
 ### HTTP Method
@@ -1345,6 +1545,16 @@ fetch("API_ENDPOINT/api", requestOptions)
   "id": 123
 }
 ```
+
+**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.
+
+**Use Cases:**
+
+- Risk management through rapid order cancellation during market volatility
+- Strategy adjustment and order modification for changing market conditions
+- Automated order management and stop-loss implementation for trading algorithms
+- Position size adjustment and order replacement for optimal execution
+- Emergency order cancellation and risk mitigation during system issues
 
 Cancel an existing trader order
 

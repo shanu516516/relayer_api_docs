@@ -1,0 +1,100 @@
+<h1 id='dex-operations'>DEX Operations</h1>
+<p><strong>Video Tutorial:</strong> <a href="https://drive.google.com">Watch Here</a></p>
+
+<hr>
+<h2 id='prerequisites'>Prerequisites</h2>
+<ol>
+<li>Completed the <a href="https://twilight-pool.vercel.app">BTC deposit guide</a>.<br></li>
+<li>Have Nyks tokens in your wallet.<br></li>
+<li>Deposited BTC into your Twilight wallet.</li>
+</ol>
+
+<hr>
+<h2 id='create-subaccounts'>Create Subaccounts</h2>
+<p>Creating separate Subaccounts for each trade is highly recommended, as active orders render the account unusable. Note that exchange operations can also be conducted on the “Trading Account”.</p>
+
+<ol>
+<li>Connect your Keplr wallet from the top-right corner of the navigation bar.<br></li>
+<li>Once connected, select <strong>Manage Subaccounts</strong> from the Trading Account dropdown menu.<br>
+<img src="/path/to/image4" alt="Manage Subaccounts Screenshot" /></li>
+<li>In the accounts dialog, click on <strong>New</strong> to create a new Subaccount.<br>
+<img src="/path/to/image6" alt="New Subaccount Screenshot" /></li>
+<li>Enter a name for your Subaccount and click <strong>Create</strong>.<br>
+<img src="/path/to/image7" alt="Create Subaccount Screenshot" /></li>
+</ol>
+
+<p>Once the new Subaccount is created, you can now transfer BTC into it.</p>
+
+<hr>
+<h2 id='funding-to-trading-transfer'>Funding to Trading Transfer</h2>
+<p>The Subaccount can now be funded with SATS using the Funding → Trading account transfer menu:</p>
+
+<ol>
+<li>Hover over the <strong>Trade</strong> menu on the navigation bar and click on <strong>Wallet</strong>.<br>
+<img src="/path/to/image8" alt="Wallet Page Screenshot" /></li>
+<li>Under the <strong>Funding</strong> section, click the highlighted button to open the transfer dialog.<br>
+<img src="/path/to/image9" alt="Funding Transfer Dialog Screenshot" /></li>
+<li>In the dialog, select your Subaccount from the <strong>Account To</strong> dropdown.<br>
+<img src="/path/to/image10" alt="Select Subaccount Screenshot" /></li>
+<li>Enter the amount of BTC to transfer and click <strong>Transfer</strong>.<br></li>
+<li>Approve the request to confirm the transaction.<br>
+<img src="/path/to/image11" alt="Transfer Approval Screenshot" /></li>
+</ol>
+
+<p>After approval, the transferred amount will be reflected in your Subaccount.<br>
+<img src="/path/to/image12" alt="Updated Balance Screenshot" /></p>
+
+<hr>
+<h2 id='opening-a-market-order'>Opening a Market Order</h2>
+<ol>
+<li>On the home page, select an account with a balance (e.g., &quot;Subaccount 1&quot;).<br>
+<img src="/path/to/image13" alt="Select Subaccount Screenshot" /></li>
+<li>Place an order in the <strong>Orders</strong> panel (typically on the right side).<br>
+<img src="/path/to/image14" alt="Order Panel Screenshot" /></li>
+<li>Enter the amount in BTC and set the leverage.<br>
+<img src="/path/to/image15" alt="Set Amount &amp; Leverage Screenshot" /></li>
+<li>Select <strong>Buy</strong> or <strong>Sell</strong> to create the order. A notification will appear upon success.<br>
+<img src="/path/to/image16" alt="Order Success Notification Screenshot" /></li>
+<li>View your open orders in the <strong>Orderbook</strong> panel under <strong>My Trades</strong>.<br>
+<img src="/path/to/image17" alt="My Trades Screenshot" /></li>
+</ol>
+
+<hr>
+<h2 id='closing-a-market-order'>Closing a Market Order</h2>
+<ol>
+<li>Go to the <strong>Orderbook</strong> panel on the home page and open <strong>My Trades</strong>.<br>
+<img src="/path/to/image18" alt="My Trades Panel Screenshot" /></li>
+<li>Click <strong>Close</strong> next to the order you wish to close. A notification confirms the closure.<br>
+<img src="/path/to/image19" alt="Close Order Notification Screenshot" /></li>
+</ol>
+
+<hr>
+<h2 id='trading-to-trading-transfer'>Trading to Trading Transfer</h2>
+<p>This operation allows private BTC transfers among Subaccounts:</p>
+
+<ol>
+<li>Create a new Subaccount for the BTC recipient.<br></li>
+<li>Navigate to <strong>Wallet</strong> under the <strong>Trade</strong> menu.<br>
+<img src="/path/to/image20" alt="Wallet Screenshot" /></li>
+<li>In the <strong>Trading</strong> section, click the button to open the transfer dialog.<br>
+<img src="/path/to/image21" alt="Trading Transfer Dialog Screenshot" /></li>
+<li>Select the source and destination Subaccounts, enter the transfer amount.<br>
+<img src="/path/to/image22" alt="Select Accounts Screenshot" /></li>
+<li>Confirm the transfer. The amount will reflect in the destination Subaccount, and transaction details appear in <strong>Account History</strong>.<br>
+<img src="/path/to/image23" alt="Account History Screenshot" /></li>
+</ol>
+
+<hr>
+<h2 id='trading-to-funding-transfer'>Trading to Funding Transfer</h2>
+<p>This function returns BTC from Subaccounts to the Funding Account:</p>
+
+<ol>
+<li>Access the <strong>Wallet</strong> page.<br></li>
+<li>In the <strong>Trading</strong> section, click the transfer dialog.<br></li>
+<li>In the dialog, choose <strong>Trading to Funding</strong>, select the Subaccount, and click <strong>Transfer</strong>.<br></li>
+<li>The BTC will appear in the Funding account upon successful transfer.</li>
+</ol>
+
+<hr>
+
+<p>For lending at the DEX, please refer to the <a href="https://twilight-pool.vercel.app">Lend to Twilight Pool</a> guide.</p>

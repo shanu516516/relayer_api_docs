@@ -82,3 +82,4 @@ jobs:
           destination_dir: dev
           publish_dir: ./build
           keep_files: true
+          publish_branch: deploy_gh

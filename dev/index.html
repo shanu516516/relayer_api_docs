@@ -471,6 +471,35 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#zkos-rpc-api" class="toc-h1 toc-link" data-title="ZkOS RPC API">ZkOS RPC API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#use-cases" class="toc-h2 toc-link" data-title="Use Cases">Use Cases</a>
+                  </li>
+                  <li>
+                    <a href="#table-of-contents" class="toc-h2 toc-link" data-title="Table of Contents">Table of Contents</a>
+                  </li>
+                  <li>
+                    <a href="#transaction-operations" class="toc-h2 toc-link" data-title="Transaction Operations">Transaction Operations</a>
+                  </li>
+                  <li>
+                    <a href="#utxo-queries" class="toc-h2 toc-link" data-title="UTXO Queries">UTXO Queries</a>
+                  </li>
+                  <li>
+                    <a href="#output-queries" class="toc-h2 toc-link" data-title="Output Queries">Output Queries</a>
+                  </li>
+                  <li>
+                    <a href="#database-queries" class="toc-h2 toc-link" data-title="Database Queries">Database Queries</a>
+                  </li>
+                  <li>
+                    <a href="#notes" class="toc-h2 toc-link" data-title="Notes">Notes</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Twilight © 2025</li>
@@ -6440,6 +6469,1652 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Stop receiving heartbeat messages</td>
 </tr>
 </tbody></table>
+<h1 id='zkos-rpc-api'>ZkOS RPC API</h1><h2 id='overview'>Overview</h2>
+<p>Welcome to the ZkoS API!<br>
+You can use this API to access ZkoS server endpoints that expose the UTXO-based account state and individual encrypted account details tracked by the node.</p>
+
+<p>These endpoints are primarily used by indexers, explorers, and frontends to track balances, commitments, and UTXO outputs associated with shielded accounts.</p>
+
+<p><strong>Base URL:</strong> <code>https://nykschain.twilight.rest/zkos/</code></p>
+
+<p><strong>Development URL:</strong> <code>http://localhost:3030/</code> (Local development)</p>
+
+<blockquote>
+<p>🔐 No authentication required.</p>
+</blockquote>
+
+<hr>
+<h2 id='use-cases'>Use Cases</h2>
+<ul>
+<li>Retrieve encrypted account state for frontend wallets</li>
+<li>Index UTXO data for explorers</li>
+<li>Monitor nullifier sets to prevent double-spending</li>
+<li>Get UTXO statistics for ZkoS metrics/monitoring</li>
+</ul>
+
+<hr>
+<h2 id='table-of-contents'>Table of Contents</h2>
+<ol>
+<li><a href="#transaction-operations">Transaction Operations</a></li>
+<li><a href="#utxo-queries">UTXO Queries</a></li>
+<li><a href="#output-queries">Output Queries</a></li>
+<li><a href="#database-queries">Database Queries</a></li>
+<li><a href="#test-commands">Test Commands</a></li>
+</ol>
+
+<hr>
+<h2 id='transaction-operations'>Transaction Operations</h2><h3 id='submit-transaction'>Submit Transaction</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">txCommit</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">your_hex_encoded_transaction_here</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code><span class="c"># Transfer/Script Transaction</span>
+curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "txCommit",
+    "params": ["your_hex_encoded_transaction_here"],
+    "id": 1
+  }'</span>
+
+<span class="c"># Message Transaction (Burn) - requires twilight address as second parameter</span>
+curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "txCommit",
+    "params": ["your_hex_encoded_message_transaction_here", "twilight_address_here"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"tx_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A1B2C3D4E5F6789012345678901234567890ABCDEF"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Commits a transaction to the blockchain with cryptographic verification and UTXO state updates. For message transactions with burn type, a twilight address must be provided as the second parameter.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Submit zero-knowledge proof transactions for privacy-preserving transfers</li>
+<li>Execute smart contract operations on the zkOS blockchain</li>
+<li>Burn tokens with message transactions for cross-chain operations</li>
+<li>Batch transaction processing for improved efficiency</li>
+<li>Integration with wallet applications for transaction broadcasting</li>
+</ul>
+<h3 id='http-method'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method'>RPC Method</h3>
+<p><code>txCommit</code></p>
+<h3 id='message-parameters'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded transaction data</td>
+</tr>
+<tr>
+<td>[1]</td>
+<td>string</td>
+<td><strong>Conditional</strong></td>
+<td><strong>Twilight address (required ONLY for message transactions with burn type)</strong></td>
+</tr>
+</tbody></table>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tx_hash</td>
+<td>string</td>
+<td>Transaction hash for blockchain confirmation</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Transaction status (&quot;success&quot; or &quot;failed&quot;)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='utxo-queries'>UTXO Queries</h2><h3 id='get-utxos-by-address'>Get UTXOs by Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_zkos_account_address</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getUtxos",
+    "params": ["hex_encoded_zkos_account_address"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves coin-type UTXOs for a specific address, showing transaction history.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Wallet balance calculation and display for user interfaces</li>
+<li>Transaction history reconstruction for account management</li>
+<li>UTXO selection for optimal transaction fee calculation</li>
+</ul>
+<h3 id='http-method-2'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-2'>RPC Method</h3>
+<p><code>getUtxos</code></p>
+<h3 id='message-parameters-2'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded address to query UTXOs for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-2'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the UTXO</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-memo-utxos-by-address'>Get Memo UTXOs by Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getMemoUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_zkos_account_address</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getMemoUtxos",
+    "params": ["hex_encoded_zkos_account_address"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"memo_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_memo_content"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12346</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves memo-type UTXOs containing encrypted message data for a specific address.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Encrypted messaging and communication through blockchain transactions</li>
+<li>Transaction metadata storage for compliance and audit purposes</li>
+<li>Smart contract event logging and state tracking</li>
+</ul>
+<h3 id='http-method-3'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-3'>RPC Method</h3>
+<p><code>getMemoUtxos</code></p>
+<h3 id='message-parameters-3'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded address to query memo UTXOs for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-3'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the memo UTXO</td>
+</tr>
+<tr>
+<td>memo_data</td>
+<td>string</td>
+<td>Encrypted memo content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when memo UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-state-utxos-by-address'>Get State UTXOs by Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getStateUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_zkos_account_address</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getStateUtxos",
+    "params": ["hex_encoded_zkos_account_address"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_state_content"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12347</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves state-type UTXOs containing smart contract state data for a specific address.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Smart contract state management and persistence</li>
+<li>Decentralized application state synchronization</li>
+<li>Privacy-preserving computation result storage</li>
+</ul>
+<h3 id='http-method-4'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-4'>RPC Method</h3>
+<p><code>getStateUtxos</code></p>
+<h3 id='message-parameters-4'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded address to query state UTXOs for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-4'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the state UTXO</td>
+</tr>
+<tr>
+<td>state_data</td>
+<td>string</td>
+<td>Encrypted state content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when state UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-all-coin-utxos'>Get All Coin UTXOs</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">allCoinUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "allCoinUtxos",
+    "params": [],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12348</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves all coin-type UTXOs in the system for network analysis and monitoring.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Network statistics and total supply calculation</li>
+<li>Blockchain explorer and indexer data collection</li>
+<li>Network health monitoring and analysis</li>
+</ul>
+<h3 id='http-method-5'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-5'>RPC Method</h3>
+<p><code>allCoinUtxos</code></p>
+<h3 id='message-parameters-5'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-5'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the UTXO</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-all-memo-utxos'>Get All Memo UTXOs</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">allMemoUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "allMemoUtxos",
+    "params": [],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"memo_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_memo_content"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12349</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves all memo-type UTXOs in the system for comprehensive message data analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>System-wide message and communication analysis</li>
+<li>Network-level memo data indexing and search</li>
+<li>Compliance monitoring for encrypted communications</li>
+</ul>
+<h3 id='http-method-6'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-6'>RPC Method</h3>
+<p><code>allMemoUtxos</code></p>
+<h3 id='message-parameters-6'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-6'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the memo UTXO</td>
+</tr>
+<tr>
+<td>memo_data</td>
+<td>string</td>
+<td>Encrypted memo content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when memo UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-all-state-utxos'>Get All State UTXOs</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">allStateUtxos</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "allStateUtxos",
+    "params": [],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_state_content"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12350</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves all state-type UTXOs in the system for comprehensive smart contract state analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>System-wide smart contract state monitoring</li>
+<li>Network-level state data indexing and analytics</li>
+<li>Decentralized application ecosystem analysis</li>
+</ul>
+<h3 id='http-method-7'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-7'>RPC Method</h3>
+<p><code>allStateUtxos</code></p>
+<h3 id='message-parameters-7'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-7'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the state UTXO</td>
+</tr>
+<tr>
+<td>state_data</td>
+<td>string</td>
+<td>Encrypted state content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when state UTXO was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-utxo-ids-by-address'>Get UTXO IDs by Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get_utxos_id</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">address_or_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_address</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">input_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Coin</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "get_utxos_id",
+    "params": {
+      "address_or_id": "hex_encoded_address",
+      "input_type": "Coin"
+    },
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hex_encoded_utxo_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves UTXO IDs associated with a specific address and input type for targeted UTXO operations.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Get specific UTXO identifiers for transaction construction</li>
+<li>Query UTXO IDs by type (Coin, Memo, State)</li>
+<li>Address-based UTXO ID lookup for wallet operations</li>
+</ul>
+<h3 id='http-method-8'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-8'>RPC Method</h3>
+<p><code>get_utxos_id</code></p>
+<h3 id='message-parameters-8'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_or_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded address to query</td>
+</tr>
+<tr>
+<td>input_type</td>
+<td>string</td>
+<td>Yes</td>
+<td>UTXO type (&quot;Coin&quot;, &quot;Memo&quot;, or &quot;State&quot;)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-8'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>string</td>
+<td>Hex-encoded UTXO ID</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-utxo-details-by-address'>Get UTXO Details by Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get_utxos_detail</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">address_or_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_address</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">input_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Coin</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "get_utxos_detail",
+    "params": {
+      "address_or_id": "hex_encoded_address",
+      "input_type": "Coin"
+    },
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"commitment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hex_encoded_commitment"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"nullifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hex_encoded_nullifier"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_value"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_output_data"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves comprehensive UTXO information including both the UTXO ID and associated output data for complete transaction analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Get detailed UTXO information for transaction verification</li>
+<li>Retrieve both input and output data for specific addresses</li>
+<li>Comprehensive UTXO analysis for wallet applications</li>
+<li>Transaction construction with full UTXO context</li>
+</ul>
+<h3 id='http-method-9'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-9'>RPC Method</h3>
+<p><code>get_utxos_detail</code></p>
+<h3 id='message-parameters-9'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_or_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded address to query</td>
+</tr>
+<tr>
+<td>input_type</td>
+<td>string</td>
+<td>Yes</td>
+<td>UTXO type (&quot;Coin&quot;, &quot;Memo&quot;, or &quot;State&quot;)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-9'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>object</td>
+<td>UTXO object containing commitment and nullifier data</td>
+</tr>
+<tr>
+<td>output</td>
+<td>object</td>
+<td>Output object containing encrypted transaction data</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-output-by-utxo-key-structured'>Get Output by UTXO Key (Structured)</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get_output</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">address_or_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_utxo_key</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">input_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Coin</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "get_output",
+    "params": {
+      "address_or_id": "hex_encoded_utxo_key",
+      "input_type": "Coin"
+    },
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_output_value"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_output_data"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"commitment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hex_encoded_commitment"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Alternative method to retrieve output data by UTXO key using structured parameters with explicit type specification.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Alternative output retrieval with explicit type specification</li>
+<li>Structured parameter approach for type-safe output queries</li>
+<li>Enhanced output data retrieval with input type validation</li>
+<li>Programmatic output access with type safety</li>
+</ul>
+<h3 id='http-method-10'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-10'>RPC Method</h3>
+<p><code>get_output</code></p>
+<h3 id='message-parameters-10'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_or_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded UTXO key to query</td>
+</tr>
+<tr>
+<td>input_type</td>
+<td>string</td>
+<td>Yes</td>
+<td>UTXO type (&quot;Coin&quot;, &quot;Memo&quot;, or &quot;State&quot;)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-10'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>Encrypted output value</td>
+</tr>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Encrypted output data</td>
+</tr>
+<tr>
+<td>commitment</td>
+<td>string</td>
+<td>Hex-encoded commitment for the output</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='output-queries'>Output Queries</h2><h3 id='get-all-coin-outputs'>Get All Coin Outputs</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">allOutputs</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "allOutputs",
+    "params": [],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"output_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12351</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves all coin-type outputs in the system for transaction output analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Transaction output tracking and verification</li>
+<li>Network-wide output analysis and statistics</li>
+<li>Blockchain explorer transaction detail display</li>
+</ul>
+<h3 id='http-method-11'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-11'>RPC Method</h3>
+<p><code>allOutputs</code></p>
+<h3 id='message-parameters-11'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-11'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>output_key</td>
+<td>string</td>
+<td>Unique identifier for the output</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>Output value in base currency units</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when output was created</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-specific-coin-output'>Get Specific Coin Output</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getOutput</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_utxo_key</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getOutput",
+    "params": ["hex_encoded_utxo_key"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"output_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12352</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves a specific coin output by its UTXO key for detailed transaction analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Individual output verification and validation</li>
+<li>Transaction detail lookup for wallet applications</li>
+<li>Output tracing for compliance and audit purposes</li>
+</ul>
+<h3 id='http-method-12'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-12'>RPC Method</h3>
+<p><code>getOutput</code></p>
+<h3 id='message-parameters-12'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded UTXO key to query output for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-12'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>output_key</td>
+<td>string</td>
+<td>Unique identifier for the output</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>Output value in base currency units</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when output was created</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>string</td>
+<td>Transaction hash containing this output</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-specific-memo-output'>Get Specific Memo Output</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getMemoOutput</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_utxo_key</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getMemoOutput",
+    "params": ["hex_encoded_utxo_key"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"output_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"memo_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_memo_content"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12353</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves a specific memo output by its UTXO key for detailed message analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Individual memo verification and decryption</li>
+<li>Message detail lookup for communication applications</li>
+<li>Memo tracing for compliance and audit purposes</li>
+</ul>
+<h3 id='http-method-13'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-13'>RPC Method</h3>
+<p><code>getMemoOutput</code></p>
+<h3 id='message-parameters-13'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded UTXO key to query memo output for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-13'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>output_key</td>
+<td>string</td>
+<td>Unique identifier for the memo output</td>
+</tr>
+<tr>
+<td>memo_data</td>
+<td>string</td>
+<td>Encrypted memo content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when memo output was created</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>string</td>
+<td>Transaction hash containing this memo output</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-specific-state-output'>Get Specific State Output</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getStateOutput</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hex_encoded_utxo_key</span><span class="dl">"</span><span class="p">],</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getStateOutput",
+    "params": ["hex_encoded_utxo_key"],
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"output_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_state_content"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12354</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves a specific state output by its UTXO key for detailed smart contract state analysis.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Individual state verification and smart contract debugging</li>
+<li>State detail lookup for decentralized applications</li>
+<li>State tracing for compliance and audit purposes</li>
+</ul>
+<h3 id='http-method-14'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-14'>RPC Method</h3>
+<p><code>getStateOutput</code></p>
+<h3 id='message-parameters-14'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0]</td>
+<td>string</td>
+<td>Yes</td>
+<td>Hex-encoded UTXO key to query state output for</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-14'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>output_key</td>
+<td>string</td>
+<td>Unique identifier for the state output</td>
+</tr>
+<tr>
+<td>state_data</td>
+<td>string</td>
+<td>Encrypted state content</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when state output was created</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>string</td>
+<td>Transaction hash containing this state output</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='database-queries'>Database Queries</h2><h3 id='query-utxos-from-database'>Query UTXOs from Database</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">// Query coin UTXOs</span>
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">jsonrpc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">getUtxosFromDB</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">params</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">start_block</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">end_block</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">limit</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">pagination</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">io_type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Coin</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://nykschain.twilight.rest/zkos/</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell"><code><span class="c"># Query coin UTXOs</span>
+curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getUtxosFromDB",
+    "params": {
+      "start_block": 0,
+      "end_block": 1000,
+      "limit": 100,
+      "pagination": 0,
+      "io_type": "Coin"
+    },
+    "id": 1
+  }'</span>
+
+<span class="c"># Query memo UTXOs</span>
+curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getUtxosFromDB",
+    "params": {
+      "start_block": 0,
+      "end_block": 1000,
+      "limit": 50,
+      "pagination": 0,
+      "io_type": "Memo"
+    },
+    "id": 1
+  }'</span>
+
+<span class="c"># Query state UTXOs</span>
+curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "jsonrpc": "2.0",
+    "method": "getUtxosFromDB",
+    "params": {
+      "start_block": 0,
+      "end_block": 1000,
+      "limit": 75,
+      "pagination": 0,
+      "io_type": "State"
+    },
+    "id": 1
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"utxo_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILL IT HERE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">12355</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"io_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coin"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"encrypted_utxo_data"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Queries UTXOs from the PostgreSQL database with specific filtering parameters including block range, pagination, and UTXO type.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Advanced UTXO filtering and search operations</li>
+<li>Historical data analysis within specific block ranges</li>
+<li>Paginated UTXO retrieval for large datasets</li>
+<li>Database-level UTXO management and analytics</li>
+</ul>
+<h3 id='http-method-15'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-15'>RPC Method</h3>
+<p><code>getUtxosFromDB</code></p>
+<h3 id='message-parameters-15'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start_block</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Starting block height (i128)</td>
+</tr>
+<tr>
+<td>end_block</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Ending block height (i128)</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Maximum number of results (<strong>max: 10,000</strong>)</td>
+</tr>
+<tr>
+<td>pagination</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Pagination offset for result sets</td>
+</tr>
+<tr>
+<td>io_type</td>
+<td>string</td>
+<td>Yes</td>
+<td>Type of UTXO (&quot;Coin&quot;, &quot;Memo&quot;, or &quot;State&quot;)</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-15'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_key</td>
+<td>string</td>
+<td>Unique identifier for the UTXO</td>
+</tr>
+<tr>
+<td>block_height</td>
+<td>integer</td>
+<td>Block height when UTXO was created</td>
+</tr>
+<tr>
+<td>io_type</td>
+<td>string</td>
+<td>Type of UTXO (Coin, Memo, or State)</td>
+</tr>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Encrypted UTXO content based on type</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='notes'>Notes</h2>
+<ol>
+<li>All hex strings should be valid hexadecimal without the &quot;0x&quot; prefix</li>
+<li>Some endpoints return empty results with error messages if no data is found</li>
+<li>Transaction verification is performed before committing transactions</li>
+</ol>
 
       </div>
       <div class="dark-box">

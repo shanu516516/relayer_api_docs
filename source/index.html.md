@@ -2,7 +2,7 @@
 title: Twilight Relayer API Reference
 
 language_tabs:
-  - shell
+  # - shell
   # - ruby
   # - python
   - javascript

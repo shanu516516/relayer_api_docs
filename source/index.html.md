@@ -14,6 +14,7 @@ includes:
   - public
   - private
   - websocket
+  - zkos
 
 search: true
 

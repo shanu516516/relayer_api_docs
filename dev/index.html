@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;rust&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -307,6 +307,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="rust">rust</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -498,6 +499,35 @@
                   </li>
                   <li>
                     <a href="#notes" class="toc-h2 toc-link" data-title="Notes">Notes</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#twilight-clinet-sdk" class="toc-h1 toc-link" data-title="Twilight Clinet SDK">Twilight Clinet SDK</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#wallet-operations" class="toc-h2 toc-link" data-title="Wallet Operations">Wallet Operations</a>
+                  </li>
+                  <li>
+                    <a href="#transfer-operations" class="toc-h2 toc-link" data-title="Transfer Operations">Transfer Operations</a>
+                  </li>
+                  <li>
+                    <a href="#trading-operations" class="toc-h2 toc-link" data-title="Trading Operations">Trading Operations</a>
+                  </li>
+                  <li>
+                    <a href="#liquidity-pool-operations" class="toc-h2 toc-link" data-title="Liquidity Pool Operations">Liquidity Pool Operations</a>
+                  </li>
+                  <li>
+                    <a href="#blockchain-interaction" class="toc-h2 toc-link" data-title="Blockchain Interaction">Blockchain Interaction</a>
+                  </li>
+                  <li>
+                    <a href="#smart-contract-operations" class="toc-h2 toc-link" data-title="Smart Contract Operations">Smart Contract Operations</a>
+                  </li>
+                  <li>
+                    <a href="#utility-functions" class="toc-h2 toc-link" data-title="Utility Functions">Utility Functions</a>
                   </li>
               </ul>
           </li>
@@ -8116,12 +8146,2046 @@ curl <span class="nt">-X</span> POST https://nykschain.twilight.rest/zkos/ <span
 <li>Some endpoints return empty results with error messages if no data is found</li>
 <li>Transaction verification is performed before committing transactions</li>
 </ol>
+<h1 id='twilight-clinet-sdk'>Twilight Clinet SDK</h1><h2 id='overview'>Overview</h2>
+<p>Welcome to the Twilight Client SDK documentation!<br>
+The Twilight Privacy SDK is a comprehensive Rust library for building privacy-preserving wallet applications on the Twilight blockchain ecosystem. This SDK provides complete client-side functionality for managing zero-knowledge transactions, interacting with Twilight relayers, and handling decentralized trading operations.</p>
+
+<p><strong>Repository:</strong> <code>https://github.com/twilight-project/zkos-client-wallet</code></p>
+<h2 id='wallet-operations'>Wallet Operations</h2><h3 id='initialize-or-load-wallet'>Initialize or Load Wallet</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">keys_management</span><span class="p">;</span>
+
+<span class="c1">// Initialize a new wallet or load an existing one</span>
+<span class="k">let</span> <span class="n">password</span> <span class="o">=</span> <span class="s">b"a_16_byte_key!!"</span><span class="p">;</span>      <span class="c1">// Must be 16 bytes for AES-128</span>
+<span class="k">let</span> <span class="n">iv</span> <span class="o">=</span> <span class="s">b"a_16_byte_iv!!!!"</span><span class="p">;</span>         <span class="c1">// Must be 16 bytes for AES-128</span>
+<span class="k">let</span> <span class="n">wallet_file</span> <span class="o">=</span> <span class="s">"wallet.bin"</span><span class="nf">.to_string</span><span class="p">();</span>
+<span class="k">let</span> <span class="n">seed</span> <span class="o">=</span> <span class="s">"a_secure_seed_string_if_creating_a_new_wallet"</span><span class="p">;</span>
+
+<span class="c1">// This will load 'wallet.bin' if it exists, otherwise it will create a new</span>
+<span class="c1">// one using the provided seed.</span>
+<span class="k">let</span> <span class="n">secret_key</span> <span class="o">=</span> <span class="nn">keys_management</span><span class="p">::</span><span class="nf">init_wallet</span><span class="p">(</span>
+    <span class="n">password</span><span class="p">,</span>
+    <span class="n">wallet_file</span><span class="p">,</span>
+    <span class="n">iv</span><span class="p">,</span>
+    <span class="nf">Some</span><span class="p">(</span><span class="n">seed</span><span class="nf">.to_string</span><span class="p">()),</span>
+<span class="p">)</span><span class="nf">.expect</span><span class="p">(</span><span class="s">"Failed to initialize or load wallet"</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns the master secret key for the wallet</span>
+<span class="n">RistrettoSecretKey</span> <span class="p">{</span> <span class="cm">/* ... internal key data ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Initializes a new encrypted wallet file or loads an existing one. If the specified file path exists, it attempts to decrypt it with the given password. If not, it creates a new wallet using the provided seed, encrypts it with AES-128-CBC, and saves it to the path. This is the primary function for all wallet setup.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Onboarding new users by creating a fresh, encrypted wallet.</li>
+<li>  Restoring a user&#39;s session by loading their existing wallet file.</li>
+<li>  Seamlessly handling both new and returning users with a single function.</li>
+<li>  Generating a master secret key from a user-provided seed phrase.</li>
+<li>  Ensuring all private key material is stored encrypted at rest.</li>
+</ul>
+<h3 id='function'>Function</h3>
+<p><code>keys_management::init_wallet</code></p>
+<h3 id='function-parameters'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td>&amp;[u8]</td>
+<td>Yes</td>
+<td>Password for wallet encryption/decryption. Must be 16 bytes for AES-128.</td>
+</tr>
+<tr>
+<td>file_path</td>
+<td>String</td>
+<td>Yes</td>
+<td>File path for wallet storage.</td>
+</tr>
+<tr>
+<td>iv</td>
+<td>&amp;[u8]</td>
+<td>Yes</td>
+<td>16-byte initialization vector for AES-128-CBC.</td>
+</tr>
+<tr>
+<td>key_seed</td>
+<td>Option<String></td>
+<td>Yes (if new)</td>
+<td>A seed string used to generate the private key if the wallet file does not exist.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Option<RistrettoSecretKey></td>
+<td>The <code>RistrettoSecretKey</code> on success, or <code>None</code> on failure (e.g., file not found and no seed provided).</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-public-key'>Get Public Key</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">keys_management</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Assume `secret_key` is the RistrettoSecretKey obtained from init_wallet</span>
+<span class="k">let</span> <span class="n">secret_key</span><span class="p">:</span> <span class="n">RistrettoSecretKey</span> <span class="o">=</span> <span class="cm">/* ... */</span><span class="p">;</span>
+
+<span class="c1">// Get the corresponding public key</span>
+<span class="k">let</span> <span class="n">public_key</span> <span class="o">=</span> <span class="nn">keys_management</span><span class="p">::</span><span class="nf">get_public_key</span><span class="p">(</span>
+    <span class="n">secret_key</span><span class="p">,</span>
+    <span class="s">"public_key.bin"</span><span class="nf">.to_string</span><span class="p">(),</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns the public key</span>
+<span class="n">RistrettoPublicKey</span> <span class="p">{</span> <span class="cm">/* ... internal key data ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Derives the public key from a given secret key. For efficiency, this function will first attempt to load the public key from the specified file path. If the file doesn&#39;t exist, it derives the key from the secret key, saves it to the path for future use, and then returns it.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Generating a public address for receiving funds.</li>
+<li>  Verifying signatures without exposing the private key.</li>
+<li>  Sharing a public key with other users or services.</li>
+<li>  Caching the public key on disk to avoid repeated derivations.</li>
+<li>  Creating a view-only wallet functionality.</li>
+</ul>
+<h3 id='function-2'>Function</h3>
+<p><code>keys_management::get_public_key</code></p>
+<h3 id='function-parameters-2'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>secret_key</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>The secret key from which to derive the public key.</td>
+</tr>
+<tr>
+<td>file_path</td>
+<td>String</td>
+<td>Yes</td>
+<td>The file path to load/store the derived public key.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-2'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>RistrettoPublicKey</td>
+<td>The corresponding <code>RistrettoPublicKey</code>.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='transfer-operations'>Transfer Operations</h2><h3 id='create-private-transfer'>Create Private Transfer</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">transfer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Create a zero-knowledge private transfer</span>
+<span class="k">let</span> <span class="n">tx_wallet</span> <span class="o">=</span> <span class="nn">transfer</span><span class="p">::</span><span class="nf">create_private_transfer_tx_single</span><span class="p">(</span>
+    <span class="n">secret_key</span><span class="p">,</span>         <span class="c1">// RistrettoSecretKey</span>
+    <span class="n">sender_input_json</span><span class="p">,</span>  <span class="c1">// String (JSON of zkvm::Input)</span>
+    <span class="n">receiver_address</span><span class="p">,</span>   <span class="c1">// String (Hex address)</span>
+    <span class="mi">100</span><span class="p">,</span>                <span class="c1">// amount: u64</span>
+    <span class="k">false</span><span class="p">,</span>              <span class="c1">// address_input: bool</span>
+    <span class="mi">900</span><span class="p">,</span>                <span class="c1">// updated_sender_balance: u64</span>
+    <span class="mi">1</span><span class="p">,</span>                  <span class="c1">// fee: u64</span>
+<span class="p">);</span>
+
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="n">tx_wallet</span><span class="py">.tx_hex</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a TransferTxWallet struct</span>
+<span class="n">TransferTxWallet</span> <span class="p">{</span>
+    <span class="n">tx_hex</span><span class="p">:</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span><span class="p">,</span>
+    <span class="n">encrypt_scalar_hex</span><span class="p">:</span> <span class="s">"somescalarhex..."</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a simple one-to-one zero-knowledge private transfer transaction. This is the standard way to send funds privately from one user to another.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Private peer-to-peer value transfers </li>
+<li>  Confidential business transactions with privacy guarantees</li>
+<li>  Privacy-preserving payment processing for e-commerce applications</li>
+</ul>
+<h3 id='function-3'>Function</h3>
+<p><code>transfer::create_private_transfer_tx_single</code></p>
+<h3 id='function-parameters-3'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sk</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>Sender&#39;s secret key.</td>
+</tr>
+<tr>
+<td>sender</td>
+<td>String</td>
+<td>Yes</td>
+<td>JSON string of the sender&#39;s input UTXO (<code>zkvm::Input</code>).</td>
+</tr>
+<tr>
+<td>reciever</td>
+<td>String</td>
+<td>Yes</td>
+<td>Recipient&#39;s address (hex string) or their input UTXO as a JSON string.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Transfer amount in base units.</td>
+</tr>
+<tr>
+<td>address_input</td>
+<td>bool</td>
+<td>Yes</td>
+<td><code>false</code> if receiver is an address, <code>true</code> if it&#39;s an input UTXO.</td>
+</tr>
+<tr>
+<td>updated_sender_balance</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The sender&#39;s balance after the transfer.</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Transaction fee.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-3'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>TransferTxWallet</td>
+<td>A struct containing the hex-encoded transaction and the encryption scalar.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-private-transfer-with-anonymity-set'>Create Private Transfer with Anonymity Set</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">transfer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::</span><span class="n">Input</span><span class="p">;</span>
+
+<span class="c1">// Create a private transfer with a larger anonymity set</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">transfer</span><span class="p">::</span><span class="nf">create_quisquis_transaction_single</span><span class="p">(</span>
+    <span class="n">secret_key</span><span class="p">,</span>         <span class="c1">// RistrettoSecretKey</span>
+    <span class="n">sender_input</span><span class="p">,</span>       <span class="c1">// zkvm::Input</span>
+    <span class="n">receiver_address</span><span class="p">,</span>   <span class="c1">// String (Hex address)</span>
+    <span class="mi">100</span><span class="p">,</span>                <span class="c1">// amount: u64</span>
+    <span class="k">false</span><span class="p">,</span>              <span class="c1">// address_input: bool</span>
+    <span class="mi">900</span><span class="p">,</span>                <span class="c1">// updated_sender_balance: u64</span>
+    <span class="n">anonymity_set_json</span><span class="p">,</span> <span class="c1">// String (JSON of Vec&lt;zkvm::Input&gt;)</span>
+    <span class="mi">1</span><span class="p">,</span>                  <span class="c1">// fee: u64</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a private transfer that is mixed with a set of other &quot;decoy&quot; inputs, making it much harder to trace the true origin of the funds.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  High-security transfers requiring maximum privacy and anonymity among parties</li>
+<li>  Avoiding on-chain analysis and heuristics.</li>
+<li>  Enhanced protection against transaction graph analysis.</li>
+</ul>
+<h3 id='function-4'>Function</h3>
+<p><code>transfer::create_quisquis_transaction_single</code></p>
+<h3 id='function-parameters-4'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sk</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>Sender&#39;s secret key.</td>
+</tr>
+<tr>
+<td>sender_inp</td>
+<td>zkvm::Input</td>
+<td>Yes</td>
+<td>The sender&#39;s input UTXO.</td>
+</tr>
+<tr>
+<td>reciever</td>
+<td>String</td>
+<td>Yes</td>
+<td>Recipient&#39;s address (hex string) or their input UTXO as a JSON string.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Transfer amount in base units.</td>
+</tr>
+<tr>
+<td>address_input</td>
+<td>bool</td>
+<td>Yes</td>
+<td><code>false</code> if receiver is an address, <code>true</code> if it&#39;s an input UTXO.</td>
+</tr>
+<tr>
+<td>updated_sender_balance</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The sender&#39;s balance after the transfer.</td>
+</tr>
+<tr>
+<td>anonymity_set</td>
+<td>String</td>
+<td>Yes</td>
+<td>JSON string of a <code>Vec&lt;zkvm::Input&gt;</code> to be used as decoys.</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Transaction fee.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-4'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded transaction data.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-burn-message'>Create Burn Message</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">transfer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::</span><span class="n">Input</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Create a burn message to move funds out of the ZK system</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">transfer</span><span class="p">::</span><span class="nf">create_burn_message_transaction</span><span class="p">(</span>
+    <span class="n">input</span><span class="p">,</span>              <span class="c1">// zkvm::Input to burn</span>
+    <span class="mi">1000</span><span class="p">,</span>               <span class="c1">// amount: u64</span>
+    <span class="n">encrypt_scalar_hex</span><span class="p">,</span> <span class="c1">// String</span>
+    <span class="n">secret_key</span><span class="p">,</span>         <span class="c1">// RistrettoSecretKey</span>
+    <span class="n">init_address</span><span class="p">,</span>       <span class="c1">// String, the destination address on the nyks chain</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a special transaction that &quot;burns&quot; a UTXO on the Twilight chain. This is the first step for moving assets from dark accounts to standard cosmos account using the native Nyks bridge. The burn proof is submitted to the relayer network to initiate the transfer.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Bridging dark assets out of the Twilight ecosystem.</li>
+<li>  Withdrawing assets from the privacy layer to a transparent chain.</li>
+<li>  Connecting with broader DeFi ecosystems.</li>
+</ul>
+<h3 id='function-5'>Function</h3>
+<p><code>transfer::create_burn_message_transaction</code></p>
+<h3 id='function-parameters-5'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>input</td>
+<td>zkvm::Input</td>
+<td>Yes</td>
+<td>The input UTXO to be burned.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The amount of funds to burn.</td>
+</tr>
+<tr>
+<td>ecrypt_scalar_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded encryption scalar of the input.</td>
+</tr>
+<tr>
+<td>sk</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>The secret key corresponding to the input.</td>
+</tr>
+<tr>
+<td>init_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The destination address on the nyks blockchain.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-5'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded burn message transaction.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='trading-operations'>Trading Operations</h2><h3 id='create-trader-order'>Create Trader Order</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::{</span><span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">};</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Create a new zero-knowledge trader order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">create_trader_order_zkos</span><span class="p">(</span>
+    <span class="n">input_coin</span><span class="p">,</span>         <span class="c1">// zkvm::Input</span>
+    <span class="n">output_memo</span><span class="p">,</span>        <span class="c1">// zkvm::Output</span>
+    <span class="n">secret_key</span><span class="p">,</span>         <span class="c1">// RistrettoSecretKey</span>
+    <span class="n">rscalar</span><span class="p">,</span>            <span class="c1">// String (hex)</span>
+    <span class="n">value</span><span class="p">,</span>              <span class="c1">// u64</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"LONG"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"MARKET"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">10.0</span><span class="p">,</span>
+    <span class="mf">100.0</span><span class="p">,</span>
+    <span class="mf">1000.0</span><span class="p">,</span>
+    <span class="s">"PENDING"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">45000.0</span><span class="p">,</span>
+    <span class="mf">45001.0</span><span class="p">,</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a new perpetual contract trading order using zero-knowledge proofs for privacy-preserving execution. This corresponds to the <code>submit_trade_order</code> private API call.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Direct order placement for manual and algorithmic trading strategies</li>
+<li>  High-frequency trading and automated market making operations</li>
+<li>  Portfolio rebalancing and risk management order execution</li>
+<li>  Privacy-preserving trading with zero-knowledge proof verification</li>
+</ul>
+<h3 id='function-6'>Function</h3>
+<p><code>relayer::create_trader_order_zkos</code></p>
+<h3 id='function-parameters-6'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>input_coin</td>
+<td>zkvm::Input</td>
+<td>Yes</td>
+<td>The input coin (UTXO) for the order.</td>
+</tr>
+<tr>
+<td>output_memo</td>
+<td>zkvm::Output</td>
+<td>Yes</td>
+<td>The output memo for the order.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing.</td>
+</tr>
+<tr>
+<td>rscalar</td>
+<td>String</td>
+<td>Yes</td>
+<td>Hex-encoded scalar for encryption and commitment.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Value of the order, must match input balance.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>position_type</td>
+<td>String</td>
+<td>Yes</td>
+<td>&quot;LONG&quot; or &quot;SHORT&quot;.</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>String</td>
+<td>Yes</td>
+<td>&quot;MARKET&quot; or &quot;LIMIT&quot;.</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>f64</td>
+<td>Yes</td>
+<td>Leverage for the trade.</td>
+</tr>
+<tr>
+<td>initial_margin</td>
+<td>f64</td>
+<td>Yes</td>
+<td>Initial margin for the trade.</td>
+</tr>
+<tr>
+<td>available_margin</td>
+<td>f64</td>
+<td>Yes</td>
+<td>Available margin.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>Initial order status (e.g., &quot;PENDING&quot;).</td>
+</tr>
+<tr>
+<td>entryprice</td>
+<td>f64</td>
+<td>Yes</td>
+<td>The desired entry price.</td>
+</tr>
+<tr>
+<td>execution_price</td>
+<td>f64</td>
+<td>Yes</td>
+<td>The expected execution price.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-6'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<String, &'static str></td>
+<td>Hex-encoded transaction data on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='settle-trader-order'>Settle Trader Order</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="nn">relayer_types</span><span class="p">::</span><span class="n">TXType</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">uuid</span><span class="p">::</span><span class="n">Uuid</span><span class="p">;</span>
+
+<span class="c1">// Settle a filled trader order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">execute_order_zkos</span><span class="p">(</span>
+    <span class="n">output_memo</span><span class="p">,</span> <span class="c1">// zkvm::Output from the created order</span>
+    <span class="o">&amp;</span><span class="n">secret_key</span><span class="p">,</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="nn">Uuid</span><span class="p">::</span><span class="nf">new_v4</span><span class="p">(),</span>
+    <span class="s">"MARKET"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">50.0</span><span class="p">,</span> <span class="c1">// settle margin</span>
+    <span class="s">"SETTLED"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">45500.0</span><span class="p">,</span> <span class="c1">// execution price</span>
+    <span class="nn">TXType</span><span class="p">::</span><span class="n">ORDERTX</span><span class="p">,</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Executes the settlement process for filled trade orders, finalizing the trade and updating account balances with cryptographic verification. This corresponds to the <code>settle_trade_order</code> private API call.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Order finalization and trade confirmation for executed positions</li>
+<li>  Automated settlement workflows for algorithmic trading systems</li>
+<li>  Risk management through controlled settlement processes</li>
+</ul>
+<h3 id='function-7'>Function</h3>
+<p><code>relayer::execute_order_zkos</code></p>
+<h3 id='function-parameters-7'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>output_memo</td>
+<td>zkvm::Output</td>
+<td>Yes</td>
+<td>The prover memo output from the original order creation.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>&amp;RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>Uuid</td>
+<td>Yes</td>
+<td>The unique identifier of the order to settle.</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>String</td>
+<td>Yes</td>
+<td>&quot;MARKET&quot; or &quot;LIMIT&quot;.</td>
+</tr>
+<tr>
+<td>settle_margin_settle_withdraw</td>
+<td>f64</td>
+<td>Yes</td>
+<td>The margin to settle.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>The new order status (e.g., &quot;SETTLED&quot;).</td>
+</tr>
+<tr>
+<td>execution_price_poolshare_price</td>
+<td>f64</td>
+<td>Yes</td>
+<td>The final execution price.</td>
+</tr>
+<tr>
+<td>tx_type</td>
+<td>TXType</td>
+<td>Yes</td>
+<td>Must be <code>TXType::ORDERTX</code> for settling trade orders.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-7'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded transaction data for the settlement.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='cancel-trader-order'>Cancel Trader Order</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">uuid</span><span class="p">::</span><span class="n">Uuid</span><span class="p">;</span>
+
+<span class="c1">// Cancel an existing trader order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">cancel_trader_order_zkos</span><span class="p">(</span>
+    <span class="s">"hex_address_string"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="o">&amp;</span><span class="n">secret_key</span><span class="p">,</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="nn">Uuid</span><span class="p">::</span><span class="nf">new_v4</span><span class="p">(),</span>
+    <span class="s">"LIMIT"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"CANCELLED"</span><span class="nf">.to_string</span><span class="p">(),</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Cancels an existing unfilled trading order, removing it from the orderbook with cryptographic verification. This corresponds to the <code>cancel_trader_order</code> private API call.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Risk management through rapid order cancellation during market volatility</li>
+<li>  Strategy adjustment and order modification for changing market conditions</li>
+<li>  Position size adjustment and order replacement for optimal execution</li>
+<li>  Emergency order cancellation and risk mitigation during system issues</li>
+</ul>
+<h3 id='function-8'>Function</h3>
+<p><code>relayer::cancel_trader_order_zkos</code></p>
+<h3 id='function-parameters-8'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>Hex-encoded address of the user.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>&amp;RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing the cancellation.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>Uuid</td>
+<td>Yes</td>
+<td>The unique identifier of the order to cancel.</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>String</td>
+<td>Yes</td>
+<td>The type of the order being cancelled.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>The new status, should be &quot;CANCELLED&quot;.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-8'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded transaction data for the cancellation.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='query-trader-order'>Query Trader Order</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Query a trader order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">query_trader_order_zkos</span><span class="p">(</span>
+    <span class="s">"hex_address_string"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="o">&amp;</span><span class="n">secret_key</span><span class="p">,</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"FILLED"</span><span class="nf">.to_string</span><span class="p">(),</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Queries for trading orders with a specific status for the authenticated account. This can be used to get information about open, filled, or cancelled orders. This corresponds to the <code>open_orders</code> and <code>order_history</code> private API calls.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Real-time portfolio monitoring and open position tracking</li>
+<li>  Risk management and exposure calculation for active trades</li>
+<li>  Order management and strategy adjustment based on current positions</li>
+<li>  Performance monitoring </li>
+</ul>
+<h3 id='function-9'>Function</h3>
+<p><code>relayer::query_trader_order_zkos</code></p>
+<h3 id='function-parameters-9'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>Hex-encoded address of the user.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>&amp;RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing the query.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>The status of orders to query (e.g., &quot;FILLED&quot;, &quot;PENDING&quot;).</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-9'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded query data.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='liquidity-pool-operations'>Liquidity Pool Operations</h2><h3 id='deposit-to-twilight-liquidity-pool'>Deposit to Twilight Liquidity Pool</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::{</span><span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">};</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Create a new zero-knowledge lend order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">create_lend_order_zkos</span><span class="p">(</span>
+    <span class="n">input_coin</span><span class="p">,</span>         <span class="c1">// zkvm::Input</span>
+    <span class="n">output_memo</span><span class="p">,</span>        <span class="c1">// zkvm::Output</span>
+    <span class="n">secret_key</span><span class="p">,</span>         <span class="c1">// RistrettoSecretKey</span>
+    <span class="n">rscalar</span><span class="p">,</span>            <span class="c1">// String (hex)</span>
+    <span class="n">value</span><span class="p">,</span>              <span class="c1">// u64</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">10000.0</span><span class="p">,</span>
+    <span class="s">"LEND"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"PENDING"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mf">10000.0</span><span class="p">,</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Submits a new lending order to participate in the Twilight Liquidity pool and earn yield on deposited assets using zero-knowledge proofs. This corresponds to the <code>submit_lend_order</code> private API call.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Yield farming and passive income generation through DeFi lending strategies</li>
+<li>  Liquidity provision to support margin trading and leverage operations on the platform</li>
+<li>  Portfolio diversification with fixed-income alternatives and lending products</li>
+<li>  Capital allocation optimization for unused trading capital and idle funds</li>
+<li>  Automated lending strategies and rebalancing for institutional accounts</li>
+</ul>
+<h3 id='function-10'>Function</h3>
+<p><code>relayer::create_lend_order_zkos</code></p>
+<h3 id='function-parameters-10'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>input_coin</td>
+<td>zkvm::Input</td>
+<td>Yes</td>
+<td>The input coin (UTXO) for the order.</td>
+</tr>
+<tr>
+<td>output_memo</td>
+<td>zkvm::Output</td>
+<td>Yes</td>
+<td>The output memo for the order.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing.</td>
+</tr>
+<tr>
+<td>rscalar</td>
+<td>String</td>
+<td>Yes</td>
+<td>Hex-encoded scalar for encryption and commitment.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Value of the order, must match input balance.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>balance</td>
+<td>f64</td>
+<td>Yes</td>
+<td>Current balance.</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>String</td>
+<td>Yes</td>
+<td>Type of order, should be &quot;LEND&quot;.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>Initial order status (e.g., &quot;PENDING&quot;).</td>
+</tr>
+<tr>
+<td>deposit</td>
+<td>f64</td>
+<td>Yes</td>
+<td>The amount to deposit.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-10'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<String, &'static str></td>
+<td>Hex-encoded transaction data on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='query-lend-order'>Query Lend Order</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">relayer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+
+<span class="c1">// Query a lend order</span>
+<span class="k">let</span> <span class="n">tx_hex</span> <span class="o">=</span> <span class="nn">relayer</span><span class="p">::</span><span class="nf">query_lend_order_zkos</span><span class="p">(</span>
+    <span class="s">"hex_address_string"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="o">&amp;</span><span class="n">secret_key</span><span class="p">,</span>
+    <span class="s">"account_id_xyz"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"FILLED"</span><span class="nf">.to_string</span><span class="p">(),</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns hex-encoded transaction string</span>
+<span class="nb">String</span> <span class="o">=</span> <span class="s">"0a1b2c3d4e5f...transaction_hex_data"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Queries for lending orders with a specific status for the authenticated account. This can be used to get information about active or past lending positions.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Lending position monitoring and yield tracking for DeFi strategies</li>
+<li>  Pool share management and withdrawal planning for liquidity providers</li>
+<li>  Performance analysis and ROI calculation for lending portfolios</li>
+</ul>
+<h3 id='function-11'>Function</h3>
+<p><code>relayer::query_lend_order_zkos</code></p>
+<h3 id='function-parameters-11'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>Hex-encoded address of the user.</td>
+</tr>
+<tr>
+<td>secret_key</td>
+<td>&amp;RistrettoSecretKey</td>
+<td>Yes</td>
+<td>User&#39;s secret key for signing the query.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The account identifier.</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>String</td>
+<td>Yes</td>
+<td>The status of orders to query (e.g., &quot;FILLED&quot;, &quot;PENDING&quot;).</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-11'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>String</td>
+<td>Hex-encoded query data.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='blockchain-interaction'>Blockchain Interaction</h2><h3 id='get-coin-utxos-by-address'>Get Coin UTXOs by Address</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">chain</span><span class="p">;</span>
+
+<span class="c1">// Get all coin UTXOs for a given address</span>
+<span class="k">let</span> <span class="n">utxos_hex</span> <span class="o">=</span> <span class="nn">chain</span><span class="p">::</span><span class="nf">get_coin_utxo_by_address_hex</span><span class="p">(</span>
+    <span class="s">"hex_address_string"</span><span class="nf">.to_string</span><span class="p">()</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a vector of hex-encoded UTXO strings</span>
+<span class="nd">vec!</span><span class="p">[</span>
+    <span class="s">"utxo_hex_1"</span><span class="p">,</span>
+    <span class="s">"utxo_hex_2"</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><strong>Description:</strong> Retrieves all unspent coin transaction outputs (UTXOs) id for a given address from the blockchain. This is essential for building new transactions.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Wallet balance calculation by summing the values of all UTXOs.</li>
+<li>  Selecting specific UTXOs to use as inputs for new transactions.</li>
+<li>  Displaying a user&#39;s available funds in a wallet application.</li>
+<li>  Auditing and verifying on-chain balances for an address.</li>
+</ul>
+<h3 id='function-12'>Function</h3>
+<p><code>chain::get_coin_utxo_by_address_hex</code></p>
+<h3 id='function-parameters-12'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address to query for UTXOs.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-12'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<Vec<String>, String&gt;</td>
+<td>A vector of hex-encoded UTXO strings on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='get-coin-output-by-utxo-id'>Get Coin Output by UTXO ID</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">chain</span><span class="p">;</span>
+
+<span class="c1">// Get the output details for a specific UTXO</span>
+<span class="k">let</span> <span class="n">output</span> <span class="o">=</span> <span class="nn">chain</span><span class="p">::</span><span class="nf">get_coin_output_by_utxo_id_hex</span><span class="p">(</span>
+    <span class="s">"utxo_id_hex_string"</span><span class="nf">.to_string</span><span class="p">()</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a zkvm::Output struct</span>
+<span class="n">Output</span> <span class="p">{</span>
+    <span class="c1">// ... fields of the output</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Retrieves the full output data for a given UTXO identifier. This is necessary to construct a valid input for a new transaction.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Constructing a <code>zkvm::Input</code> for a new transaction.</li>
+<li>  Verifying the value and ownership of a UTXO before spending.</li>
+<li>  Inspecting the details of a specific on-chain asset.</li>
+<li>  Debugging transaction construction issues.</li>
+<li>  Providing detailed transaction information in a block explorer.</li>
+</ul>
+<h3 id='function-13'>Function</h3>
+<p><code>chain::get_coin_output_by_utxo_id_hex</code></p>
+<h3 id='function-parameters-13'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>utxo_id_hex</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded ID of the UTXO to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-13'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<zkvm::Output, String></td>
+<td>The <code>zkvm::Output</code> struct on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='broadcast-transaction'>Broadcast Transaction</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">chain</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">transaction</span><span class="p">::</span><span class="n">Transaction</span><span class="p">;</span>
+
+<span class="c1">// Broadcast a signed transaction to the network</span>
+<span class="k">let</span> <span class="n">tx_hash</span> <span class="o">=</span> <span class="nn">chain</span><span class="p">::</span><span class="nf">tx_commit_broadcast_transaction</span><span class="p">(</span>
+    <span class="n">transaction</span> <span class="c1">// A fully constructed and signed transaction::Transaction</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns the transaction hash as a string</span>
+<span class="s">"a1b2c3d4...transaction_hash"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Submits a fully formed and signed transaction to the ZkOS network to be included in a block.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Sending a private transfer.</li>
+<li>  Executing a trade order.</li>
+<li>  Depositing funds into a lending pool.</li>
+<li>  Interacting with a smart contract.</li>
+<li>  Finalizing any on-chain action.</li>
+</ul>
+<h3 id='function-14'>Function</h3>
+<p><code>chain::tx_commit_broadcast_transaction</code></p>
+<h3 id='function-parameters-14'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tx</td>
+<td>transaction::Transaction</td>
+<td>Yes</td>
+<td>The complete, signed transaction to broadcast.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-14'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<String, String></td>
+<td>The transaction hash as a string on successful broadcast.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='smart-contract-operations'>Smart Contract Operations</h2><h3 id='deploy-contract'>Deploy Contract</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">script</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">quisquislib</span><span class="p">::</span><span class="nn">ristretto</span><span class="p">::</span><span class="n">RistrettoSecretKey</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">curve25519_dalek</span><span class="p">::</span><span class="nn">scalar</span><span class="p">::</span><span class="n">Scalar</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">address</span><span class="p">::</span><span class="n">Network</span><span class="p">;</span>
+
+<span class="c1">// Create a contract deployment transaction</span>
+<span class="k">let</span> <span class="p">(</span><span class="n">deploy_tx</span><span class="p">,</span> <span class="n">new_state_output</span><span class="p">)</span> <span class="o">=</span> <span class="nn">script</span><span class="p">::</span><span class="nf">create_contract_deploy_transaction</span><span class="p">(</span>
+    <span class="n">secret_key</span><span class="p">,</span>                 <span class="c1">// RistrettoSecretKey</span>
+    <span class="mi">20000000000</span><span class="p">,</span>                <span class="c1">// value_sats: u64</span>
+    <span class="mi">2000000</span><span class="p">,</span>                    <span class="c1">// pool_share: u64</span>
+    <span class="s">"coin_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="n">encryption_scalar</span><span class="p">,</span>          <span class="c1">// Scalar</span>
+    <span class="s">"./relayerprogram.json"</span><span class="p">,</span>    <span class="c1">// program_json_path: &amp;str</span>
+    <span class="nn">Network</span><span class="p">::</span><span class="nf">default</span><span class="p">(),</span>
+    <span class="nd">vec!</span><span class="p">[</span><span class="mi">2000000</span><span class="p">],</span>              <span class="c1">// state_variables: Vec&lt;u64&gt;</span>
+    <span class="s">"RelayerInitializer"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mi">1</span><span class="p">,</span>                          <span class="c1">// fee: u64</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a tuple containing the transaction and the new output state</span>
+<span class="p">(</span>
+    <span class="n">Transaction</span> <span class="p">{</span> <span class="cm">/* ... transaction data ... */</span> <span class="p">},</span>
+    <span class="n">Output</span> <span class="p">{</span> <span class="cm">/* ... new state output data ... */</span> <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a script transaction to deploy a new smart contract to the ZkOS virtual machine. This involves creating the initial state of the contract, depositing funds, and running its initialization program.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Deploying new DeFi protocols like lending pools or decentralized exchanges.</li>
+<li>  Creating custom applications with on-chain logic.</li>
+<li>  Initializing DAOs or other governance contracts.</li>
+<li>  Launching token contracts or other digital assets.</li>
+<li>  Setting up oracle services or other on-chain utilities.</li>
+</ul>
+<h3 id='function-15'>Function</h3>
+<p><code>script::create_contract_deploy_transaction</code></p>
+<h3 id='function-parameters-15'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sk</td>
+<td>RistrettoSecretKey</td>
+<td>Yes</td>
+<td>The secret key of the account deploying the contract.</td>
+</tr>
+<tr>
+<td>value_sats</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The initial amount of satoshis to deposit into the contract.</td>
+</tr>
+<tr>
+<td>pool_share</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The initial pool share amount (if applicable).</td>
+</tr>
+<tr>
+<td>coin_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the deployer.</td>
+</tr>
+<tr>
+<td>ecryption_commitment_scalar</td>
+<td>Scalar</td>
+<td>Yes</td>
+<td>Scalar used for ElGamal encryption and commitments.</td>
+</tr>
+<tr>
+<td>program_json_path</td>
+<td>&amp;str</td>
+<td>Yes</td>
+<td>Path to the JSON file containing the contract&#39;s programs.</td>
+</tr>
+<tr>
+<td>chain_net</td>
+<td>Network</td>
+<td>Yes</td>
+<td>The target network (<code>Main</code> or <code>TestNet</code>).</td>
+</tr>
+<tr>
+<td>state_variables</td>
+<td>Vec<u64></td>
+<td>Yes</td>
+<td>Initial values for the contract&#39;s state variables.</td>
+</tr>
+<tr>
+<td>program_tag</td>
+<td>String</td>
+<td>Yes</td>
+<td>The tag of the initialization program to run upon deployment.</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>u64</td>
+<td>Yes</td>
+<td>Transaction fee.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-15'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result&lt;(Transaction, Output), String&gt;</td>
+<td>On success, a tuple containing the deploy <code>Transaction</code> and the new state <code>Output</code>.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-state-for-deployment'>Create State for Deployment</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">script</span><span class="p">;</span>
+
+<span class="c1">// Create the initial input and output states for a new contract</span>
+<span class="k">let</span> <span class="p">(</span><span class="n">input_state</span><span class="p">,</span> <span class="n">output_state</span><span class="p">)</span> <span class="o">=</span> <span class="nn">script</span><span class="p">::</span><span class="nf">create_state_for_deployment</span><span class="p">(</span>
+    <span class="mi">20000000000</span><span class="p">,</span>                <span class="c1">// value_sats: u64</span>
+    <span class="nd">vec!</span><span class="p">[</span><span class="mi">2000000</span><span class="p">],</span>              <span class="c1">// state_variables: Vec&lt;u64&gt;</span>
+    <span class="s">"contract_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"coin_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a tuple containing the input and output state</span>
+<span class="p">(</span>
+    <span class="n">Input</span> <span class="p">{</span> <span class="cm">/* ... zeroed input state data ... */</span> <span class="p">},</span>
+    <span class="n">Output</span> <span class="p">{</span> <span class="cm">/* ... initial output state data ... */</span> <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>Description:</strong> A helper function that prepares the state UTXOs for a contract deployment. It creates a zeroed-out input state (as this is a new contract) and an output state initialized with the contract&#39;s starting values.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Manually constructing a contract deployment transaction piece by piece.</li>
+<li>  Creating state objects for off-chain testing or simulation of contract logic.</li>
+<li>  Advanced contract interactions where state needs to be prepared separately.</li>
+<li>  Generating state components for multi-step contract operations.</li>
+</ul>
+<h3 id='function-16'>Function</h3>
+<p><code>script::create_state_for_deployment</code></p>
+<h3 id='function-parameters-16'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value_sats</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The initial value to be committed to the contract&#39;s state.</td>
+</tr>
+<tr>
+<td>state_variables</td>
+<td>Vec<u64></td>
+<td>Yes</td>
+<td>Initial values for the contract&#39;s state variables.</td>
+</tr>
+<tr>
+<td>contract_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the new contract.</td>
+</tr>
+<tr>
+<td>coin_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the owner/deployer.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-16'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>(Input, Output)</td>
+<td>A tuple containing the <code>Input</code> and <code>Output</code> state UTXOs.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-memo-for-deployment'>Create Memo for Deployment</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">script</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">curve25519_dalek</span><span class="p">::</span><span class="nn">scalar</span><span class="p">::</span><span class="n">Scalar</span><span class="p">;</span>
+
+<span class="c1">// Create the output memo for a contract deployment</span>
+<span class="k">let</span> <span class="n">output_memo</span> <span class="o">=</span> <span class="nn">script</span><span class="p">::</span><span class="nf">create_memo_for_deployment</span><span class="p">(</span>
+    <span class="mi">20000000000</span><span class="p">,</span>                <span class="c1">// initial_deposit: u64</span>
+    <span class="mi">2000000</span><span class="p">,</span>                    <span class="c1">// pool_share: u64</span>
+    <span class="s">"contract_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"coin_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="n">encryption_scalar</span><span class="p">,</span>          <span class="c1">// Scalar</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns an Output struct containing the memo</span>
+<span class="n">Output</span> <span class="p">{</span> <span class="cm">/* ... memo data ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> A helper function that creates the <code>OutputMemo</code> for a contract deployment. This memo is a public record on the blockchain that contains commitments to the initial deposit and other relevant data like pool shares.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Creating the memo component of a deployment transaction manually.</li>
+<li>  Crafting complex contract calls that require specific, publicly committed data.</li>
+<li>  Testing memo generation logic independently from transaction creation.</li>
+</ul>
+<h3 id='function-17'>Function</h3>
+<p><code>script::create_memo_for_deployment</code></p>
+<h3 id='function-parameters-17'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>initial_deposit</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The amount being deposited into the contract.</td>
+</tr>
+<tr>
+<td>pool_share</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The initial pool share amount.</td>
+</tr>
+<tr>
+<td>contract_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the new contract.</td>
+</tr>
+<tr>
+<td>coin_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the owner/deployer.</td>
+</tr>
+<tr>
+<td>scalar_commitment</td>
+<td>Scalar</td>
+<td>Yes</td>
+<td>The scalar used for creating the value commitments.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-17'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Output</td>
+<td>An <code>Output</code> struct containing the generated <code>OutputMemo</code>.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='import-contract-programs'>Import Contract Programs</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="nn">programcontroller</span><span class="p">::</span><span class="n">ContractManager</span><span class="p">;</span>
+
+<span class="c1">// Import a collection of contract programs from a file</span>
+<span class="k">let</span> <span class="n">contract_manager</span> <span class="o">=</span> <span class="nn">ContractManager</span><span class="p">::</span><span class="nf">import_program</span><span class="p">(</span><span class="s">"./relayerprogram.json"</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a ContractManager struct</span>
+<span class="n">ContractManager</span> <span class="p">{</span>
+    <span class="n">program_index</span><span class="p">:</span> <span class="p">{</span> <span class="cm">/* ... hashmap of tags to indices ... */</span> <span class="p">},</span>
+    <span class="n">program</span><span class="p">:</span> <span class="p">[</span> <span class="cm">/* ... vector of hex-encoded programs ... */</span> <span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Loads a <code>ContractManager</code> instance from a JSON file. The JSON file contains a collection of ZkVM programs and their associated tags, which are necessary for interacting with a specific smart contract.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Loading the standard program set for a known contract (e.g., the relayer contract).</li>
+<li>  Initializing a client application to interact with a deployed contract.</li>
+<li>  Sharing contract definitions between developers.</li>
+<li>  Preparing to create call proofs or contract addresses.</li>
+<li>  Accessing specific programs within a contract by their human-readable tag.</li>
+</ul>
+<h3 id='function-18'>Function</h3>
+<p><code>programcontroller::ContractManager::import_program</code></p>
+<h3 id='function-parameters-18'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>path</td>
+<td>&amp;str</td>
+<td>Yes</td>
+<td>The file path to the contract programs JSON file.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-18'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>ContractManager</td>
+<td>An instance of <code>ContractManager</code> populated with the programs from the file.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-contract-address'>Create Contract Address</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="nn">programcontroller</span><span class="p">::</span><span class="n">ContractManager</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">address</span><span class="p">::</span><span class="n">Network</span><span class="p">;</span>
+
+<span class="c1">// First, import the programs</span>
+<span class="k">let</span> <span class="n">contract_manager</span> <span class="o">=</span> <span class="nn">ContractManager</span><span class="p">::</span><span class="nf">import_program</span><span class="p">(</span><span class="s">"./relayerprogram.json"</span><span class="p">);</span>
+
+<span class="c1">// Then, create the contract address</span>
+<span class="k">let</span> <span class="n">address</span> <span class="o">=</span> <span class="n">contract_manager</span><span class="nf">.create_contract_address</span><span class="p">(</span><span class="nn">Network</span><span class="p">::</span><span class="nf">default</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a hex-encoded address string</span>
+<span class="s">"0c...contract_address_hex"</span>
+</code></pre></div>
+<p><strong>Description:</strong> Calculates the on-chain address for a smart contract. The address is derived from the Merkle root of all the programs that make up the contract. This allows users to verify that they are interacting with the correct, untampered contract.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Determining the address to send funds or transactions to when interacting with a contract.</li>
+<li>  Verifying that a given address corresponds to a known set of contract programs.</li>
+<li>  Generating addresses for new contracts before deployment.</li>
+<li>  Using the address as an identifier for a contract in off-chain systems.</li>
+<li>  Building contract deployment scripts.</li>
+</ul>
+<h3 id='function-19'>Function</h3>
+<p><code>programcontroller::ContractManager::create_contract_address</code></p>
+<h3 id='function-parameters-19'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>network</td>
+<td>Network</td>
+<td>Yes</td>
+<td>The target network (<code>Main</code> or <code>TestNet</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-19'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<String, &'static str></td>
+<td>The hex-encoded contract address on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-call-proof'>Create Call Proof</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="nn">programcontroller</span><span class="p">::</span><span class="n">ContractManager</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">address</span><span class="p">::</span><span class="n">Network</span><span class="p">;</span>
+
+<span class="c1">// First, import the programs</span>
+<span class="k">let</span> <span class="n">contract_manager</span> <span class="o">=</span> <span class="nn">ContractManager</span><span class="p">::</span><span class="nf">import_program</span><span class="p">(</span><span class="s">"./relayerprogram.json"</span><span class="p">);</span>
+
+<span class="c1">// Create a call proof for a specific program within the contract</span>
+<span class="k">let</span> <span class="n">call_proof</span> <span class="o">=</span> <span class="n">contract_manager</span><span class="nf">.create_call_proof</span><span class="p">(</span>
+    <span class="nn">Network</span><span class="p">::</span><span class="nf">default</span><span class="p">(),</span>
+    <span class="s">"CreateTraderOrder"</span> <span class="c1">// The tag of the program to call</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a CallProof struct</span>
+<span class="n">CallProof</span> <span class="p">{</span> <span class="cm">/* ... Merkle proof data ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Generates a Merkle proof (<code>CallProof</code>) that cryptographically proves a specific program is part of a contract. This proof must be included in any transaction that calls a function on the smart contract.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Creating a transaction that executes a specific contract function.</li>
+<li>  Authorizing a state change in a smart contract.</li>
+<li>  Ensuring that only valid, existing functions on a contract can be called.</li>
+<li>  Building transactions for trading, lending, or any other contract interaction.</li>
+<li>  Submitting valid instructions to the ZkOS virtual machine.</li>
+</ul>
+<h3 id='function-20'>Function</h3>
+<p><code>programcontroller::ContractManager::create_call_proof</code></p>
+<h3 id='function-parameters-20'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>network</td>
+<td>Network</td>
+<td>Yes</td>
+<td>The target network (<code>Main</code> or <code>TestNet</code>).</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>&amp;str</td>
+<td>Yes</td>
+<td>The tag identifying the specific program to be called.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-20'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<CallProof, &'static str></td>
+<td>The <code>CallProof</code> struct needed for the transaction on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='utility-functions'>Utility Functions</h2><h3 id='create-input-from-output'>Create Input from Output</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">util</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">zkvm</span><span class="p">::{</span><span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">};</span>
+
+<span class="c1">// Create an Input from a previously fetched Output and UTXO ID</span>
+<span class="k">let</span> <span class="n">input</span><span class="p">:</span> <span class="n">Input</span> <span class="o">=</span> <span class="nn">util</span><span class="p">::</span><span class="nf">create_input_coin_from_output_coin</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">,</span> <span class="c1">// zkvm::Output</span>
+    <span class="n">utxo_id_hex</span><span class="p">,</span> <span class="c1">// String</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a zkvm::Input struct</span>
+<span class="n">Input</span> <span class="p">{</span> <span class="cm">/* ... input data ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> A fundamental utility function that converts a coin <code>Output</code> and its corresponding UTXO ID into a spendable <code>Input</code>. This is a required step for constructing almost any transaction.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Preparing a UTXO to be spent in a transfer, trade, or contract call.</li>
+<li>  Constructing transaction chains where the output of one transaction becomes the input of another.</li>
+<li>  Building custom transaction logic from scratch.</li>
+<li>  Wallet development for managing and spending funds.</li>
+<li>  Assembling inputs for batch transactions.</li>
+</ul>
+<h3 id='function-21'>Function</h3>
+<p><code>util::create_input_coin_from_output_coin</code></p>
+<h3 id='function-parameters-21'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>out</td>
+<td>Output</td>
+<td>Yes</td>
+<td>The <code>zkvm::Output</code> to be converted into an input.</td>
+</tr>
+<tr>
+<td>utxo</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded UTXO ID corresponding to the output.</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-21'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Result<Input, &'static str></td>
+<td>The <code>zkvm::Input</code> struct on success.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-trader-memo-output'>Create Trader Memo Output</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">util</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="nn">relayer_types</span><span class="p">::</span><span class="n">PositionType</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">curve25519_dalek</span><span class="p">::</span><span class="nn">scalar</span><span class="p">::</span><span class="n">Scalar</span><span class="p">;</span>
+
+<span class="c1">// Create an OutputMemo for a trade order</span>
+<span class="k">let</span> <span class="n">output_memo</span> <span class="o">=</span> <span class="nn">util</span><span class="p">::</span><span class="nf">create_output_memo_for_trader</span><span class="p">(</span>
+    <span class="s">"contract_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"owner_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mi">1000</span><span class="p">,</span>           <span class="c1">// initial_margin</span>
+    <span class="mi">5000</span><span class="p">,</span>           <span class="c1">// position_size</span>
+    <span class="mi">10</span><span class="p">,</span>             <span class="c1">// leverage</span>
+    <span class="mi">45000</span><span class="p">,</span>          <span class="c1">// entry_price</span>
+    <span class="nn">PositionType</span><span class="p">::</span><span class="n">LONG</span><span class="p">,</span>
+    <span class="n">scalar</span><span class="p">,</span>         <span class="c1">// Scalar for blinding</span>
+    <span class="mi">0</span><span class="p">,</span>              <span class="c1">// timebounds</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a zkvm::Output struct containing a memo</span>
+<span class="n">Output</span> <span class="p">{</span> <span class="cm">/* ... memo data for trading ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a specialized <code>OutputMemo</code> containing all the necessary data for submitting a trade order to the relayer contract.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Manually constructing a <code>submit_trade_order</code> transaction.</li>
+<li>  Building custom trading clients with specific memo requirements.</li>
+<li>  Testing trade order creation logic.</li>
+<li>  Creating complex trading strategies that require manual memo construction.</li>
+<li>  Integrating with automated trading systems.</li>
+</ul>
+<h3 id='function-22'>Function</h3>
+<p><code>util::create_output_memo_for_trader</code></p>
+<h3 id='function-parameters-22'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>script_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the relayer contract.</td>
+</tr>
+<tr>
+<td>owner_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the trader.</td>
+</tr>
+<tr>
+<td>initial_margin</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The initial margin for the position.</td>
+</tr>
+<tr>
+<td>position_size</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The size of the position.</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The leverage for the position.</td>
+</tr>
+<tr>
+<td>entry_price</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The desired entry price.</td>
+</tr>
+<tr>
+<td>order_side</td>
+<td>PositionType</td>
+<td>Yes</td>
+<td><code>PositionType::LONG</code> or <code>PositionType::SHORT</code>.</td>
+</tr>
+<tr>
+<td>scalar</td>
+<td>Scalar</td>
+<td>Yes</td>
+<td>The random scalar used for blinding the commitments.</td>
+</tr>
+<tr>
+<td>timebounds</td>
+<td>u32</td>
+<td>Yes</td>
+<td>The timebounds for the transaction (usually 0).</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-22'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Output</td>
+<td>An <code>Output</code> struct containing the generated <code>OutputMemo</code>.</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h3 id='create-lender-memo-output'>Create Lender Memo Output</h3><div class="highlight"><pre class="highlight rust tab-rust"><code><span class="k">use</span> <span class="nn">twilight_privacy_sdk</span><span class="p">::</span><span class="n">util</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">curve25519_dalek</span><span class="p">::</span><span class="nn">scalar</span><span class="p">::</span><span class="n">Scalar</span><span class="p">;</span>
+
+<span class="c1">// Create an OutputMemo for a lend order</span>
+<span class="k">let</span> <span class="n">output_memo</span> <span class="o">=</span> <span class="nn">util</span><span class="p">::</span><span class="nf">create_output_memo_for_lender</span><span class="p">(</span>
+    <span class="s">"contract_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="s">"owner_address_hex"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="mi">10000</span><span class="p">,</span>          <span class="c1">// deposit</span>
+    <span class="mi">10000</span><span class="p">,</span>          <span class="c1">// pool_share</span>
+    <span class="n">scalar</span><span class="p">,</span>         <span class="c1">// Scalar for blinding</span>
+    <span class="mi">0</span><span class="p">,</span>              <span class="c1">// timebounds</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above operation looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight rust tab-rust"><code><span class="c1">// Returns a zkvm::Output struct containing a memo</span>
+<span class="n">Output</span> <span class="p">{</span> <span class="cm">/* ... memo data for lending ... */</span> <span class="p">}</span>
+</code></pre></div>
+<p><strong>Description:</strong> Creates a specialized <code>OutputMemo</code> for submitting a lend order to the relayer contract&#39;s lending pool.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>  Manually constructing a <code>submit_lend_order</code> transaction.</li>
+<li>  Building DeFi applications that interact with the lending pool.</li>
+<li>  Testing lending and yield-farming logic.</li>
+<li>  Creating automated strategies for providing liquidity.</li>
+<li>  Developing custom interfaces for DeFi lending.</li>
+</ul>
+<h3 id='function-23'>Function</h3>
+<p><code>util::create_output_memo_for_lender</code></p>
+<h3 id='function-parameters-23'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data_Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>script_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the relayer contract.</td>
+</tr>
+<tr>
+<td>owner_address</td>
+<td>String</td>
+<td>Yes</td>
+<td>The hex-encoded address of the lender.</td>
+</tr>
+<tr>
+<td>deposit</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The amount of funds to deposit.</td>
+</tr>
+<tr>
+<td>pool_share</td>
+<td>u64</td>
+<td>Yes</td>
+<td>The number of pool shares to be received.</td>
+</tr>
+<tr>
+<td>scalar</td>
+<td>Scalar</td>
+<td>Yes</td>
+<td>The random scalar used for blinding the commitments.</td>
+</tr>
+<tr>
+<td>timebounds</td>
+<td>u32</td>
+<td>Yes</td>
+<td>The timebounds for the transaction (usually 0).</td>
+</tr>
+</tbody></table>
+<h3 id='return-type-23'>Return Type</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>Output</td>
+<td>An <code>Output</code> struct containing the generated <code>OutputMemo</code>.</td>
+</tr>
+</tbody></table>
+
+<hr>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="rust">rust</a>
           </div>
       </div>
     </div>

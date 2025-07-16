@@ -2,10 +2,11 @@
 title: Twilight Relayer API Reference
 
 language_tabs:
-  # - shell
+  - shell
   # - ruby
   # - python
   - javascript
+  - rust
 
 toc_footers:
   - Twilight © 2025
@@ -14,6 +15,8 @@ includes:
   - public
   - private
   - websocket
+  - zkos
+  - sdk
 
 search: true
 

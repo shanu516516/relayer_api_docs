@@ -6,6 +6,7 @@ language_tabs:
   # - ruby
   # - python
   - javascript
+  - rust
 
 toc_footers:
   - Twilight © 2025
@@ -15,6 +16,7 @@ includes:
   - private
   - websocket
   - zkos
+  - sdk
 
 search: true
 

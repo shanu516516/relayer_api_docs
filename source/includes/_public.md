@@ -26,7 +26,15 @@ For example:
 | Content-Type | `application/json`             |
 | Body         | JSON-RPC 2.0 formatted request |
 
-## Candle Data
+---
+
+# Data API
+
+The Data API provides publicly available market data, analytics, and system information. These endpoints do not require authentication and are designed for market monitoring, analysis, and data feeds.
+
+## Market Data
+
+### Candle Data
 
 ```javascript
 var myHeaders = new Headers();
@@ -136,7 +144,175 @@ Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, da
 | trades     | integer   | Number of trades executed during the period          |
 | usd_volume | string    | USD trading volume for the period (2 decimal places) |
 
-## Get Funding Rate
+### Btc Usd Price
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "btc_usd_price",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 45551,
+    "price": "42447.0400000000008731149137020111083984375",
+    "timestamp": "2024-01-31T11:01:30.907388Z"
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns the current BTC-USD price from the perpetual contract, providing real-time price information for trading and valuation.
+
+**Use Cases:**
+
+- Real-time price feeds for trading applications and market data display
+- Portfolio valuation and mark-to-market calculations
+- Price alerts and notification systems for traders
+- Risk management and position monitoring systems
+- Market data synchronization and price validation
+
+Btc Usd Price
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`btc_usd_price`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field     | Data_Type | Description                              |
+| --------- | --------- | ---------------------------------------- |
+| id        | integer   | Internal price record ID                 |
+| price     | string    | Current BTC-USD price (2 decimal places) |
+| timestamp | string    | Price timestamp (ISO 8601 format)        |
+
+### Historical Price
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "historical_price",
+  id: 123,
+  params: {
+    from: "2024-01-14T00:00:00Z",
+    to: "2024-01-31T01:00:00Z",
+    limit: 3,
+    offset: 0,
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": 1,
+      "price": "43493.2600000000020372681319713592529296875",
+      "timestamp": "2024-01-30T11:00:17.892660Z"
+    },
+    {
+      "id": 2,
+      "price": "43493.2699999999967985786497592926025390625",
+      "timestamp": "2024-01-30T11:00:18.894869Z"
+    },
+    {
+      "id": 3,
+      "price": "43493.2600000000020372681319713592529296875",
+      "timestamp": "2024-01-30T11:00:19.895641Z"
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Retrieves historical BTC-USD price data for backtesting, analysis, and research purposes across specified time ranges.
+
+**Use Cases:**
+
+- Historical backtesting of trading strategies and algorithm development
+- Price trend analysis and technical indicator calculation
+- Research and academic studies on cryptocurrency market behavior
+- Compliance reporting and regulatory data requirements
+- Performance attribution and risk analysis for portfolio management
+
+Historical BTC price
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`historical_price`
+
+### Message Parameters
+
+| Params | Data_Type | Values            |
+| ------ | --------- | ----------------- |
+| from   | datetime  | Start time        |
+| to     | datetime  | End time          |
+| limit  | integer   | Number of entries |
+| offset | integer   | Page number       |
+
+### Response Fields
+
+| Field     | Data_Type | Description                                 |
+| --------- | --------- | ------------------------------------------- |
+| id        | integer   | Internal price record ID                    |
+| price     | string    | Historical BTC-USD price (2 decimal places) |
+| timestamp | string    | Price timestamp (ISO 8601 format)           |
+
+### Get Funding Rate
 
 ```javascript
 var myHeaders = new Headers();
@@ -212,7 +388,7 @@ Current funding rate
 | rate      | string    | Current funding rate (4 decimal places)          |
 | timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
 
-## Historical Funding Rate
+### Historical Funding Rate
 
 ```javascript
 var myHeaders = new Headers();
@@ -310,6 +486,268 @@ Historical funding rate
 | rate      | string    | Funding rate for the period (4 decimal places)   |
 | timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
 
+### Get Fee Rate
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "get_fee_rate",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 42,
+    "order_filled_on_market": "0.0005",
+    "order_filled_on_limit": "0.00025",
+    "order_settled_on_market": "0.00075",
+    "order_settled_on_limit": "0.0005",
+    "timestamp": "2024-02-27T12:00:00Z"
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns the current trading fee structure for different order types and execution scenarios on the Relayer-matchbook.
+
+**Use Cases:**
+
+- Trading cost calculation and profitability analysis for different strategies
+- Fee optimization strategies for high-frequency and algorithmic trading
+- Order type selection based on fee structure and market conditions
+- Cost-benefit analysis for market making vs. taking strategies
+- Compliance and transparency for fee disclosure requirements
+
+Current fee rate
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`get_fee_rate`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field                   | Data_Type | Description                                                |
+| ----------------------- | --------- | ---------------------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                                |
+| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
+| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
+
+### Historical Fee Rate
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "historical_fee_rate",
+  id: 123,
+  params: {
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-02-01T00:00:00Z",
+    limit: 3,
+    offset: 0,
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": 40,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-28T12:00:00Z"
+    },
+    {
+      "id": 41,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-29T12:00:00Z"
+    },
+    {
+      "id": 42,
+      "order_filled_on_market": "0.0005",
+      "order_filled_on_limit": "0.00025",
+      "order_settled_on_market": "0.00075",
+      "order_settled_on_limit": "0.0005",
+      "timestamp": "2024-01-30T12:00:00Z"
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Provides historical trading fee data for analyzing fee trends and optimizing trading strategies over time.
+
+**Use Cases:**
+
+- Historical fee analysis for trading strategy optimization and cost modeling
+- Backtesting with accurate fee calculations for realistic performance metrics
+- Fee trend analysis for predicting future fee changes and planning
+- Compliance reporting and audit requirements for fee transparency
+- Cost analysis for institutional trading and volume-based fee negotiations
+
+Historical fee rate
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`historical_fee_rate`
+
+### Message Parameters
+
+| Params | Data_Type | Values            |
+| ------ | --------- | ----------------- |
+| from   | datetime  | Start time        |
+| to     | datetime  | End time          |
+| limit  | integer   | Number of entries |
+| offset | integer   | Page number       |
+
+### Response Fields
+
+| Field                   | Data_Type | Description                                                |
+| ----------------------- | --------- | ---------------------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                                |
+| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
+| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
+
+## Market Analytics
+
+### Position Size
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "position_size",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "total": "17374082",
+    "total_long": "17374082",
+    "total_short": "0"
+  },
+  "id": 123
+}
+```
+
+**Description:** Provides aggregate position size information across all market participants, showing total open interest and market exposure distribution.
+
+**Use Cases:**
+
+- Open interest analysis for market sentiment and trend confirmation
+- Risk management for position sizing and exposure calculation
+- Market capacity assessment for large order planning
+- Long/short ratio analysis for contrarian trading strategies
+- Liquidity planning and market impact estimation
+
+Position Size
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`position_size`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field       | Data_Type | Description                                                         |
+| ----------- | --------- | ------------------------------------------------------------------- |
+| total       | string    | Total open position size across all participants (2 decimal places) |
+| total_long  | string    | Total long position size (2 decimal places)                         |
+| total_short | string    | Total short position size (2 decimal places)                        |
+
 ## Open Limit Order
 
 ```javascript
@@ -384,7 +822,7 @@ Open Limit Order
 
 _Note: Each order in ask/bid arrays contains price, size, and order details_
 
-## Recent Trade Order
+### Recent Trade Order
 
 ```javascript
 var myHeaders = new Headers();
@@ -471,7 +909,7 @@ Recent Trade Order
 | positionsize | string    | Size of the executed trade (2 decimal places)   |
 | timestamp    | string    | Trade execution timestamp (ISO 8601 format)     |
 
-## Position Size
+### Pool Share Value
 
 ```javascript
 var myHeaders = new Headers();
@@ -479,7 +917,7 @@ myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
-  method: "position_size",
+  method: "pool_share_value",
   id: 123,
   params: null,
 });
@@ -502,26 +940,22 @@ fetch("API_ENDPOINT/api", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": {
-    "total": "17374082",
-    "total_long": "17374082",
-    "total_short": "0"
-  },
+  "result": 123.456,
   "id": 123
 }
 ```
 
-**Description:** Provides aggregate position size information across all market participants, showing total open interest and market exposure distribution.
+**Description:** Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.
 
 **Use Cases:**
 
-- Open interest analysis for market sentiment and trend confirmation
-- Risk management for position sizing and exposure calculation
-- Market capacity assessment for large order planning
-- Long/short ratio analysis for contrarian trading strategies
-- Liquidity planning and market impact estimation
+- Yield calculation and return on investment analysis for lending strategies
+- Pool performance monitoring and comparative analysis across time periods
+- Liquidity provision optimization and capital allocation decisions
+- DeFi yield farming integration and automated rebalancing strategies
+- Portfolio valuation for mixed trading and lending positions
 
-Position Size
+Current pool share value (value of 100 pool shares)
 
 ### HTTP Method
 
@@ -529,7 +963,7 @@ Position Size
 
 ### RPC Method
 
-`position_size`
+`pool_share_value`
 
 ### Message Parameters
 
@@ -539,13 +973,13 @@ Position Size
 
 ### Response Fields
 
-| Field       | Data_Type | Description                                                         |
-| ----------- | --------- | ------------------------------------------------------------------- |
-| total       | string    | Total open position size across all participants (2 decimal places) |
-| total_long  | string    | Total long position size (2 decimal places)                         |
-| total_short | string    | Total short position size (2 decimal places)                        |
+| Field  | Data_Type | Description                                         |
+| ------ | --------- | --------------------------------------------------- |
+| result | number    | Current value of 100 pool shares (2 decimal places) |
 
-## Btc Usd Price
+## System Information
+
+### Server Time
 
 ```javascript
 var myHeaders = new Headers();
@@ -553,9 +987,8 @@ myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
-  method: "btc_usd_price",
+  method: "server_time",
   id: 123,
-  params: null,
 });
 
 var requestOptions = {
@@ -576,26 +1009,22 @@ fetch("API_ENDPOINT/api", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": {
-    "id": 45551,
-    "price": "42447.0400000000008731149137020111083984375",
-    "timestamp": "2024-01-31T11:01:30.907388Z"
-  },
+  "result": "2024-01-31T11:05:37.546616309Z",
   "id": 123
 }
 ```
 
-**Description:** Returns the current BTC-USD price from the perpetual contract, providing real-time price information for trading and valuation.
+**Description:** Returns the current server timestamp for time synchronization and ensuring accurate order timestamping.
 
 **Use Cases:**
 
-- Real-time price feeds for trading applications and market data display
-- Portfolio valuation and mark-to-market calculations
-- Price alerts and notification systems for traders
-- Risk management and position monitoring systems
-- Market data synchronization and price validation
+- Client-server time synchronization for accurate order placement
+- Timestamp validation for API requests and signature generation
+- Latency measurement and network performance monitoring
+- Event sequencing and order book consistency verification
+- Audit trail and compliance logging with accurate timestamps
 
-Btc Usd Price
+Server time
 
 ### HTTP Method
 
@@ -603,7 +1032,7 @@ Btc Usd Price
 
 ### RPC Method
 
-`btc_usd_price`
+`server_time`
 
 ### Message Parameters
 
@@ -613,107 +1042,19 @@ Btc Usd Price
 
 ### Response Fields
 
-| Field     | Data_Type | Description                              |
-| --------- | --------- | ---------------------------------------- |
-| id        | integer   | Internal price record ID                 |
-| price     | string    | Current BTC-USD price (2 decimal places) |
-| timestamp | string    | Price timestamp (ISO 8601 format)        |
+| Field  | Data_Type | Description                                |
+| ------ | --------- | ------------------------------------------ |
+| result | string    | Current server timestamp (ISO 8601 format) |
 
-## Historical Price
+---
 
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+# Order API
 
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "historical_price",
-  id: 123,
-  params: {
-    from: "2024-01-14T00:00:00Z",
-    to: "2024-01-31T01:00:00Z",
-    limit: 3,
-    offset: 0,
-  },
-});
+The Order API handles order management, chain operations, and trading activities. These endpoints may require authentication and are designed for active trading operations.
 
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
+## Authentication
 
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": [
-    {
-      "id": 1,
-      "price": "43493.2600000000020372681319713592529296875",
-      "timestamp": "2024-01-30T11:00:17.892660Z"
-    },
-    {
-      "id": 2,
-      "price": "43493.2699999999967985786497592926025390625",
-      "timestamp": "2024-01-30T11:00:18.894869Z"
-    },
-    {
-      "id": 3,
-      "price": "43493.2600000000020372681319713592529296875",
-      "timestamp": "2024-01-30T11:00:19.895641Z"
-    }
-  ],
-  "id": 123
-}
-```
-
-**Description:** Retrieves historical BTC-USD price data for backtesting, analysis, and research purposes across specified time ranges.
-
-**Use Cases:**
-
-- Historical backtesting of trading strategies and algorithm development
-- Price trend analysis and technical indicator calculation
-- Research and academic studies on cryptocurrency market behavior
-- Compliance reporting and regulatory data requirements
-- Performance attribution and risk analysis for portfolio management
-
-Historical BTC price
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`historical_price`
-
-### Message Parameters
-
-| Params | Data_Type | Values            |
-| ------ | --------- | ----------------- |
-| from   | datetime  | Start time        |
-| to     | datetime  | End time          |
-| limit  | integer   | Number of entries |
-| offset | integer   | Page number       |
-
-### Response Fields
-
-| Field     | Data_Type | Description                                 |
-| --------- | --------- | ------------------------------------------- |
-| id        | integer   | Internal price record ID                    |
-| price     | string    | Historical BTC-USD price (2 decimal places) |
-| timestamp | string    | Price timestamp (ISO 8601 format)           |
-
-## Login
+### Login
 
 ```javascript
 var myHeaders = new Headers();
@@ -789,7 +1130,9 @@ Endpoint to get `api_key` and `api_secret` for private API endpoints.
 You must add <code>api_key</code> and <code>api_secret</code> in your private API endpoint header.
 </aside>
 
-## Server Time
+## Order Management
+
+### Submit Trade Order
 
 ```javascript
 var myHeaders = new Headers();
@@ -797,8 +1140,11 @@ myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
   jsonrpc: "2.0",
-  method: "server_time",
+  method: "submit_trade_order",
   id: 123,
+  params: {
+    data: "hex_encoded_transaction_data",
+  },
 });
 
 var requestOptions = {
@@ -819,22 +1165,25 @@ fetch("API_ENDPOINT/api", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": "2024-01-31T11:05:37.546616309Z",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
   "id": 123
 }
 ```
 
-**Description:** Returns the current server timestamp for time synchronization and ensuring accurate order timestamping.
+**Description:** Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.
 
 **Use Cases:**
 
-- Client-server time synchronization for accurate order placement
-- Timestamp validation for API requests and signature generation
-- Latency measurement and network performance monitoring
-- Event sequencing and order book consistency verification
-- Audit trail and compliance logging with accurate timestamps
+- Direct order placement for manual and algorithmic trading strategies
+- High-frequency trading and automated market making operations
+- Portfolio rebalancing and risk management order execution
+- Strategic position building and liquidation for institutional trading
+- Integration with trading bots and automated trading systems
 
-Server time
+Submit a new trade order to the Relayer-matchbook
 
 ### HTTP Method
 
@@ -842,21 +1191,554 @@ Server time
 
 ### RPC Method
 
-`server_time`
+`submit_trade_order`
 
 ### Message Parameters
 
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
+| Params | Data_Type | Values                                           |
+| ------ | --------- | ------------------------------------------------ |
+| data   | string    | Hex-encoded transaction data for the trade order |
 
 ### Response Fields
 
-| Field  | Data_Type | Description                                |
-| ------ | --------- | ------------------------------------------ |
-| result | string    | Current server timestamp (ISO 8601 format) |
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order submission     |
+| id      | string    | Unique request identifier for tracking purposes |
 
-## Transaction Hash
+### Submit Lend Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "submit_lend_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_transaction_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets.
+
+**Use Cases:**
+
+- Yield farming and passive income generation through lending strategies
+- Liquidity provision to support margin trading and leverage operations
+- Portfolio diversification with DeFi lending products and fixed-income alternatives
+- Capital allocation optimization for unused trading capital
+- Automated lending strategies and rebalancing for institutional accounts
+
+Submit a new lend order to the lending pool
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`submit_lend_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                          |
+| ------ | --------- | ----------------------------------------------- |
+| data   | string    | Hex-encoded transaction data for the lend order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order submission     |
+| id      | string    | Unique request identifier for tracking purposes |
+
+### Settle Trade Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "settle_trade_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_settlement_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.
+
+**Use Cases:**
+
+- Order finalization and trade confirmation for executed positions
+- Settlement timing optimization for tax and accounting purposes
+- Automated settlement workflows for algorithmic trading systems
+- Risk management through controlled settlement processes
+- Compliance and audit trail maintenance for trade settlement records
+
+Settle an existing trade order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`settle_trade_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                          |
+| ------ | --------- | ----------------------------------------------- |
+| data   | string    | Hex-encoded settlement data for the trade order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order settlement     |
+| id      | string    | Unique request identifier for tracking purposes |
+
+### Settle Lend Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "settle_lend_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_settlement_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.
+
+**Use Cases:**
+
+- Lending position finalization and yield calculation confirmation
+- Withdrawal processing and capital reallocation for lending strategies
+- Automated settlement for DeFi lending and yield optimization protocols
+- Pool share reconciliation and accurate yield distribution
+- Compliance reporting for lending income and tax calculation purposes
+
+Settle an existing lend order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`settle_lend_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                         |
+| ------ | --------- | ---------------------------------------------- |
+| data   | string    | Hex-encoded settlement data for the lend order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order settlement     |
+| id      | string    | Unique request identifier for tracking purposes |
+
+### Cancel Trader Order
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "cancel_trader_order",
+  id: 123,
+  params: {
+    data: "hex_encoded_cancellation_data",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "message": "Order request submitted successfully",
+    "id": "unique_request_id"
+  },
+  "id": 123
+}
+```
+
+**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.
+
+**Use Cases:**
+
+- Risk management through rapid order cancellation during market volatility
+- Strategy adjustment and order modification for changing market conditions
+- Automated order management and stop-loss implementation for trading algorithms
+- Position size adjustment and order replacement for optimal execution
+- Emergency order cancellation and risk mitigation during system issues
+
+Cancel an existing trader order
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`cancel_trader_order`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                             |
+| ------ | --------- | -------------------------------------------------- |
+| data   | string    | Hex-encoded cancellation data for the trader order |
+
+### Response Fields
+
+| Field   | Data_Type | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| message | string    | Success message confirming order cancellation   |
+| id      | string    | Unique request identifier for tracking purposes |
+
+## Order Information & Chain Data
+
+### Trader Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "trader_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 50,
+    "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "position_type": "LONG",
+    "order_status": "FILLED",
+    "order_type": "MARKET",
+    "entryprice": "42508.7099999999991268850862979888916015625",
+    "execution_price": "30000",
+    "positionsize": "4250871",
+    "leverage": "10",
+    "initial_margin": "10",
+    "available_margin": "10",
+    "timestamp": "2024-01-31T11:14:45.575359Z",
+    "bankruptcy_price": "38644.281818181814742274582386016845703125",
+    "bankruptcy_value": "110",
+    "maintenance_margin": "0.5375",
+    "liquidation_price": "38834.039054470704286359250545501708984375",
+    "unrealized_pnl": "0",
+    "settlement_price": "0",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "entry_sequence": 1,
+    "fee_filled": "0",
+    "fee_settled": "0"
+  },
+  "id": 123
+}
+```
+
+**Description:** Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.
+
+**Use Cases:**
+
+- Order status verification and execution confirmation for specific traders
+- Risk management and position monitoring for trading algorithms
+- Compliance monitoring and audit trail verification for regulatory purposes
+- Portfolio management and performance tracking for individual accounts
+- Customer service and order dispute resolution with privacy protection
+
+Get trader order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`trader_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                  |
+| ------ | --------- | --------------------------------------- |
+| data   | string    | Hex-encoded query data for trader order |
+
+### Response Fields
+
+| Field              | Data_Type | Description                                                 |
+| ------------------ | --------- | ----------------------------------------------------------- |
+| id                 | integer   | Internal order ID                                           |
+| uuid               | string    | Unique order identifier                                     |
+| account_id         | string    | Account public key associated with the order                |
+| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
+| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
+| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
+| entryprice         | string    | Entry price for the position (2 decimal places)             |
+| execution_price    | string    | Actual execution price (2 decimal places)                   |
+| positionsize       | string    | Position size in base currency (2 decimal places)           |
+| leverage           | string    | Leverage multiplier (2 decimal places)                      |
+| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
+| available_margin   | string    | Available margin for the position (2 decimal places)        |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
+| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
+| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
+| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
+| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
+| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
+| entry_nonce        | integer   | Entry transaction nonce                                     |
+| exit_nonce         | integer   | Exit transaction nonce                                      |
+| entry_sequence     | integer   | Entry sequence number                                       |
+| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
+| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+
+### Lend Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "lend_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 25,
+    "uuid": "6fb4f910-ceb4-432d-995b-79eddb8c4c83",
+    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "balance": "153620",
+    "order_status": "FILLED",
+    "order_type": "MARKET",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "deposit": "153620",
+    "new_lend_state_amount": "153620",
+    "timestamp": "2024-02-28T04:59:44.020048Z",
+    "npoolshare": "100",
+    "nwithdraw": "0",
+    "payment": "0",
+    "tlv0": "0",
+    "tps0": "0",
+    "tlv1": "0",
+    "tps1": "0",
+    "tlv2": "0",
+    "tps2": "0",
+    "tlv3": "0",
+    "tps3": "0",
+    "entry_sequence": 10
+  },
+  "id": 123
+}
+```
+
+**Description:** Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.
+
+**Use Cases:**
+
+- Lending position monitoring and yield tracking for DeFi strategies
+- Pool share management and withdrawal planning for liquidity providers
+- Performance analysis and ROI calculation for lending portfolios
+- Risk assessment and exposure management for lending activities
+- Compliance reporting and audit trail for lending operations
+
+Get lend order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`lend_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                |
+| ------ | --------- | ------------------------------------- |
+| data   | string    | Hex-encoded query data for lend order |
+
+### Response Fields
+
+| Field                 | Data_Type | Description                                             |
+| --------------------- | --------- | ------------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                                  |
+| uuid                  | string    | Unique lend order identifier                            |
+| account_id            | string    | Account public key associated with the lend order       |
+| balance               | string    | Current balance in the lend order (2 decimal places)    |
+| order_status          | string    | Current order status ("FILLED", "PENDING", "CANCELLED") |
+| order_type            | string    | Order type ("MARKET", "LIMIT")                          |
+| entry_nonce           | integer   | Entry transaction nonce                                 |
+| exit_nonce            | integer   | Exit transaction nonce                                  |
+| deposit               | string    | Initial deposit amount (2 decimal places)               |
+| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)            |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)              |
+| npoolshare            | string    | Number of pool shares (2 decimal places)                |
+| nwithdraw             | string    | Withdrawal amount (2 decimal places)                    |
+| payment               | string    | Payment amount (2 decimal places)                       |
+| tlv0                  | string    | Total locked value tier 0 (2 decimal places)            |
+| tps0                  | string    | Total pool shares tier 0 (2 decimal places)             |
+| tlv1                  | string    | Total locked value tier 1 (2 decimal places)            |
+| tps1                  | string    | Total pool shares tier 1 (2 decimal places)             |
+| tlv2                  | string    | Total locked value tier 2 (2 decimal places)            |
+| tps2                  | string    | Total pool shares tier 2 (2 decimal places)             |
+| tlv3                  | string    | Total locked value tier 3 (2 decimal places)            |
+| tps3                  | string    | Total pool shares tier 3 (2 decimal places)             |
+| entry_sequence        | integer   | Entry sequence number                                   |
+
+### Transaction Hash
 
 The `transaction_hashes` method supports three different parameter types for querying transaction data:
 
@@ -1044,861 +1926,3 @@ The `transaction_hashes` method accepts one of three parameter variants:
 | output       | string    | Hex-encoded transaction output data (nullable)         |
 | request_id   | string    | Unique request identifier (nullable)                   |
 | tx_hash      | string    | Blockchain transaction hash                            |
-
-## Get Fee Rate
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "get_fee_rate",
-  id: 123,
-  params: null,
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "id": 42,
-    "order_filled_on_market": "0.0005",
-    "order_filled_on_limit": "0.00025",
-    "order_settled_on_market": "0.00075",
-    "order_settled_on_limit": "0.0005",
-    "timestamp": "2024-02-27T12:00:00Z"
-  },
-  "id": 123
-}
-```
-
-**Description:** Returns the current trading fee structure for different order types and execution scenarios on the Relayer-matchbook.
-
-**Use Cases:**
-
-- Trading cost calculation and profitability analysis for different strategies
-- Fee optimization strategies for high-frequency and algorithmic trading
-- Order type selection based on fee structure and market conditions
-- Cost-benefit analysis for market making vs. taking strategies
-- Compliance and transparency for fee disclosure requirements
-
-Current fee rate
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`get_fee_rate`
-
-### Message Parameters
-
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
-
-### Response Fields
-
-| Field                   | Data_Type | Description                                                |
-| ----------------------- | --------- | ---------------------------------------------------------- |
-| id                      | integer   | Internal fee rate record ID                                |
-| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
-| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
-| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
-| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
-| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
-
-## Historical Fee Rate
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "historical_fee_rate",
-  id: 123,
-  params: {
-    from: "2024-01-01T00:00:00Z",
-    to: "2024-02-01T00:00:00Z",
-    limit: 3,
-    offset: 0,
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": [
-    {
-      "id": 40,
-      "order_filled_on_market": "0.0005",
-      "order_filled_on_limit": "0.00025",
-      "order_settled_on_market": "0.00075",
-      "order_settled_on_limit": "0.0005",
-      "timestamp": "2024-01-28T12:00:00Z"
-    },
-    {
-      "id": 41,
-      "order_filled_on_market": "0.0005",
-      "order_filled_on_limit": "0.00025",
-      "order_settled_on_market": "0.00075",
-      "order_settled_on_limit": "0.0005",
-      "timestamp": "2024-01-29T12:00:00Z"
-    },
-    {
-      "id": 42,
-      "order_filled_on_market": "0.0005",
-      "order_filled_on_limit": "0.00025",
-      "order_settled_on_market": "0.00075",
-      "order_settled_on_limit": "0.0005",
-      "timestamp": "2024-01-30T12:00:00Z"
-    }
-  ],
-  "id": 123
-}
-```
-
-**Description:** Provides historical trading fee data for analyzing fee trends and optimizing trading strategies over time.
-
-**Use Cases:**
-
-- Historical fee analysis for trading strategy optimization and cost modeling
-- Backtesting with accurate fee calculations for realistic performance metrics
-- Fee trend analysis for predicting future fee changes and planning
-- Compliance reporting and audit requirements for fee transparency
-- Cost analysis for institutional trading and volume-based fee negotiations
-
-Historical fee rate
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`historical_fee_rate`
-
-### Message Parameters
-
-| Params | Data_Type | Values            |
-| ------ | --------- | ----------------- |
-| from   | datetime  | Start time        |
-| to     | datetime  | End time          |
-| limit  | integer   | Number of entries |
-| offset | integer   | Page number       |
-
-### Response Fields
-
-| Field                   | Data_Type | Description                                                |
-| ----------------------- | --------- | ---------------------------------------------------------- |
-| id                      | integer   | Internal fee rate record ID                                |
-| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
-| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
-| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
-| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
-| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
-
-## Pool Share Value
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "pool_share_value",
-  id: 123,
-  params: null,
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": 123.456,
-  "id": 123
-}
-```
-
-**Description:** Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.
-
-**Use Cases:**
-
-- Yield calculation and return on investment analysis for lending strategies
-- Pool performance monitoring and comparative analysis across time periods
-- Liquidity provision optimization and capital allocation decisions
-- DeFi yield farming integration and automated rebalancing strategies
-- Portfolio valuation for mixed trading and lending positions
-
-Current pool share value (value of 100 pool shares)
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`pool_share_value`
-
-### Message Parameters
-
-| Params | Data_Type | Values                 |
-| ------ | --------- | ---------------------- |
-| N/A    | null      | No parameters required |
-
-### Response Fields
-
-| Field  | Data_Type | Description                                         |
-| ------ | --------- | --------------------------------------------------- |
-| result | number    | Current value of 100 pool shares (2 decimal places) |
-
-## Trader Order Info
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "trader_order_info",
-  id: 123,
-  params: {
-    data: "hex_encoded_data_string",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "id": 50,
-    "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
-    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-    "position_type": "LONG",
-    "order_status": "FILLED",
-    "order_type": "MARKET",
-    "entryprice": "42508.7099999999991268850862979888916015625",
-    "execution_price": "30000",
-    "positionsize": "4250871",
-    "leverage": "10",
-    "initial_margin": "10",
-    "available_margin": "10",
-    "timestamp": "2024-01-31T11:14:45.575359Z",
-    "bankruptcy_price": "38644.281818181814742274582386016845703125",
-    "bankruptcy_value": "110",
-    "maintenance_margin": "0.5375",
-    "liquidation_price": "38834.039054470704286359250545501708984375",
-    "unrealized_pnl": "0",
-    "settlement_price": "0",
-    "entry_nonce": 0,
-    "exit_nonce": 0,
-    "entry_sequence": 1,
-    "fee_filled": "0",
-    "fee_settled": "0"
-  },
-  "id": 123
-}
-```
-
-**Description:** Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.
-
-**Use Cases:**
-
-- Order status verification and execution confirmation for specific traders
-- Risk management and position monitoring for trading algorithms
-- Compliance monitoring and audit trail verification for regulatory purposes
-- Portfolio management and performance tracking for individual accounts
-- Customer service and order dispute resolution with privacy protection
-
-Get trader order information by account ID
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`trader_order_info`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                  |
-| ------ | --------- | --------------------------------------- |
-| data   | string    | Hex-encoded query data for trader order |
-
-### Response Fields
-
-| Field              | Data_Type | Description                                                 |
-| ------------------ | --------- | ----------------------------------------------------------- |
-| id                 | integer   | Internal order ID                                           |
-| uuid               | string    | Unique order identifier                                     |
-| account_id         | string    | Account public key associated with the order                |
-| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
-| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
-| entryprice         | string    | Entry price for the position (2 decimal places)             |
-| execution_price    | string    | Actual execution price (2 decimal places)                   |
-| positionsize       | string    | Position size in base currency (2 decimal places)           |
-| leverage           | string    | Leverage multiplier (2 decimal places)                      |
-| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
-| available_margin   | string    | Available margin for the position (2 decimal places)        |
-| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
-| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
-| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
-| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
-| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
-| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
-| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
-| entry_nonce        | integer   | Entry transaction nonce                                     |
-| exit_nonce         | integer   | Exit transaction nonce                                      |
-| entry_sequence     | integer   | Entry sequence number                                       |
-| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
-| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
-
-## Lend Order Info
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "lend_order_info",
-  id: 123,
-  params: {
-    data: "hex_encoded_data_string",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "id": 25,
-    "uuid": "6fb4f910-ceb4-432d-995b-79eddb8c4c83",
-    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
-    "balance": "153620",
-    "order_status": "FILLED",
-    "order_type": "MARKET",
-    "entry_nonce": 0,
-    "exit_nonce": 0,
-    "deposit": "153620",
-    "new_lend_state_amount": "153620",
-    "timestamp": "2024-02-28T04:59:44.020048Z",
-    "npoolshare": "100",
-    "nwithdraw": "0",
-    "payment": "0",
-    "tlv0": "0",
-    "tps0": "0",
-    "tlv1": "0",
-    "tps1": "0",
-    "tlv2": "0",
-    "tps2": "0",
-    "tlv3": "0",
-    "tps3": "0",
-    "entry_sequence": 10
-  },
-  "id": 123
-}
-```
-
-**Description:** Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.
-
-**Use Cases:**
-
-- Lending position monitoring and yield tracking for DeFi strategies
-- Pool share management and withdrawal planning for liquidity providers
-- Performance analysis and ROI calculation for lending portfolios
-- Risk assessment and exposure management for lending activities
-- Compliance reporting and audit trail for lending operations
-
-Get lend order information by account ID
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`lend_order_info`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                |
-| ------ | --------- | ------------------------------------- |
-| data   | string    | Hex-encoded query data for lend order |
-
-### Response Fields
-
-| Field                 | Data_Type | Description                                             |
-| --------------------- | --------- | ------------------------------------------------------- |
-| id                    | integer   | Internal lend order ID                                  |
-| uuid                  | string    | Unique lend order identifier                            |
-| account_id            | string    | Account public key associated with the lend order       |
-| balance               | string    | Current balance in the lend order (2 decimal places)    |
-| order_status          | string    | Current order status ("FILLED", "PENDING", "CANCELLED") |
-| order_type            | string    | Order type ("MARKET", "LIMIT")                          |
-| entry_nonce           | integer   | Entry transaction nonce                                 |
-| exit_nonce            | integer   | Exit transaction nonce                                  |
-| deposit               | string    | Initial deposit amount (2 decimal places)               |
-| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)            |
-| timestamp             | string    | Order creation timestamp (ISO 8601 format)              |
-| npoolshare            | string    | Number of pool shares (2 decimal places)                |
-| nwithdraw             | string    | Withdrawal amount (2 decimal places)                    |
-| payment               | string    | Payment amount (2 decimal places)                       |
-| tlv0                  | string    | Total locked value tier 0 (2 decimal places)            |
-| tps0                  | string    | Total pool shares tier 0 (2 decimal places)             |
-| tlv1                  | string    | Total locked value tier 1 (2 decimal places)            |
-| tps1                  | string    | Total pool shares tier 1 (2 decimal places)             |
-| tlv2                  | string    | Total locked value tier 2 (2 decimal places)            |
-| tps2                  | string    | Total pool shares tier 2 (2 decimal places)             |
-| tlv3                  | string    | Total locked value tier 3 (2 decimal places)            |
-| tps3                  | string    | Total pool shares tier 3 (2 decimal places)             |
-| entry_sequence        | integer   | Entry sequence number                                   |
-
-## Submit Trade Order
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "submit_trade_order",
-  id: 123,
-  params: {
-    data: "hex_encoded_transaction_data",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "message": "Order request submitted successfully",
-    "id": "unique_request_id"
-  },
-  "id": 123
-}
-```
-
-**Description:** Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.
-
-**Use Cases:**
-
-- Direct order placement for manual and algorithmic trading strategies
-- High-frequency trading and automated market making operations
-- Portfolio rebalancing and risk management order execution
-- Strategic position building and liquidation for institutional trading
-- Integration with trading bots and automated trading systems
-
-Submit a new trade order to the Relayer-matchbook
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`submit_trade_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                           |
-| ------ | --------- | ------------------------------------------------ |
-| data   | string    | Hex-encoded transaction data for the trade order |
-
-### Response Fields
-
-| Field   | Data_Type | Description                                     |
-| ------- | --------- | ----------------------------------------------- |
-| message | string    | Success message confirming order submission     |
-| id      | string    | Unique request identifier for tracking purposes |
-
-## Submit Lend Order
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "submit_lend_order",
-  id: 123,
-  params: {
-    data: "hex_encoded_transaction_data",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "message": "Order request submitted successfully",
-    "id": "unique_request_id"
-  },
-  "id": 123
-}
-```
-
-**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets.
-
-**Use Cases:**
-
-- Yield farming and passive income generation through lending strategies
-- Liquidity provision to support margin trading and leverage operations
-- Portfolio diversification with DeFi lending products and fixed-income alternatives
-- Capital allocation optimization for unused trading capital
-- Automated lending strategies and rebalancing for institutional accounts
-
-Submit a new lend order to the lending pool
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`submit_lend_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                          |
-| ------ | --------- | ----------------------------------------------- |
-| data   | string    | Hex-encoded transaction data for the lend order |
-
-### Response Fields
-
-| Field   | Data_Type | Description                                     |
-| ------- | --------- | ----------------------------------------------- |
-| message | string    | Success message confirming order submission     |
-| id      | string    | Unique request identifier for tracking purposes |
-
-## Settle Trade Order
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "settle_trade_order",
-  id: 123,
-  params: {
-    data: "hex_encoded_settlement_data",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "message": "Order request submitted successfully",
-    "id": "unique_request_id"
-  },
-  "id": 123
-}
-```
-
-**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.
-
-**Use Cases:**
-
-- Order finalization and trade confirmation for executed positions
-- Settlement timing optimization for tax and accounting purposes
-- Automated settlement workflows for algorithmic trading systems
-- Risk management through controlled settlement processes
-- Compliance and audit trail maintenance for trade settlement records
-
-Settle an existing trade order
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`settle_trade_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                          |
-| ------ | --------- | ----------------------------------------------- |
-| data   | string    | Hex-encoded settlement data for the trade order |
-
-### Response Fields
-
-| Field   | Data_Type | Description                                     |
-| ------- | --------- | ----------------------------------------------- |
-| message | string    | Success message confirming order settlement     |
-| id      | string    | Unique request identifier for tracking purposes |
-
-## Settle Lend Order
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "settle_lend_order",
-  id: 123,
-  params: {
-    data: "hex_encoded_settlement_data",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "message": "Order request submitted successfully",
-    "id": "unique_request_id"
-  },
-  "id": 123
-}
-```
-
-**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.
-
-**Use Cases:**
-
-- Lending position finalization and yield calculation confirmation
-- Withdrawal processing and capital reallocation for lending strategies
-- Automated settlement for DeFi lending and yield optimization protocols
-- Pool share reconciliation and accurate yield distribution
-- Compliance reporting for lending income and tax calculation purposes
-
-Settle an existing lend order
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`settle_lend_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                         |
-| ------ | --------- | ---------------------------------------------- |
-| data   | string    | Hex-encoded settlement data for the lend order |
-
-### Response Fields
-
-| Field   | Data_Type | Description                                     |
-| ------- | --------- | ----------------------------------------------- |
-| message | string    | Success message confirming order settlement     |
-| id      | string    | Unique request identifier for tracking purposes |
-
-## Cancel Trader Order
-
-```javascript
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  jsonrpc: "2.0",
-  method: "cancel_trader_order",
-  id: 123,
-  params: {
-    data: "hex_encoded_cancellation_data",
-  },
-});
-
-var requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow",
-};
-
-fetch("API_ENDPOINT/api", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-```
-
-> The result from the above endpoint looks like this:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "message": "Order request submitted successfully",
-    "id": "unique_request_id"
-  },
-  "id": 123
-}
-```
-
-**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.
-
-**Use Cases:**
-
-- Risk management through rapid order cancellation during market volatility
-- Strategy adjustment and order modification for changing market conditions
-- Automated order management and stop-loss implementation for trading algorithms
-- Position size adjustment and order replacement for optimal execution
-- Emergency order cancellation and risk mitigation during system issues
-
-Cancel an existing trader order
-
-### HTTP Method
-
-`POST`
-
-### RPC Method
-
-`cancel_trader_order`
-
-### Message Parameters
-
-| Params | Data_Type | Values                                             |
-| ------ | --------- | -------------------------------------------------- |
-| data   | string    | Hex-encoded cancellation data for the trader order |
-
-### Response Fields
-
-| Field   | Data_Type | Description                                     |
-| ------- | --------- | ----------------------------------------------- |
-| message | string    | Success message confirming order cancellation   |
-| id      | string    | Unique request identifier for tracking purposes |

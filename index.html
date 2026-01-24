@@ -539,6 +539,9 @@
                     <a href="#btc-deposit" class="toc-h2 toc-link" data-title="BTC Deposit">BTC Deposit</a>
                   </li>
                   <li>
+                    <a href="#bbc0aff806" class="toc-h2 toc-link" data-title="```">```</a>
+                  </li>
+                  <li>
                     <a href="#btc-withdrawal" class="toc-h2 toc-link" data-title="BTC Withdrawal">BTC Withdrawal</a>
                   </li>
                   <li>
@@ -10228,10 +10231,10 @@ For authoritative protocol module REST endpoints and schemas, refer to the Twili
 <hr>
 <h2 id='base-url'>Base URL</h2>
 <p><strong>Production</strong><br>
-<code>https://indexer.twilight.org/</code></p>
+<code>https://indexer.twilight.org/api/</code></p>
 
 <p><strong>Local development</strong><br>
-<code>http://localhost:3030/</code></p>
+<code>http://localhost:3030/api/</code></p>
 
 <hr>
 <h2 id='authentication'>Authentication</h2>
@@ -10273,9 +10276,13 @@ Verifies that the Indexer API service is running.</p>
 <code>/health</code></p>
 
 <p><strong>Example</strong></p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://nykschain.twilight.rest/api/health"</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/health"</span>
 </code></pre></div>
 <p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"healthy"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight-indexer-api"</span><span class="w">
@@ -10311,11 +10318,15 @@ Decodes a transaction from its bytecode representation and returns a structured 
 </tbody></table>
 
 <p><strong>Example</strong></p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://nykschain.twilight.rest/api/decode-transaction"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://indexer.twilight.org/api/decode-transaction"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{"tx_byte_code":"0x123abc..."}'</span>
 </code></pre></div>
 <p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tx_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transaction"</span><span class="p">,</span><span class="w">
@@ -10352,9 +10363,13 @@ Returns the total number of transactions associated with a Twilight address.</p>
 </tbody></table>
 
 <p><strong>Example</strong></p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://nykschain.twilight.rest/api/transactions/twilight1..."</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/transactions/twilight1..."</span>
 </code></pre></div>
 <p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
@@ -10421,6 +10436,35 @@ Returns <strong>sats</strong> funds moved between accounts for a given <code>t_a
 </tr>
 </tbody></table>
 
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/funding/twilight1..."</span>
+
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<p><strong>Status:</strong> <code>200 OK</code></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1abc123..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"funds_moved"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"denom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">50000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"denom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12350</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='exchange-withdrawal'>Exchange Withdrawal</h2><h3 id='trading-funding-dark-burn'>Trading → Funding (Dark Burn)</h3>
 <p><strong>Description</strong><br>
@@ -10481,6 +10525,27 @@ Returns trading-to-funding movement for a <code>t_address</code> (<strong>dark s
 </tr>
 </tbody></table>
 
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/exchange-withdrawal/twilight1..."</span>
+
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dark_burned_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"q_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"qq1..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='exchange-deposit'>Exchange Deposit</h2><h3 id='funding-trading-dark-mint'>Funding → Trading (Dark Mint)</h3>
 <p><strong>Description</strong><br>
@@ -10540,7 +10605,25 @@ Returns funding-to-trading movement for a <code>t_address</code> (<strong>dark s
 <td>Block height</td>
 </tr>
 </tbody></table>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/exchange-deposit/twilight1..."</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
 
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dark_minted_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"q_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"qq1..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='btc-deposit'>BTC Deposit</h2><h3 id='btc-twilight-lit-mint'>BTC → Twilight (Lit Mint)</h3>
 <p><strong>Description</strong><br>
@@ -10596,7 +10679,25 @@ Returns BTC bridge deposits recorded for a <code>t_address</code> (<strong>lit s
 </tr>
 </tbody></table>
 
-<hr>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/btc-deposit/twilight1..."</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:
+```json
+{
+  &quot;success&quot;: true,
+  &quot;t_address&quot;: &quot;twilight1...&quot;,
+  &quot;lit_minted_sats&quot;: [
+    {
+      &quot;amount&quot;: 1000,
+      &quot;block&quot;: 12345
+    }
+  ]
+}</p>
+<h2 id='bbc0aff806'>```</h2></blockquote>
 <h2 id='btc-withdrawal'>BTC Withdrawal</h2><h3 id='twilight-btc-lit-burn'>Twilight → BTC (Lit Burn)</h3>
 <p><strong>Description</strong><br>
 Returns BTC bridge withdrawals recorded for a <code>t_address</code> (<strong>lit sats burned</strong>).</p>
@@ -10651,6 +10752,25 @@ Returns BTC bridge withdrawals recorded for a <code>t_address</code> (<strong>li
 </tr>
 </tbody></table>
 
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/btc-withdrawal/twilight1..."</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lit_burned_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='qq-account-mapping'>QQ Account Mapping</h2><h3 id='get-qq-account-s'>Get QQ Account(s)</h3>
 <p><strong>Description</strong><br>
@@ -10706,6 +10826,25 @@ Returns QuisQuis account(s) mapped to a Twilight address.</p>
 </tr>
 </tbody></table>
 
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/qq-account/twilight1..."</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"q_addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"qq_account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"qq1..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"block"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='address-summary'>Address Summary</h2><h3 id='get-all-address-data'>Get All Address Data</h3>
 <p><strong>Description</strong><br>
@@ -10776,6 +10915,25 @@ Convenience endpoint returning the aggregated payload across all core address me
 </tr>
 </tbody></table>
 
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://indexer.twilight.org/api/address/twilight1.../all"</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"transaction_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"funds_moved"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"dark_burned_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"dark_minted_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"lit_minted_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"lit_burned_sats"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <hr>
 <h2 id='http-status-codes'>HTTP Status Codes</h2>
 <table><thead>

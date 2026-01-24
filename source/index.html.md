@@ -17,6 +17,7 @@ includes:
   - websocket
   - zkos
   - sdk
+  - indexer
 
 search: true
 

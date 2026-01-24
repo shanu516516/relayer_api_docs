@@ -499,6 +499,62 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#twilight-indexer-api" class="toc-h1 toc-link" data-title="Twilight Indexer API">Twilight Indexer API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#base-url" class="toc-h2 toc-link" data-title="Base URL">Base URL</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#conventions" class="toc-h2 toc-link" data-title="Conventions">Conventions</a>
+                  </li>
+                  <li>
+                    <a href="#table-of-contents" class="toc-h2 toc-link" data-title="Table of Contents">Table of Contents</a>
+                  </li>
+                  <li>
+                    <a href="#health" class="toc-h2 toc-link" data-title="Health">Health</a>
+                  </li>
+                  <li>
+                    <a href="#decode-transaction" class="toc-h2 toc-link" data-title="Decode Transaction">Decode Transaction</a>
+                  </li>
+                  <li>
+                    <a href="#transaction-count" class="toc-h2 toc-link" data-title="Transaction Count">Transaction Count</a>
+                  </li>
+                  <li>
+                    <a href="#funding-transfers" class="toc-h2 toc-link" data-title="Funding Transfers">Funding Transfers</a>
+                  </li>
+                  <li>
+                    <a href="#exchange-withdrawal" class="toc-h2 toc-link" data-title="Exchange Withdrawal">Exchange Withdrawal</a>
+                  </li>
+                  <li>
+                    <a href="#exchange-deposit" class="toc-h2 toc-link" data-title="Exchange Deposit">Exchange Deposit</a>
+                  </li>
+                  <li>
+                    <a href="#btc-deposit" class="toc-h2 toc-link" data-title="BTC Deposit">BTC Deposit</a>
+                  </li>
+                  <li>
+                    <a href="#btc-withdrawal" class="toc-h2 toc-link" data-title="BTC Withdrawal">BTC Withdrawal</a>
+                  </li>
+                  <li>
+                    <a href="#qq-account-mapping" class="toc-h2 toc-link" data-title="QQ Account Mapping">QQ Account Mapping</a>
+                  </li>
+                  <li>
+                    <a href="#address-summary" class="toc-h2 toc-link" data-title="Address Summary">Address Summary</a>
+                  </li>
+                  <li>
+                    <a href="#http-status-codes" class="toc-h2 toc-link" data-title="HTTP Status Codes">HTTP Status Codes</a>
+                  </li>
+                  <li>
+                    <a href="#glossary" class="toc-h2 toc-link" data-title="Glossary">Glossary</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Twilight © 2025</li>
@@ -10155,6 +10211,622 @@ The Twilight Privacy SDK is a comprehensive Rust library for building privacy-pr
 </tbody></table>
 
 <hr>
+<h1 id='twilight-indexer-api'>Twilight Indexer API</h1><h2 id='overview'>Overview</h2>
+<p>The <strong>Twilight Indexer API</strong> is a read-only HTTP service that exposes <strong>address-level aggregates</strong> and <strong>event lists</strong> derived from indexed Twilight protocol activity.</p>
+
+<p>This API is intended for:
+- analytics and attribution systems (e.g. affiliate and rewards platforms)
+- dashboards and explorers
+- backend services that require a simplified, query-friendly view of protocol activity</p>
+
+<blockquote>
+<p><strong>Note</strong>
+This is an <strong>off-chain indexer</strong> API backed by indexed chain data.
+For authoritative protocol module REST endpoints and schemas, refer to the Twilight LCD Swagger UI: <strong>https://lcd.twilight.org</strong>.</p>
+</blockquote>
+
+<hr>
+<h2 id='base-url'>Base URL</h2>
+<p><strong>Production</strong><br>
+<code>https://indexer.twilight.org/</code></p>
+
+<p><strong>Local development</strong><br>
+<code>http://localhost:3030/</code></p>
+
+<hr>
+<h2 id='authentication'>Authentication</h2>
+<p>No authentication is required.</p>
+
+<hr>
+<h2 id='conventions'>Conventions</h2>
+<ul>
+<li><strong>t_address</strong>: Twilight bech32 address (prefix <code>twilight…</code>).</li>
+<li><strong>qq_account / q_address</strong>: QuisQuis (privacy-layer) account identifier associated with a <code>t_address</code>.</li>
+<li><strong>Units</strong>: All BTC-denominated values are expressed in <strong><code>sats</code></strong> (integer satoshis).</li>
+<li><strong>Response format</strong>: JSON.</li>
+</ul>
+
+<hr>
+<h2 id='table-of-contents'>Table of Contents</h2>
+<ol>
+<li><a href="#health">Health</a></li>
+<li><a href="#decode-transaction">Decode Transaction</a></li>
+<li><a href="#transaction-count">Transaction Count</a></li>
+<li><a href="#funding-transfers">Funding Transfers</a></li>
+<li><a href="#exchange-withdrawal">Exchange Withdrawal</a></li>
+<li><a href="#exchange-deposit">Exchange Deposit</a></li>
+<li><a href="#btc-deposit">BTC Deposit</a></li>
+<li><a href="#btc-withdrawal">BTC Withdrawal</a></li>
+<li><a href="#qq-account-mapping">QQ Account Mapping</a></li>
+<li><a href="#address-summary">Address Summary</a></li>
+</ol>
+
+<hr>
+<h2 id='health'>Health</h2><h3 id='health-check'>Health Check</h3>
+<p><strong>Description</strong><br>
+Verifies that the Indexer API service is running.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/health</code></p>
+
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://nykschain.twilight.rest/api/health"</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"healthy"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight-indexer-api"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<hr>
+<h2 id='decode-transaction'>Decode Transaction</h2><h3 id='decode-transaction-2'>Decode Transaction</h3>
+<p><strong>Description</strong><br>
+Decodes a transaction from its bytecode representation and returns a structured JSON representation.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>POST</code></p>
+
+<p><strong>Path</strong><br>
+<code>/decode-transaction</code></p>
+
+<p><strong>Request Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>tx_byte_code</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Hex-encoded transaction bytecode (may include <code>0x</code> prefix)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://nykschain.twilight.rest/api/decode-transaction"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{"tx_byte_code":"0x123abc..."}'</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tx_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transaction"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<hr>
+<h2 id='transaction-count'>Transaction Count</h2><h3 id='get-transaction-count'>Get Transaction Count</h3>
+<p><strong>Description</strong><br>
+Returns the total number of transactions associated with a Twilight address.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/transactions/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Example</strong></p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://nykschain.twilight.rest/api/transactions/twilight1..."</span>
+</code></pre></div>
+<p><strong>Response (200)</strong></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"t_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"transaction_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<hr>
+<h2 id='funding-transfers'>Funding Transfers</h2><h3 id='funding-transfers-2'>Funding Transfers</h3>
+<p><strong>Description</strong><br>
+Returns <strong>sats</strong> funds moved between accounts for a given <code>t_address</code>.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/funding/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>funds_moved[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of funding-to-funding transfers</td>
+</tr>
+<tr>
+<td><code>funds_moved[].amount</code></td>
+<td style="text-align: right">integer</td>
+<td>Amount in sats</td>
+</tr>
+<tr>
+<td><code>funds_moved[].denom</code></td>
+<td style="text-align: right">string</td>
+<td>Denomination (expected <code>sats</code>)</td>
+</tr>
+<tr>
+<td><code>funds_moved[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='exchange-withdrawal'>Exchange Withdrawal</h2><h3 id='trading-funding-dark-burn'>Trading → Funding (Dark Burn)</h3>
+<p><strong>Description</strong><br>
+Returns trading-to-funding movement for a <code>t_address</code> (<strong>dark sats burned</strong>).</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/exchange-withdrawal/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>dark_burned_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of burn events</td>
+</tr>
+<tr>
+<td><code>dark_burned_sats[].q_address</code></td>
+<td style="text-align: right">string</td>
+<td>QuisQuis account</td>
+</tr>
+<tr>
+<td><code>dark_burned_sats[].amount</code></td>
+<td style="text-align: right">integer</td>
+<td>Amount in sats</td>
+</tr>
+<tr>
+<td><code>dark_burned_sats[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='exchange-deposit'>Exchange Deposit</h2><h3 id='funding-trading-dark-mint'>Funding → Trading (Dark Mint)</h3>
+<p><strong>Description</strong><br>
+Returns funding-to-trading movement for a <code>t_address</code> (<strong>dark sats minted</strong>).</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/exchange-deposit/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>dark_minted_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of mint events</td>
+</tr>
+<tr>
+<td><code>dark_minted_sats[].q_address</code></td>
+<td style="text-align: right">string</td>
+<td>QuisQuis account</td>
+</tr>
+<tr>
+<td><code>dark_minted_sats[].amount</code></td>
+<td style="text-align: right">integer</td>
+<td>Amount in sats</td>
+</tr>
+<tr>
+<td><code>dark_minted_sats[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='btc-deposit'>BTC Deposit</h2><h3 id='btc-twilight-lit-mint'>BTC → Twilight (Lit Mint)</h3>
+<p><strong>Description</strong><br>
+Returns BTC bridge deposits recorded for a <code>t_address</code> (<strong>lit sats minted</strong>).</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/btc-deposit/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>lit_minted_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of mint events</td>
+</tr>
+<tr>
+<td><code>lit_minted_sats[].amount</code></td>
+<td style="text-align: right">integer</td>
+<td>Amount in sats</td>
+</tr>
+<tr>
+<td><code>lit_minted_sats[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='btc-withdrawal'>BTC Withdrawal</h2><h3 id='twilight-btc-lit-burn'>Twilight → BTC (Lit Burn)</h3>
+<p><strong>Description</strong><br>
+Returns BTC bridge withdrawals recorded for a <code>t_address</code> (<strong>lit sats burned</strong>).</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/btc-withdrawal/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>lit_burned_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of burn events</td>
+</tr>
+<tr>
+<td><code>lit_burned_sats[].amount</code></td>
+<td style="text-align: right">integer</td>
+<td>Amount in sats</td>
+</tr>
+<tr>
+<td><code>lit_burned_sats[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='qq-account-mapping'>QQ Account Mapping</h2><h3 id='get-qq-account-s'>Get QQ Account(s)</h3>
+<p><strong>Description</strong><br>
+Returns QuisQuis account(s) mapped to a Twilight address.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/qq-account/{t_address}</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>q_addresses[]</code></td>
+<td style="text-align: right">array</td>
+<td>List of qq account mappings</td>
+</tr>
+<tr>
+<td><code>q_addresses[].qq_account</code></td>
+<td style="text-align: right">string</td>
+<td>QuisQuis account</td>
+</tr>
+<tr>
+<td><code>q_addresses[].block</code></td>
+<td style="text-align: right">integer</td>
+<td>Block height</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='address-summary'>Address Summary</h2><h3 id='get-all-address-data'>Get All Address Data</h3>
+<p><strong>Description</strong><br>
+Convenience endpoint returning the aggregated payload across all core address metrics.</p>
+
+<p><strong>HTTP Method</strong><br>
+<code>GET</code></p>
+
+<p><strong>Path</strong><br>
+<code>/address/{t_address}/all</code></p>
+
+<p><strong>Path Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right">Type</th>
+<th style="text-align: center">Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>t_address</code></td>
+<td style="text-align: right">string</td>
+<td style="text-align: center">Yes</td>
+<td>Twilight address</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Fields</strong></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right">Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>transaction_count</code></td>
+<td style="text-align: right">integer</td>
+<td>Total transaction count</td>
+</tr>
+<tr>
+<td><code>funds_moved[]</code></td>
+<td style="text-align: right">array</td>
+<td>Funding transfers</td>
+</tr>
+<tr>
+<td><code>dark_burned_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>Exchange withdrawals (dark burn)</td>
+</tr>
+<tr>
+<td><code>dark_minted_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>Exchange deposits (dark mint)</td>
+</tr>
+<tr>
+<td><code>lit_minted_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>BTC deposits (lit mint)</td>
+</tr>
+<tr>
+<td><code>lit_burned_sats[]</code></td>
+<td style="text-align: right">array</td>
+<td>BTC withdrawals (lit burn)</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='http-status-codes'>HTTP Status Codes</h2>
+<table><thead>
+<tr>
+<th style="text-align: right">Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right"><code>200</code></td>
+<td>Success</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>400</code></td>
+<td>Invalid request</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>500</code></td>
+<td>Server or database error</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='glossary'>Glossary</h2>
+<table><thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>t_address</strong></td>
+<td>Twilight blockchain address</td>
+</tr>
+<tr>
+<td><strong>qq_account / q_address</strong></td>
+<td>QuisQuis privacy-layer account identifier</td>
+</tr>
+<tr>
+<td><strong>sats</strong></td>
+<td>Satoshis (integer BTC base unit)</td>
+</tr>
+<tr>
+<td><strong>Lit minted / burned</strong></td>
+<td>BTC bridge in/out of Twilight</td>
+</tr>
+<tr>
+<td><strong>Dark minted / burned</strong></td>
+<td>Funding ↔ trading movement</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">

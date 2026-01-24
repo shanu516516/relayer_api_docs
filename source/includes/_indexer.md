@@ -18,10 +18,10 @@ This API is intended for:
 ## Base URL
 
 **Production**  
-`https://indexer.twilight.org/`
+`https://indexer.twilight.org/api/`
 
 **Local development**  
-`http://localhost:3030/`
+`http://localhost:3030/api/`
 
 ---
 
@@ -70,11 +70,13 @@ Verifies that the Indexer API service is running.
 
 **Example**
 
-```bash
-curl -X GET "https://nykschain.twilight.rest/api/health"
+```shell
+curl -X GET "https://indexer.twilight.org/api/health"
 ```
 
 **Response (200)**
+
+> The result from the above endpoint looks like this:
 
 ```json
 {
@@ -106,13 +108,15 @@ Decodes a transaction from its bytecode representation and returns a structured 
 
 **Example**
 
-```bash
-curl -X POST "https://nykschain.twilight.rest/api/decode-transaction" \
+```shell
+curl -X POST "https://indexer.twilight.org/api/decode-transaction" \
   -H "Content-Type: application/json" \
   -d '{"tx_byte_code":"0x123abc..."}'
 ```
 
 **Response (200)**
+
+> The result from the above endpoint looks like this:
 
 ```json
 {
@@ -145,11 +149,13 @@ Returns the total number of transactions associated with a Twilight address.
 
 **Example**
 
-```bash
-curl -X GET "https://nykschain.twilight.rest/api/transactions/twilight1..."
+```shell
+curl -X GET "https://indexer.twilight.org/api/transactions/twilight1..."
 ```
 
 **Response (200)**
+
+> The result from the above endpoint looks like this:
 
 ```json
 {
@@ -189,6 +195,37 @@ Returns **sats** funds moved between accounts for a given `t_address`.
 | `funds_moved[].denom` | string | Denomination (expected `sats`) |
 | `funds_moved[].block` | integer | Block height |
 
+**Example**
+
+```shell
+
+curl -X GET "https://indexer.twilight.org/api/funding/twilight1..."
+
+```
+**Response (200)**
+
+**Status:** `200 OK`
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1abc123...",
+  "funds_moved": [
+    {
+      "amount": 100000,
+      "denom": "sats",
+      "block": 12345
+    },
+    {
+      "amount": 50000,
+      "denom": "sats",
+      "block": 12350
+    }
+  ]
+}
+```
 ---
 
 ## Exchange Withdrawal
@@ -218,6 +255,30 @@ Returns trading-to-funding movement for a `t_address` (**dark sats burned**).
 | `dark_burned_sats[].q_address` | string | QuisQuis account |
 | `dark_burned_sats[].amount` | integer | Amount in sats |
 | `dark_burned_sats[].block` | integer | Block height |
+
+**Example**
+
+```shell
+curl -X GET "https://indexer.twilight.org/api/exchange-withdrawal/twilight1..."
+
+```
+
+**Response (200)**
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "dark_burned_sats": [
+    {
+      "q_address": "qq1...",
+      "amount": 1000,
+      "block": 12345
+    }
+  ]
+}
+```
 
 ---
 
@@ -249,6 +310,27 @@ Returns funding-to-trading movement for a `t_address` (**dark sats minted**).
 | `dark_minted_sats[].amount` | integer | Amount in sats |
 | `dark_minted_sats[].block` | integer | Block height |
 
+```shell
+curl -X GET "https://indexer.twilight.org/api/exchange-deposit/twilight1..."
+```
+
+**Response (200)**
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "dark_minted_sats": [
+    {
+      "q_address": "qq1...",
+      "amount": 1000,
+      "block": 12345
+    }
+  ]
+}
+```
 ---
 
 ## BTC Deposit
@@ -278,6 +360,27 @@ Returns BTC bridge deposits recorded for a `t_address` (**lit sats minted**).
 | `lit_minted_sats[].amount` | integer | Amount in sats |
 | `lit_minted_sats[].block` | integer | Block height |
 
+**Example**
+
+```shell
+curl -X GET "https://indexer.twilight.org/api/btc-deposit/twilight1..."
+```
+
+**Response (200)**
+
+> The result from the above endpoint looks like this:
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "lit_minted_sats": [
+    {
+      "amount": 1000,
+      "block": 12345
+    }
+  ]
+}
+```
 ---
 
 ## BTC Withdrawal
@@ -307,6 +410,27 @@ Returns BTC bridge withdrawals recorded for a `t_address` (**lit sats burned**).
 | `lit_burned_sats[].amount` | integer | Amount in sats |
 | `lit_burned_sats[].block` | integer | Block height |
 
+**Example**
+
+```shell
+curl -X GET "https://indexer.twilight.org/api/btc-withdrawal/twilight1..."
+```
+**Response (200)**
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "lit_burned_sats": [
+    {
+      "amount": 1000,
+      "block": 12345
+    }
+  ]
+}
+```
 ---
 
 ## QQ Account Mapping
@@ -336,6 +460,27 @@ Returns QuisQuis account(s) mapped to a Twilight address.
 | `q_addresses[].qq_account` | string | QuisQuis account |
 | `q_addresses[].block` | integer | Block height |
 
+**Example**
+
+```shell
+curl -X GET "https://indexer.twilight.org/api/qq-account/twilight1..."
+```
+**Response (200)**
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "q_addresses": [
+    {
+      "qq_account": "qq1...",
+      "block": 12345
+    }
+  ]
+}
+```
 ---
 
 ## Address Summary
@@ -368,6 +513,28 @@ Convenience endpoint returning the aggregated payload across all core address me
 | `lit_minted_sats[]` | array | BTC deposits (lit mint) |
 | `lit_burned_sats[]` | array | BTC withdrawals (lit burn) |
 
+**Example**
+
+```shell
+curl -X GET "https://indexer.twilight.org/api/address/twilight1.../all"
+```
+
+**Response (200)**
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "success": true,
+  "t_address": "twilight1...",
+  "transaction_count": 42,
+  "funds_moved": [],
+  "dark_burned_sats": [],
+  "dark_minted_sats": [],
+  "lit_minted_sats": [],
+  "lit_burned_sats": []
+}
+```
 ---
 
 ## HTTP Status Codes

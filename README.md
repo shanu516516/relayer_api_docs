@@ -30,11 +30,13 @@ Twilight serves as an antidote to rising walled gardens of centralized custody, 
 
 ### 📡 API Categories
 
-This documentation covers three main API categories:
+This documentation covers five main API categories:
 
 - **Public API** - Market data, pricing, and public information (no authentication required)
 - **Private API** - Trading, lending, and account management (requires authentication)
 - **WebSocket API** - Real-time data streams and live updates
+- **Explorer API** - Block explorer REST API with blockchain data, transactions, accounts, and real-time WebSocket events
+- **Explorer Indexer** - Background indexer service that syncs the Twilight blockchain into PostgreSQL with Redis pub/sub
 
 ## 🌐 API Endpoints
 
@@ -47,6 +49,11 @@ This documentation covers three main API categories:
 
 - **REST API**: `https://app.twilight.rest`
 - **WebSocket**: `wss://app.twilight.rest/ws`
+
+### Explorer
+
+- **REST API**: `https://indexer.twilight.org/api`
+- **WebSocket**: `wss://indexer.twilight.org`
 
 ## 📚 Complete Documentation
 
@@ -243,6 +250,41 @@ socket.onmessage = (event) => {
   console.log("Live price update:", data.params.result);
 };
 ```
+
+## 🔍 Explorer API Features
+
+The Explorer API provides blockchain data for the Twilight block explorer:
+
+### Available Endpoints
+
+- **Blocks** - Block list with pagination, block details by height
+- **Transactions** - Transaction list, transaction details by hash, per-block transactions
+- **Accounts** - Account details with balances, transaction history, delegation info
+- **Validators** - Active validator set with voting power and commission rates
+- **BTC Deposits** - Bridge deposit tracking with confirmation status
+- **BTC Withdrawals** - Bridge withdrawal tracking
+- **Fragments** - Multisig fragment details and signer information
+- **Reserves** - BTC reserve address and balance data
+- **Delegate Keys** - Validator oracle delegation mappings
+- **Search** - Universal search across blocks, transactions, and accounts
+- **Chain Stats** - Network overview with block time, tx count, total supply
+- **WebSocket** - Real-time events for new blocks, transactions, deposits, withdrawals
+
+### Example: Get Latest Blocks
+
+```shell
+curl "https://indexer.twilight.org/api/blocks?page=1&limit=20"
+```
+
+## 📊 Explorer Indexer
+
+The Explorer Indexer is a background service that syncs the Twilight blockchain into PostgreSQL:
+
+- **23 message type decoders** across Bridge, Forks, Volt, and zkOS modules
+- **PostgreSQL advisory lock** prevents concurrent indexer instances
+- **Block linkage validation** detects chain reorganizations
+- **Async enrichment worker** decodes zkOS transactions without blocking sync
+- **Redis pub/sub** for real-time event delivery to WebSocket clients
 
 ## 🛠 Technical Details
 

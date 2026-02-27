@@ -18,6 +18,8 @@ includes:
   - zkos
   - sdk
   - indexer
+  - explorer_api
+  - explorer_indexer
 
 search: true
 

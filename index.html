@@ -286,9 +286,9 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-6e4f8a2e.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-2ea0ad63.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+      <script src="javascripts/all-28e276f9.js"></script>
 
     <script>
       $(function() { setupCodeCopy(); });
@@ -322,27 +322,532 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#request-structure" class="toc-h2 toc-link" data-title="Request Structure">Request Structure</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#request-format" class="toc-h3 toc-link" data-title="Request Format">Request Format</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#market-data" class="toc-h2 toc-link" data-title="Market Data">Market Data</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#candle-data" class="toc-h3 toc-link" data-title="Candle Data">Candle Data</a>
+                          </li>
+                          <li>
+                            <a href="#http-method" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#btc-usd-price" class="toc-h3 toc-link" data-title="BTC USD Price">BTC USD Price</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-2" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-2" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-2" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-2" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#historical-price" class="toc-h3 toc-link" data-title="Historical Price">Historical Price</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-3" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-3" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-3" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-3" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#get-funding-rate" class="toc-h3 toc-link" data-title="Get Funding Rate">Get Funding Rate</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-4" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-4" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-4" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-4" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#historical-funding-rate" class="toc-h3 toc-link" data-title="Historical Funding Rate">Historical Funding Rate</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-5" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-5" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-5" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-5" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#get-fee-rate" class="toc-h3 toc-link" data-title="Get Fee Rate">Get Fee Rate</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-6" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-6" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-6" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-6" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#historical-fee-rate" class="toc-h3 toc-link" data-title="Historical Fee Rate">Historical Fee Rate</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-7" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-7" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-7" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-7" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#market-analytics" class="toc-h2 toc-link" data-title="Market Analytics">Market Analytics</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#position-size" class="toc-h3 toc-link" data-title="Position Size">Position Size</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-8" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-8" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-8" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-8" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#open-limit-orders" class="toc-h3 toc-link" data-title="Open Limit Orders">Open Limit Orders</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-9" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-9" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-9" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-9" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#recent-trade-orders" class="toc-h3 toc-link" data-title="Recent Trade Orders">Recent Trade Orders</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-10" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-10" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-10" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-10" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#pool-share-value" class="toc-h3 toc-link" data-title="Pool Share Value">Pool Share Value</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-11" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-11" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-11" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-11" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#lend-pool-info" class="toc-h3 toc-link" data-title="Lend Pool Info">Lend Pool Info</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-12" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-12" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-12" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-12" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#last-day-apy" class="toc-h3 toc-link" data-title="Last Day APY">Last Day APY</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-13" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-13" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-13" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-13" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#apy-chart" class="toc-h3 toc-link" data-title="APY Chart">APY Chart</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-14" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-14" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-14" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-14" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#open-interest" class="toc-h3 toc-link" data-title="Open Interest">Open Interest</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-15" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-15" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-15" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-15" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#market-stats" class="toc-h3 toc-link" data-title="Market Stats">Market Stats</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-16" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-16" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-16" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-16" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#account-analytics" class="toc-h2 toc-link" data-title="Account Analytics">Account Analytics</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#account-summary-by-twilight-address" class="toc-h3 toc-link" data-title="Account Summary by Twilight Address">Account Summary by Twilight Address</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-17" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-17" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-17" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-17" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#all-account-summaries" class="toc-h3 toc-link" data-title="All Account Summaries">All Account Summaries</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-18" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-18" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-18" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-18" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#system-information" class="toc-h2 toc-link" data-title="System Information">System Information</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#server-time" class="toc-h3 toc-link" data-title="Server Time">Server Time</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-19" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-19" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-19" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-19" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#login" class="toc-h3 toc-link" data-title="Login">Login</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-20" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-body" class="toc-h3 toc-link" data-title="Message Body">Message Body</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-20" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#order-management" class="toc-h2 toc-link" data-title="Order Management">Order Management</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#submit-trade-order" class="toc-h3 toc-link" data-title="Submit Trade Order">Submit Trade Order</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-21" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-20" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-20" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-21" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#submit-lend-order" class="toc-h3 toc-link" data-title="Submit Lend Order">Submit Lend Order</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-22" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-21" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-21" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-22" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#settle-trade-order" class="toc-h3 toc-link" data-title="Settle Trade Order">Settle Trade Order</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-23" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-22" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-22" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-23" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#settle-lend-order" class="toc-h3 toc-link" data-title="Settle Lend Order">Settle Lend Order</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-24" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-23" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-23" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-24" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#cancel-trader-order" class="toc-h3 toc-link" data-title="Cancel Trader Order">Cancel Trader Order</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-25" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-24" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-24" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-25" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#order-information-amp-chain-data" class="toc-h2 toc-link" data-title="Order Information &amp; Chain Data">Order Information &amp; Chain Data</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#trader-order-info" class="toc-h3 toc-link" data-title="Trader Order Info">Trader Order Info</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-26" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-25" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-25" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-26" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#trader-order-info-v1" class="toc-h3 toc-link" data-title="Trader Order Info V1">Trader Order Info V1</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-27" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-26" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-26" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-27" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#lend-order-info" class="toc-h3 toc-link" data-title="Lend Order Info">Lend Order Info</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-28" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-27" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-27" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-28" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#historical-trader-order-info" class="toc-h3 toc-link" data-title="Historical Trader Order Info">Historical Trader Order Info</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-29" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-28" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-28" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-29" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#historical-lend-order-info" class="toc-h3 toc-link" data-title="Historical Lend Order Info">Historical Lend Order Info</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-30" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-29" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-29" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-30" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#order-funding-history" class="toc-h3 toc-link" data-title="Order Funding History">Order Funding History</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-31" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-30" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-30" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-31" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#transaction-hashes" class="toc-h3 toc-link" data-title="Transaction Hashes">Transaction Hashes</a>
+                          </li>
+                          <li>
+                            <a href="#1-query-by-account-id" class="toc-h3 toc-link" data-title="1. Query by Account ID">1. Query by Account ID</a>
+                          </li>
+                          <li>
+                            <a href="#2-query-by-transaction-order-id" class="toc-h3 toc-link" data-title="2. Query by Transaction/Order ID">2. Query by Transaction/Order ID</a>
+                          </li>
+                          <li>
+                            <a href="#3-query-by-request-id" class="toc-h3 toc-link" data-title="3. Query by Request ID">3. Query by Request ID</a>
+                          </li>
+                          <li>
+                            <a href="#http-method-32" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-31" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-31" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-32" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </li>
@@ -354,60 +859,326 @@
                   </li>
                   <li>
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#javascript-methods-used-in-examples" class="toc-h3 toc-link" data-title="JavaScript Methods Used in Examples">JavaScript Methods Used in Examples</a>
+                          </li>
+                          <li>
+                            <a href="#request-format" class="toc-h3 toc-link" data-title="Request Format">Request Format</a>
+                          </li>
+                          <li>
+                            <a href="#authentication-process" class="toc-h3 toc-link" data-title="Authentication Process">Authentication Process</a>
+                          </li>
+                          <li>
+                            <a href="#getting-api-credentials" class="toc-h3 toc-link" data-title="Getting API Credentials">Getting API Credentials</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#submit-lend-order-zkos" class="toc-h2 toc-link" data-title="Submit Lend Order zkos">Submit Lend Order zkos</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#submit-trade-order-zkos" class="toc-h2 toc-link" data-title="Submit Trade Order zkos">Submit Trade Order zkos</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-2" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-2" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-2" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-2" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#settle-trade-order" class="toc-h2 toc-link" data-title="Settle Trade Order">Settle Trade Order</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-3" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-3" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-3" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-3" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#settle-lend-order" class="toc-h2 toc-link" data-title="Settle Lend Order">Settle Lend Order</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-4" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-4" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-4" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-4" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#cancel-trader-order" class="toc-h2 toc-link" data-title="Cancel Trader Order">Cancel Trader Order</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-5" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-5" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-5" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-5" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#submit-bulk-order" class="toc-h2 toc-link" data-title="Submit Bulk Order">Submit Bulk Order</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-6" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-6" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-6" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-6" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#open-order" class="toc-h2 toc-link" data-title="Open Order">Open Order</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-7" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-7" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-7" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-7" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#order-history-by-id" class="toc-h2 toc-link" data-title="Order History By Id">Order History By Id</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-8" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-8" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-8" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-8" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#order-history-by-client" class="toc-h2 toc-link" data-title="Order History By Client">Order History By Client</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-9" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-9" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-9" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-9" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#trade-volume" class="toc-h2 toc-link" data-title="Trade Volume">Trade Volume</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-10" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-10" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-10" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-10" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#get-funding-payment" class="toc-h2 toc-link" data-title="Get Funding Payment">Get Funding Payment</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-11" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-11" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-11" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-11" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#last-order-detail" class="toc-h2 toc-link" data-title="Last Order Detail">Last Order Detail</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-12" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-12" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-12" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-12" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#lend-pool-info" class="toc-h2 toc-link" data-title="Lend Pool Info">Lend Pool Info</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-13" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-13" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-13" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-13" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#trade-order-info" class="toc-h2 toc-link" data-title="Trade Order Info">Trade Order Info</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-14" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-14" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-14" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-14" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#lend-order-info" class="toc-h2 toc-link" data-title="Lend Order Info">Lend Order Info</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-15" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-15" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-15" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-15" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#unrealized-pnl-pubkey" class="toc-h2 toc-link" data-title="Unrealized PnL Pubkey">Unrealized PnL Pubkey</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-16" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-16" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-16" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-16" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#unrealized-pnl-orderid" class="toc-h2 toc-link" data-title="Unrealized PnL OrderId">Unrealized PnL OrderId</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-17" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-17" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-17" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-17" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#unrealized-pnl-all" class="toc-h2 toc-link" data-title="Unrealized PnL All">Unrealized PnL All</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-method-18" class="toc-h3 toc-link" data-title="HTTP Method">HTTP Method</a>
+                          </li>
+                          <li>
+                            <a href="#rpc-method-18" class="toc-h3 toc-link" data-title="RPC Method">RPC Method</a>
+                          </li>
+                          <li>
+                            <a href="#message-parameters-18" class="toc-h3 toc-link" data-title="Message Parameters">Message Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-18" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </li>
@@ -416,18 +1187,94 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#subscribe-live-price-data" class="toc-h2 toc-link" data-title="Subscribe Live Price Data">Subscribe Live Price Data</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#description" class="toc-h3 toc-link" data-title="Description">Description</a>
+                          </li>
+                          <li>
+                            <a href="#parameters" class="toc-h3 toc-link" data-title="Parameters">Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#method" class="toc-h3 toc-link" data-title="Method">Method</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#subscribe-order-book" class="toc-h2 toc-link" data-title="Subscribe Order Book">Subscribe Order Book</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#description-2" class="toc-h3 toc-link" data-title="Description">Description</a>
+                          </li>
+                          <li>
+                            <a href="#parameters-2" class="toc-h3 toc-link" data-title="Parameters">Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#method-2" class="toc-h3 toc-link" data-title="Method">Method</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-2" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#subscribe-candle-data" class="toc-h2 toc-link" data-title="Subscribe Candle Data">Subscribe Candle Data</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#description-3" class="toc-h3 toc-link" data-title="Description">Description</a>
+                          </li>
+                          <li>
+                            <a href="#parameters-3" class="toc-h3 toc-link" data-title="Parameters">Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#method-3" class="toc-h3 toc-link" data-title="Method">Method</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-3" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#subscribe-recent-trades" class="toc-h2 toc-link" data-title="Subscribe Recent Trades">Subscribe Recent Trades</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#description-4" class="toc-h3 toc-link" data-title="Description">Description</a>
+                          </li>
+                          <li>
+                            <a href="#parameters-4" class="toc-h3 toc-link" data-title="Parameters">Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#method-4" class="toc-h3 toc-link" data-title="Method">Method</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-4" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#subscribe-heartbeat" class="toc-h2 toc-link" data-title="Subscribe Heartbeat">Subscribe Heartbeat</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#description-5" class="toc-h3 toc-link" data-title="Description">Description</a>
+                          </li>
+                          <li>
+                            <a href="#parameters-5" class="toc-h3 toc-link" data-title="Parameters">Parameters</a>
+                          </li>
+                          <li>
+                            <a href="#method-5" class="toc-h3 toc-link" data-title="Method">Method</a>
+                          </li>
+                          <li>
+                            <a href="#response-fields-5" class="toc-h3 toc-link" data-title="Response Fields">Response Fields</a>
+                          </li>
+                          <li>
+                            <a href="#unsubscribing-from-a-websocket-stream" class="toc-h3 toc-link" data-title="Unsubscribing from a WebSocket Stream">Unsubscribing from a WebSocket Stream</a>
+                          </li>
+                          <li>
+                            <a href="#unsubscribe-parameters" class="toc-h3 toc-link" data-title="Unsubscribe Parameters">Unsubscribe Parameters</a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </li>
@@ -451,33 +1298,83 @@
                   </li>
                   <li>
                     <a href="#health" class="toc-h2 toc-link" data-title="Health">Health</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#health-check" class="toc-h3 toc-link" data-title="Health Check">Health Check</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#decode-transaction" class="toc-h2 toc-link" data-title="Decode Transaction">Decode Transaction</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#decode-transaction-2" class="toc-h3 toc-link" data-title="Decode Transaction">Decode Transaction</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#transaction-count" class="toc-h2 toc-link" data-title="Transaction Count">Transaction Count</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#get-transaction-count" class="toc-h3 toc-link" data-title="Get Transaction Count">Get Transaction Count</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#funding-transfers" class="toc-h2 toc-link" data-title="Funding Transfers">Funding Transfers</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#funding-transfers-2" class="toc-h3 toc-link" data-title="Funding Transfers">Funding Transfers</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#exchange-withdrawal" class="toc-h2 toc-link" data-title="Exchange Withdrawal">Exchange Withdrawal</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#trading-funding-dark-burn" class="toc-h3 toc-link" data-title="Trading → Funding (Dark Burn)">Trading → Funding (Dark Burn)</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#exchange-deposit" class="toc-h2 toc-link" data-title="Exchange Deposit">Exchange Deposit</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#funding-trading-dark-mint" class="toc-h3 toc-link" data-title="Funding → Trading (Dark Mint)">Funding → Trading (Dark Mint)</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#btc-deposit" class="toc-h2 toc-link" data-title="BTC Deposit">BTC Deposit</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#btc-twilight-lit-mint" class="toc-h3 toc-link" data-title="BTC → Twilight (Lit Mint)">BTC → Twilight (Lit Mint)</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#btc-withdrawal" class="toc-h2 toc-link" data-title="BTC Withdrawal">BTC Withdrawal</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#twilight-btc-lit-burn" class="toc-h3 toc-link" data-title="Twilight → BTC (Lit Burn)">Twilight → BTC (Lit Burn)</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#qq-account-mapping" class="toc-h2 toc-link" data-title="QQ Account Mapping">QQ Account Mapping</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#get-qq-account-s" class="toc-h3 toc-link" data-title="Get QQ Account(s)">Get QQ Account(s)</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#address-summary" class="toc-h2 toc-link" data-title="Address Summary">Address Summary</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#get-all-address-data" class="toc-h3 toc-link" data-title="Get All Address Data">Get All Address Data</a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
                     <a href="#http-status-codes" class="toc-h2 toc-link" data-title="HTTP Status Codes">HTTP Status Codes</a>

@@ -125,26 +125,26 @@ Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, da
 | Params   | Data_Type | Values                                                                                                                                            |
 | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | interval | string    | `ONE_MINUTE`, `FIVE_MINUTE`, `FIFTEEN_MINUTE`, `THIRTY_MINUTE`, `ONE_HOUR`, `FOUR_HOUR`, `EIGHT_HOUR`, `TWELVE_HOUR`, `ONE_DAY`, `ONE_DAY_CHANGE` |
-| since    | datetime  | Start time                                                                                                                                        |
-| limit    | integer   | Number of entries                                                                                                                                 |
-| offset   | integer   | Page number                                                                                                                                       |
+| since    | datetime  | Start time (ISO 8601)                                                                                                                             |
+| limit    | integer   | Number of entries (max 5000)                                                                                                                      |
+| offset   | integer   | Page offset                                                                                                                                       |
 
 ### Response Fields
 
-| Field      | Data_Type | Description                                          |
-| ---------- | --------- | ---------------------------------------------------- |
-| btc_volume | string    | BTC trading volume for the period (2 decimal places) |
-| close      | string    | Closing price for the period (2 decimal places)      |
-| end        | string    | End timestamp of the candle period (ISO 8601)        |
-| high       | string    | Highest price during the period (2 decimal places)   |
-| low        | string    | Lowest price during the period (2 decimal places)    |
-| open       | string    | Opening price for the period (2 decimal places)      |
-| resolution | string    | Time interval resolution (e.g., "1 day", "1 hour")   |
-| start      | string    | Start timestamp of the candle period (ISO 8601)      |
-| trades     | integer   | Number of trades executed during the period          |
-| usd_volume | string    | USD trading volume for the period (2 decimal places) |
+| Field      | Data_Type | Description                                        |
+| ---------- | --------- | -------------------------------------------------- |
+| btc_volume | string    | BTC trading volume for the period                  |
+| close      | string    | Closing price for the period                       |
+| end        | string    | End timestamp of the candle period (ISO 8601)      |
+| high       | string    | Highest price during the period                    |
+| low        | string    | Lowest price during the period                     |
+| open       | string    | Opening price for the period                       |
+| resolution | string    | Time interval resolution (e.g., "1 day", "1 hour") |
+| start      | string    | Start timestamp of the candle period (ISO 8601)    |
+| trades     | integer   | Number of trades executed during the period        |
+| usd_volume | string    | USD trading volume for the period                  |
 
-### Btc Usd Price
+### BTC USD Price
 
 ```javascript
 var myHeaders = new Headers();
@@ -194,7 +194,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 - Risk management and position monitoring systems
 - Market data synchronization and price validation
 
-Btc Usd Price
+BTC USD Price
 
 ### HTTP Method
 
@@ -212,11 +212,11 @@ Btc Usd Price
 
 ### Response Fields
 
-| Field     | Data_Type | Description                              |
-| --------- | --------- | ---------------------------------------- |
-| id        | integer   | Internal price record ID                 |
-| price     | string    | Current BTC-USD price (2 decimal places) |
-| timestamp | string    | Price timestamp (ISO 8601 format)        |
+| Field     | Data_Type | Description                       |
+| --------- | --------- | --------------------------------- |
+| id        | integer   | Internal price record ID          |
+| price     | string    | Current BTC-USD price             |
+| timestamp | string    | Price timestamp (ISO 8601 format) |
 
 ### Historical Price
 
@@ -297,20 +297,20 @@ Historical BTC price
 
 ### Message Parameters
 
-| Params | Data_Type | Values            |
-| ------ | --------- | ----------------- |
-| from   | datetime  | Start time        |
-| to     | datetime  | End time          |
-| limit  | integer   | Number of entries |
-| offset | integer   | Page number       |
+| Params | Data_Type | Values                   |
+| ------ | --------- | ------------------------ |
+| from   | datetime  | Start time (ISO 8601)    |
+| to     | datetime  | End time (ISO 8601)      |
+| limit  | integer   | Number of entries (max 5000) |
+| offset | integer   | Page offset              |
 
 ### Response Fields
 
-| Field     | Data_Type | Description                                 |
-| --------- | --------- | ------------------------------------------- |
-| id        | integer   | Internal price record ID                    |
-| price     | string    | Historical BTC-USD price (2 decimal places) |
-| timestamp | string    | Price timestamp (ISO 8601 format)           |
+| Field     | Data_Type | Description                       |
+| --------- | --------- | --------------------------------- |
+| id        | integer   | Internal price record ID          |
+| price     | string    | Historical BTC-USD price          |
+| timestamp | string    | Price timestamp (ISO 8601 format) |
 
 ### Get Funding Rate
 
@@ -381,12 +381,12 @@ Current funding rate
 
 ### Response Fields
 
-| Field     | Data_Type | Description                                      |
-| --------- | --------- | ------------------------------------------------ |
-| id        | integer   | Internal funding rate record ID                  |
-| price     | string    | BTC-USD price at funding time (2 decimal places) |
-| rate      | string    | Current funding rate (4 decimal places)          |
-| timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
+| Field     | Data_Type | Description                                |
+| --------- | --------- | ------------------------------------------ |
+| id        | integer   | Internal funding rate record ID            |
+| price     | string    | BTC-USD price at funding time              |
+| rate      | string    | Current funding rate                       |
+| timestamp | string    | Funding rate timestamp (ISO 8601 format)   |
 
 ### Historical Funding Rate
 
@@ -470,21 +470,21 @@ Historical funding rate
 
 ### Message Parameters
 
-| Params | Data_Type | Values            |
-| ------ | --------- | ----------------- |
-| from   | datetime  | Start time        |
-| to     | datetime  | End time          |
-| limit  | integer   | Number of entries |
-| offset | integer   | Page number       |
+| Params | Data_Type | Values                   |
+| ------ | --------- | ------------------------ |
+| from   | datetime  | Start time (ISO 8601)    |
+| to     | datetime  | End time (ISO 8601)      |
+| limit  | integer   | Number of entries (max 5000) |
+| offset | integer   | Page offset              |
 
 ### Response Fields
 
-| Field     | Data_Type | Description                                      |
-| --------- | --------- | ------------------------------------------------ |
-| id        | integer   | Internal funding rate record ID                  |
-| price     | string    | BTC-USD price at funding time (2 decimal places) |
-| rate      | string    | Funding rate for the period (4 decimal places)   |
-| timestamp | string    | Funding rate timestamp (ISO 8601 format)         |
+| Field     | Data_Type | Description                              |
+| --------- | --------- | ---------------------------------------- |
+| id        | integer   | Internal funding rate record ID          |
+| price     | string    | BTC-USD price at funding time            |
+| rate      | string    | Funding rate for the period              |
+| timestamp | string    | Funding rate timestamp (ISO 8601 format) |
 
 ### Get Fee Rate
 
@@ -557,14 +557,14 @@ Current fee rate
 
 ### Response Fields
 
-| Field                   | Data_Type | Description                                                |
-| ----------------------- | --------- | ---------------------------------------------------------- |
-| id                      | integer   | Internal fee rate record ID                                |
-| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
-| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
-| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
-| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
-| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
+| Field                   | Data_Type | Description                                    |
+| ----------------------- | --------- | ---------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                    |
+| order_filled_on_market  | string    | Fee rate for market orders when filled          |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled           |
+| order_settled_on_market | string    | Fee rate for market orders when settled          |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled           |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)            |
 
 ### Historical Fee Rate
 
@@ -654,23 +654,23 @@ Historical fee rate
 
 ### Message Parameters
 
-| Params | Data_Type | Values            |
-| ------ | --------- | ----------------- |
-| from   | datetime  | Start time        |
-| to     | datetime  | End time          |
-| limit  | integer   | Number of entries |
-| offset | integer   | Page number       |
+| Params | Data_Type | Values                   |
+| ------ | --------- | ------------------------ |
+| from   | datetime  | Start time (ISO 8601)    |
+| to     | datetime  | End time (ISO 8601)      |
+| limit  | integer   | Number of entries (max 5000) |
+| offset | integer   | Page offset              |
 
 ### Response Fields
 
-| Field                   | Data_Type | Description                                                |
-| ----------------------- | --------- | ---------------------------------------------------------- |
-| id                      | integer   | Internal fee rate record ID                                |
-| order_filled_on_market  | string    | Fee rate for market orders when filled (4 decimal places)  |
-| order_filled_on_limit   | string    | Fee rate for limit orders when filled (4 decimal places)   |
-| order_settled_on_market | string    | Fee rate for market orders when settled (4 decimal places) |
-| order_settled_on_limit  | string    | Fee rate for limit orders when settled (4 decimal places)  |
-| timestamp               | string    | Fee rate timestamp (ISO 8601 format)                       |
+| Field                   | Data_Type | Description                                    |
+| ----------------------- | --------- | ---------------------------------------------- |
+| id                      | integer   | Internal fee rate record ID                    |
+| order_filled_on_market  | string    | Fee rate for market orders when filled          |
+| order_filled_on_limit   | string    | Fee rate for limit orders when filled           |
+| order_settled_on_market | string    | Fee rate for market orders when settled          |
+| order_settled_on_limit  | string    | Fee rate for limit orders when settled           |
+| timestamp               | string    | Fee rate timestamp (ISO 8601 format)            |
 
 ## Market Analytics
 
@@ -742,13 +742,13 @@ Position Size
 
 ### Response Fields
 
-| Field       | Data_Type | Description                                                         |
-| ----------- | --------- | ------------------------------------------------------------------- |
-| total       | string    | Total open position size across all participants (2 decimal places) |
-| total_long  | string    | Total long position size (2 decimal places)                         |
-| total_short | string    | Total short position size (2 decimal places)                        |
+| Field       | Data_Type | Description                         |
+| ----------- | --------- | ----------------------------------- |
+| total       | string    | Total open position size            |
+| total_long  | string    | Total long position size            |
+| total_short | string    | Total short position size           |
 
-## Open Limit Order
+### Open Limit Orders
 
 ```javascript
 var myHeaders = new Headers();
@@ -780,14 +780,18 @@ fetch("API_ENDPOINT/api", requestOptions)
 {
   "jsonrpc": "2.0",
   "result": {
-    "ask": [],
-    "bid": []
+    "ask": [
+      { "positionsize": 5000000, "price": 45000.50 }
+    ],
+    "bid": [
+      { "positionsize": 3000000, "price": 44500.25 }
+    ]
   },
   "id": 123
 }
 ```
 
-**Description:** Displays the current order book with open limit orders, showing market depth and liquidity for both buy (bid) and sell (ask) sides.
+**Description:** Displays the current order book with open limit orders from Redis cache, showing market depth and liquidity for both buy (bid) and sell (ask) sides. Limited to top 10 entries per side.
 
 **Use Cases:**
 
@@ -797,7 +801,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 - Real-time price discovery and support/resistance level identification
 - Order book imbalance detection for short-term trading signals
 
-Open Limit Order
+Open Limit Orders
 
 ### HTTP Method
 
@@ -820,9 +824,14 @@ Open Limit Order
 | ask   | array     | Array of ask (sell) orders in the order book |
 | bid   | array     | Array of bid (buy) orders in the order book  |
 
-_Note: Each order in ask/bid arrays contains price, size, and order details_
+_Each order in ask/bid arrays contains:_
 
-### Recent Trade Order
+| Field        | Data_Type | Description              |
+| ------------ | --------- | ------------------------ |
+| positionsize | number    | Size of the limit order  |
+| price        | number    | Price of the limit order |
+
+### Recent Trade Orders
 
 ```javascript
 var myHeaders = new Headers();
@@ -873,7 +882,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Retrieves the latest executed trades on the Relayer-matchbook, showing real-time market activity and price discovery.
+**Description:** Retrieves the latest executed trades from the Redis cache (last 24 hours, limited to 25 most recent). Shows real-time market activity and price discovery.
 
 **Use Cases:**
 
@@ -883,7 +892,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 - Last price validation and market data feed synchronization
 - Historical trade reconstruction for compliance and audit purposes
 
-Recent Trade Order
+Recent Trade Orders
 
 ### HTTP Method
 
@@ -901,13 +910,13 @@ Recent Trade Order
 
 ### Response Fields
 
-| Field        | Data_Type | Description                                     |
-| ------------ | --------- | ----------------------------------------------- |
-| order_id     | string    | Unique identifier for the executed trade        |
-| side         | string    | Trade direction ("LONG" or "SHORT")             |
-| price        | string    | Execution price of the trade (2 decimal places) |
-| positionsize | string    | Size of the executed trade (2 decimal places)   |
-| timestamp    | string    | Trade execution timestamp (ISO 8601 format)     |
+| Field        | Data_Type | Description                                 |
+| ------------ | --------- | ------------------------------------------- |
+| order_id     | string    | Unique identifier for the executed trade    |
+| side         | string    | Trade direction ("LONG" or "SHORT")         |
+| price        | string    | Execution price of the trade                |
+| positionsize | string    | Size of the executed trade                  |
+| timestamp    | string    | Trade execution timestamp (ISO 8601 format) |
 
 ### Pool Share Value
 
@@ -940,12 +949,12 @@ fetch("API_ENDPOINT/api", requestOptions)
 ```json
 {
   "jsonrpc": "2.0",
-  "result": 123.456,
+  "result": 1.0253,
   "id": 123
 }
 ```
 
-**Description:** Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.
+**Description:** Returns the current value of lending pool shares, calculated as total_locked_value / total_pool_share. Essential for yield farming and liquidity provision calculations.
 
 **Use Cases:**
 
@@ -955,7 +964,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 - DeFi yield farming integration and automated rebalancing strategies
 - Portfolio valuation for mixed trading and lending positions
 
-Current pool share value (value of 100 pool shares)
+Current pool share value
 
 ### HTTP Method
 
@@ -973,9 +982,645 @@ Current pool share value (value of 100 pool shares)
 
 ### Response Fields
 
-| Field  | Data_Type | Description                                         |
-| ------ | --------- | --------------------------------------------------- |
-| result | number    | Current value of 100 pool shares (2 decimal places) |
+| Field  | Data_Type | Description                      |
+| ------ | --------- | -------------------------------- |
+| result | number    | Current value per pool share     |
+
+### Lend Pool Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "lend_pool_info",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 1,
+    "sequence": 100,
+    "nonce": 50,
+    "total_pool_share": "1000000",
+    "total_locked_value": "1025300",
+    "pending_orders": 2,
+    "aggregate_log_sequence": 150,
+    "last_snapshot_id": 45
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns complete lending pool information including total pool shares, total locked value, and operational state.
+
+**Use Cases:**
+
+- Pool health monitoring and risk assessment for liquidity providers
+- Share price calculation and yield estimation for DeFi strategies
+- Liquidity depth analysis for lending market capacity
+- Pool utilization tracking and capital efficiency optimization
+- Market analytics for lending pool performance reporting
+
+Lend Pool Info
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`lend_pool_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field                  | Data_Type | Description                              |
+| ---------------------- | --------- | ---------------------------------------- |
+| id                     | integer   | Internal pool record ID                  |
+| sequence               | integer   | Pool sequence number                     |
+| nonce                  | integer   | Pool nonce                               |
+| total_pool_share       | string    | Total outstanding pool shares            |
+| total_locked_value     | string    | Total value locked in the pool           |
+| pending_orders         | integer   | Number of pending orders in the pool     |
+| aggregate_log_sequence | integer   | Aggregate log sequence number            |
+| last_snapshot_id       | integer   | ID of the last pool snapshot             |
+
+### Last Day APY
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "last_day_apy",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": 12.45,
+  "id": 123
+}
+```
+
+**Description:** Returns the annualized percentage yield (APY) computed from the lending pool's share price change over the last 24 hours.
+
+**Use Cases:**
+
+- Real-time yield monitoring for lending pool participants
+- Comparative analysis of lending returns across DeFi protocols
+- Investment decision support for capital allocation to lending pools
+- Yield farming strategy optimization based on current APY
+- Dashboard display for lending pool performance metrics
+
+Last 24-hour APY
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`last_day_apy`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field  | Data_Type      | Description                                   |
+| ------ | -------------- | --------------------------------------------- |
+| result | number or null | Annualized percentage yield for the last 24h  |
+
+### APY Chart
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "apy_chart",
+  id: 123,
+  params: {
+    range: "1d",
+    step: "5m",
+    lookback: "24h",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "bucket_ts": "2024-02-27T00:00:00Z",
+      "apy": "12.34"
+    },
+    {
+      "bucket_ts": "2024-02-27T00:05:00Z",
+      "apy": "12.56"
+    },
+    {
+      "bucket_ts": "2024-02-27T00:10:00Z",
+      "apy": "11.89"
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Returns a time series of APY data points for charting, computed from the lending pool's share price changes using the SQL `apy_series()` function. Supports configurable chart range, step interval, and lookback window.
+
+**Use Cases:**
+
+- APY trend visualization and historical yield analysis for lending pools
+- Yield volatility assessment for risk-adjusted return analysis
+- Portfolio performance charting and reporting for investors
+- Comparative yield analysis across different time windows
+- Automated alert generation based on APY threshold changes
+
+APY Chart
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`apy_chart`
+
+### Message Parameters
+
+| Params   | Data_Type | Values                                                                                                    |
+| -------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| range    | string    | Chart range: `"1d"`, `"7d"`, `"30d"`, `"24 hours"`, `"7 days"`, `"30 days"`                              |
+| step     | string    | (Optional) Step interval: `"1m"`, `"5m"`, `"15m"`, `"30m"`, `"1h"`, `"2h"`, `"4h"`, `"12h"`. Default varies by range |
+| lookback | string    | (Optional) Trailing APY lookback window: `"24h"`, `"7d"`, `"30d"`. Default `"24 hours"`                   |
+
+### Response Fields
+
+| Field     | Data_Type | Description                               |
+| --------- | --------- | ----------------------------------------- |
+| bucket_ts | string    | Bucket timestamp (ISO 8601 format)        |
+| apy       | string    | Annualized percentage yield at this point |
+
+### Open Interest
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "open_interest",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "long_exposure": "1250000.50",
+    "short_exposure": "980000.25",
+    "last_order_timestamp": "2024-02-27T15:30:00Z"
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns the current open interest data including long and short exposure (computed as initial_margin * leverage for active filled orders), along with the most recent order timestamp.
+
+**Use Cases:**
+
+- Market-wide exposure analysis for risk monitoring and trend confirmation
+- Long/short ratio calculation for sentiment analysis
+- Liquidity and depth assessment for large position planning
+- Open interest trend tracking for trading signal generation
+- Market capacity and utilization monitoring
+
+Open Interest
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`open_interest`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field                | Data_Type | Description                                  |
+| -------------------- | --------- | -------------------------------------------- |
+| long_exposure        | string    | Total long exposure (margin * leverage)      |
+| short_exposure       | string    | Total short exposure (margin * leverage)     |
+| last_order_timestamp | string    | Timestamp of last order (ISO 8601, nullable) |
+
+### Market Stats
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "get_market_stats",
+  id: 123,
+  params: null,
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "pool_equity_btc": 10.5,
+    "total_long_btc": 3.2,
+    "total_short_btc": 2.8,
+    "total_pending_long_btc": 0.5,
+    "total_pending_short_btc": 0.3,
+    "open_interest_btc": 6.0,
+    "net_exposure_btc": 0.4,
+    "long_pct": 0.5333,
+    "short_pct": 0.4667,
+    "utilization": 0.5714,
+    "max_long_btc": 2.5,
+    "max_short_btc": 2.9,
+    "status": "HEALTHY",
+    "status_reason": null,
+    "params": {
+      "max_oi_mult": 4.0,
+      "max_net_mult": 0.8,
+      "max_position_pct": 0.02,
+      "min_position_btc": 0.0,
+      "max_leverage": 50.0,
+      "mm_ratio": 0.4
+    }
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns comprehensive market risk statistics computed from the cached RiskState (Redis) and lending pool equity. Includes open interest, net exposure, utilization ratio, maximum allowed position sizes, and market status (HEALTHY, CLOSE_ONLY, or HALT).
+
+**Use Cases:**
+
+- Real-time market health monitoring and circuit breaker status checks
+- Risk limit calculations for position sizing and order validation
+- Market utilization and capacity analysis for trading decisions
+- Long/short balance tracking and net exposure monitoring
+- Automated trading system integration for risk-aware order routing
+
+Market Stats
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`get_market_stats`
+
+### Message Parameters
+
+| Params | Data_Type | Values                 |
+| ------ | --------- | ---------------------- |
+| N/A    | null      | No parameters required |
+
+### Response Fields
+
+| Field                   | Data_Type | Description                                                                              |
+| ----------------------- | --------- | ---------------------------------------------------------------------------------------- |
+| pool_equity_btc         | number    | Total pool equity in BTC                                                                 |
+| total_long_btc          | number    | Total long positions in BTC                                                              |
+| total_short_btc         | number    | Total short positions in BTC                                                             |
+| total_pending_long_btc  | number    | Total pending long positions in BTC                                                      |
+| total_pending_short_btc | number    | Total pending short positions in BTC                                                     |
+| open_interest_btc       | number    | Total open interest (long + short) in BTC                                                |
+| net_exposure_btc        | number    | Net exposure (long - short) in BTC                                                       |
+| long_pct                | number    | Percentage of OI that is long (0-1)                                                      |
+| short_pct               | number    | Percentage of OI that is short (0-1)                                                     |
+| utilization             | number    | OI / pool equity ratio (0-1)                                                             |
+| max_long_btc            | number    | Maximum additional long position allowed in BTC                                          |
+| max_short_btc           | number    | Maximum additional short position allowed in BTC                                         |
+| status                  | string    | Market status: `"HEALTHY"`, `"CLOSE_ONLY"`, or `"HALT"`                                 |
+| status_reason           | string    | Reason for non-healthy status (nullable). E.g. `"MANUAL_HALT"`, `"POOL_EQUITY_INVALID"` |
+| params                  | object    | Risk parameters object (see below)                                                       |
+
+_Risk params object:_
+
+| Field            | Data_Type | Description                                          |
+| ---------------- | --------- | ---------------------------------------------------- |
+| max_oi_mult      | number    | Maximum OI multiplier relative to pool equity        |
+| max_net_mult     | number    | Maximum net exposure multiplier relative to pool     |
+| max_position_pct | number    | Maximum single position as percentage of pool equity |
+| min_position_btc | number    | Minimum position size in BTC                         |
+| max_leverage     | number    | Maximum allowed leverage                             |
+| mm_ratio         | number    | Maintenance margin ratio                             |
+
+## Account Analytics
+
+### Account Summary by Twilight Address
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "account_summary_by_twilight_address",
+  id: 123,
+  params: {
+    t_address: "twilight1abc123...",
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-02-01T00:00:00Z",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "from": "2024-01-01T00:00:00Z",
+    "to": "2024-02-01T00:00:00Z",
+    "settled_positionsize": "5000000",
+    "filled_positionsize": "12000000",
+    "liquidated_positionsize": "500000",
+    "settled_count": 3,
+    "filled_count": 8,
+    "liquidated_count": 1
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns a trading activity summary for a specific Twilight address, including aggregated position sizes and order counts by status (settled, filled, liquidated). Dates must be at least 7 days in the past (configurable via `MAX_DELAYED_DAYS`).
+
+**Use Cases:**
+
+- Individual account performance analysis and trade history summary
+- Risk monitoring for specific trader addresses
+- Compliance reporting per address for regulatory requirements
+- Portfolio analytics and P&L attribution by account
+- Automated account health scoring and risk assessment
+
+Account Summary by Twilight Address
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`account_summary_by_twilight_address`
+
+### Message Parameters
+
+| Params    | Data_Type | Values                                                                    |
+| --------- | --------- | ------------------------------------------------------------------------- |
+| t_address | string    | Twilight address to query                                                 |
+| from      | datetime  | (Optional) Start time (ISO 8601). Must be >= 7 days in the past          |
+| to        | datetime  | (Optional) End time (ISO 8601). Capped to 7 days ago if in recent range  |
+| since     | datetime  | (Optional) Alternative to from/to. Must be >= 7 days in the past         |
+
+_Note: Either `since` or `from` must be provided. `to` cannot be provided without `from`._
+
+### Response Fields
+
+| Field                   | Data_Type | Description                                  |
+| ----------------------- | --------- | -------------------------------------------- |
+| from                    | string    | Effective start time (ISO 8601)              |
+| to                      | string    | Effective end time (ISO 8601)                |
+| settled_positionsize    | string    | Total position size of settled orders        |
+| filled_positionsize     | string    | Total position size of filled orders         |
+| liquidated_positionsize | string    | Total position size of liquidated orders     |
+| settled_count           | integer   | Number of settled orders                     |
+| filled_count            | integer   | Number of filled orders                      |
+| liquidated_count        | integer   | Number of liquidated orders                  |
+
+### All Account Summaries
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "all_account_summaries",
+  id: 123,
+  params: {
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-02-01T00:00:00Z",
+    limit: 50,
+    offset: 0,
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "from": "2024-01-01T00:00:00Z",
+    "to": "2024-02-01T00:00:00Z",
+    "limit": 50,
+    "offset": 0,
+    "summaries": [
+      {
+        "twilight_address": "twilight1abc123...",
+        "settled_positionsize": "5000000",
+        "filled_positionsize": "12000000",
+        "liquidated_positionsize": "500000",
+        "settled_count": 3,
+        "filled_count": 8,
+        "liquidated_count": 1
+      }
+    ]
+  },
+  "id": 123
+}
+```
+
+**Description:** Returns paginated trading activity summaries for all Twilight addresses within a time range. Dates must be at least 7 days in the past. Supports pagination with configurable limit (max 500) and offset.
+
+**Use Cases:**
+
+- Platform-wide trading activity reporting and analytics
+- Leaderboard generation based on trading volume or performance
+- Compliance and regulatory reporting across all accounts
+- Market-wide risk assessment and aggregate position monitoring
+- Business intelligence and user engagement analytics
+
+All Account Summaries
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`all_account_summaries`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                                                    |
+| ------ | --------- | ------------------------------------------------------------------------- |
+| from   | datetime  | (Optional) Start time (ISO 8601). Must be >= 7 days in the past          |
+| to     | datetime  | (Optional) End time (ISO 8601). Capped to 7 days ago if in recent range  |
+| since  | datetime  | (Optional) Alternative to from/to. Must be >= 7 days in the past         |
+| limit  | integer   | (Optional) Number of results per page (1-500, default 50)                 |
+| offset | integer   | (Optional) Page offset (default 0)                                        |
+
+_Note: Either `since` or `from` must be provided. `to` cannot be provided without `from`._
+
+### Response Fields
+
+| Field     | Data_Type | Description                              |
+| --------- | --------- | ---------------------------------------- |
+| from      | string    | Effective start time (ISO 8601)          |
+| to        | string    | Effective end time (ISO 8601)            |
+| limit     | integer   | Applied page limit                       |
+| offset    | integer   | Applied page offset                      |
+| summaries | array     | Array of account summary objects         |
+
+_Each summary object:_
+
+| Field                   | Data_Type | Description                              |
+| ----------------------- | --------- | ---------------------------------------- |
+| twilight_address        | string    | Twilight address                         |
+| settled_positionsize    | string    | Total position size of settled orders    |
+| filled_positionsize     | string    | Total position size of filled orders     |
+| liquidated_positionsize | string    | Total position size of liquidated orders |
+| settled_count           | integer   | Number of settled orders                 |
+| filled_count            | integer   | Number of filled orders                  |
+| liquidated_count        | integer   | Number of liquidated orders              |
 
 ## System Information
 
@@ -1173,7 +1818,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.
+**Description:** Submits a new perpetual contract trading order to the Relayer-matchbook orderbook. The hex-encoded data contains a serialized `CreateTraderOrderClientZkos` struct with ZK proof data and order parameters.
 
 **Use Cases:**
 
@@ -1247,7 +1892,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets.
+**Description:** Submits a new lending order to participate in the lending pool and earn yield on deposited assets. The hex-encoded data contains a serialized `CreateLendOrderZkos` struct.
 
 **Use Cases:**
 
@@ -1321,7 +1966,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.
+**Description:** Executes the settlement process for filled trade orders, finalizing the trade and updating account balances. The hex-encoded data contains a serialized `ExecuteTraderOrderZkos` struct.
 
 **Use Cases:**
 
@@ -1395,7 +2040,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.
+**Description:** Executes the settlement process for lending orders, finalizing the lending position and updating pool shares. The hex-encoded data contains a serialized `ExecuteLendOrderZkos` struct.
 
 **Use Cases:**
 
@@ -1469,7 +2114,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.
+**Description:** Cancels an existing unfilled or partially filled trading order, removing it from the orderbook. The hex-encoded data contains a serialized `CancelTraderOrderZkos` struct. Only orders with a cancelable status can be cancelled.
 
 **Use Cases:**
 
@@ -1540,21 +2185,21 @@ fetch("API_ENDPOINT/api", requestOptions)
   "result": {
     "id": 50,
     "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
-    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "account_id": "0c08ed4f0daeec9b...",
     "position_type": "LONG",
     "order_status": "FILLED",
     "order_type": "MARKET",
-    "entryprice": "42508.7099999999991268850862979888916015625",
+    "entryprice": "42508.71",
     "execution_price": "30000",
     "positionsize": "4250871",
     "leverage": "10",
     "initial_margin": "10",
     "available_margin": "10",
     "timestamp": "2024-01-31T11:14:45.575359Z",
-    "bankruptcy_price": "38644.281818181814742274582386016845703125",
+    "bankruptcy_price": "38644.28",
     "bankruptcy_value": "110",
     "maintenance_margin": "0.5375",
-    "liquidation_price": "38834.039054470704286359250545501708984375",
+    "liquidation_price": "38834.04",
     "unrealized_pnl": "0",
     "settlement_price": "0",
     "entry_nonce": 0,
@@ -1567,7 +2212,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.
+**Description:** Retrieves the latest trader order for an account using encrypted account data (hex-encoded `QueryTraderOrderZkos`). The request is verified via `verify_query_order` before querying the database.
 
 **Use Cases:**
 
@@ -1595,32 +2240,144 @@ Get trader order information by account ID
 
 ### Response Fields
 
-| Field              | Data_Type | Description                                                 |
-| ------------------ | --------- | ----------------------------------------------------------- |
-| id                 | integer   | Internal order ID                                           |
-| uuid               | string    | Unique order identifier                                     |
-| account_id         | string    | Account public key associated with the order                |
-| position_type      | string    | Position direction ("LONG" or "SHORT")                      |
-| order_status       | string    | Current order status ("FILLED", "PENDING", "CANCELLED")     |
-| order_type         | string    | Order type ("MARKET", "LIMIT")                              |
-| entryprice         | string    | Entry price for the position (2 decimal places)             |
-| execution_price    | string    | Actual execution price (2 decimal places)                   |
-| positionsize       | string    | Position size in base currency (2 decimal places)           |
-| leverage           | string    | Leverage multiplier (2 decimal places)                      |
-| initial_margin     | string    | Initial margin requirement (2 decimal places)               |
-| available_margin   | string    | Available margin for the position (2 decimal places)        |
-| timestamp          | string    | Order creation timestamp (ISO 8601 format)                  |
-| bankruptcy_price   | string    | Price at which position becomes bankrupt (2 decimal places) |
-| bankruptcy_value   | string    | Value at bankruptcy price (2 decimal places)                |
-| maintenance_margin | string    | Maintenance margin requirement (4 decimal places)           |
-| liquidation_price  | string    | Price at which position gets liquidated (2 decimal places)  |
-| unrealized_pnl     | string    | Current unrealized profit/loss (2 decimal places)           |
-| settlement_price   | string    | Settlement price if order is settled (2 decimal places)     |
-| entry_nonce        | integer   | Entry transaction nonce                                     |
-| exit_nonce         | integer   | Exit transaction nonce                                      |
-| entry_sequence     | integer   | Entry sequence number                                       |
-| fee_filled         | string    | Fee paid when order was filled (4 decimal places)           |
-| fee_settled        | string    | Fee paid when order was settled (4 decimal places)          |
+| Field              | Data_Type | Description                                       |
+| ------------------ | --------- | ------------------------------------------------- |
+| id                 | integer   | Internal order ID                                 |
+| uuid               | string    | Unique order identifier                           |
+| account_id         | string    | Account public key associated with the order      |
+| position_type      | string    | Position direction (`"LONG"` or `"SHORT"`)        |
+| order_status       | string    | Current order status (`"FILLED"`, `"PENDING"`, `"CANCELLED"`, `"SETTLED"`, `"LIQUIDATE"`) |
+| order_type         | string    | Order type (`"MARKET"`, `"LIMIT"`)                |
+| entryprice         | string    | Entry price for the position                      |
+| execution_price    | string    | Actual execution price                            |
+| positionsize       | string    | Position size in base currency                    |
+| leverage           | string    | Leverage multiplier                               |
+| initial_margin     | string    | Initial margin requirement                        |
+| available_margin   | string    | Available margin for the position                 |
+| timestamp          | string    | Order creation timestamp (ISO 8601 format)        |
+| bankruptcy_price   | string    | Price at which position becomes bankrupt          |
+| bankruptcy_value   | string    | Value at bankruptcy price                         |
+| maintenance_margin | string    | Maintenance margin requirement                    |
+| liquidation_price  | string    | Price at which position gets liquidated           |
+| unrealized_pnl     | string    | Current unrealized profit/loss                    |
+| settlement_price   | string    | Settlement price if order is settled              |
+| entry_nonce        | integer   | Entry transaction nonce                           |
+| exit_nonce         | integer   | Exit transaction nonce                            |
+| entry_sequence     | integer   | Entry sequence number                             |
+| fee_filled         | string    | Fee paid when order was filled                    |
+| fee_settled        | string    | Fee paid when order was settled                   |
+
+### Trader Order Info V1
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "trader_order_info_v1",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "id": 50,
+    "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+    "account_id": "0c08ed4f0daeec9b...",
+    "position_type": "LONG",
+    "order_status": "FILLED",
+    "order_type": "MARKET",
+    "entryprice": "42508.71",
+    "execution_price": "30000",
+    "positionsize": "4250871",
+    "leverage": "10",
+    "initial_margin": "10",
+    "available_margin": "10",
+    "timestamp": "2024-01-31T11:14:45.575359Z",
+    "bankruptcy_price": "38644.28",
+    "bankruptcy_value": "110",
+    "maintenance_margin": "0.5375",
+    "liquidation_price": "38834.04",
+    "unrealized_pnl": "0",
+    "settlement_price": "0",
+    "entry_nonce": 0,
+    "exit_nonce": 0,
+    "entry_sequence": 1,
+    "fee_filled": "0",
+    "fee_settled": "0",
+    "settle_limit": {
+      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+      "position_type": "LONG",
+      "price": "45000.00"
+    },
+    "funding_applied": "0.0025"
+  },
+  "id": 123
+}
+```
+
+**Description:** Enhanced version of `trader_order_info` that includes additional fields: `settle_limit` (the latest close limit price for non-settled/non-liquidated orders) and `funding_applied` (the cumulative funding payment applied to the order, computed as `initial_margin - available_margin - fee_filled`).
+
+**Use Cases:**
+
+- Comprehensive order detail retrieval including pending settlement limits
+- Funding cost analysis and tracking for active positions
+- Advanced position management with close limit price visibility
+- Detailed P&L breakdown including funding impact
+- Risk assessment incorporating settlement limit prices
+
+Get enhanced trader order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`trader_order_info_v1`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                  |
+| ------ | --------- | --------------------------------------- |
+| data   | string    | Hex-encoded query data for trader order |
+
+### Response Fields
+
+All fields from `trader_order_info` plus:
+
+| Field           | Data_Type | Description                                                                 |
+| --------------- | --------- | --------------------------------------------------------------------------- |
+| settle_limit    | object    | Latest close limit details (null if settled/liquidated or no limit set)     |
+| funding_applied | string    | Cumulative funding payment applied (null if no funding updates recorded)   |
+
+_settle_limit object (when present):_
+
+| Field         | Data_Type | Description                        |
+| ------------- | --------- | ---------------------------------- |
+| uuid          | string    | Order UUID                         |
+| position_type | string    | Position direction                 |
+| price         | string    | Close limit price                  |
 
 ### Lend Order Info
 
@@ -1658,7 +2415,7 @@ fetch("API_ENDPOINT/api", requestOptions)
   "result": {
     "id": 25,
     "uuid": "6fb4f910-ceb4-432d-995b-79eddb8c4c83",
-    "account_id": "0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b",
+    "account_id": "0c08ed4f0daeec9b...",
     "balance": "153620",
     "order_status": "FILLED",
     "order_type": "MARKET",
@@ -1684,7 +2441,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 }
 ```
 
-**Description:** Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.
+**Description:** Retrieves detailed lending order information using encrypted account data (hex-encoded `QueryLendOrderZkos`). The request is verified via `verify_query_order` before querying the database.
 
 **Use Cases:**
 
@@ -1712,33 +2469,304 @@ Get lend order information by account ID
 
 ### Response Fields
 
-| Field                 | Data_Type | Description                                             |
-| --------------------- | --------- | ------------------------------------------------------- |
-| id                    | integer   | Internal lend order ID                                  |
-| uuid                  | string    | Unique lend order identifier                            |
-| account_id            | string    | Account public key associated with the lend order       |
-| balance               | string    | Current balance in the lend order (2 decimal places)    |
-| order_status          | string    | Current order status ("FILLED", "PENDING", "CANCELLED") |
-| order_type            | string    | Order type ("MARKET", "LIMIT")                          |
-| entry_nonce           | integer   | Entry transaction nonce                                 |
-| exit_nonce            | integer   | Exit transaction nonce                                  |
-| deposit               | string    | Initial deposit amount (2 decimal places)               |
-| new_lend_state_amount | string    | Updated lend state amount (2 decimal places)            |
-| timestamp             | string    | Order creation timestamp (ISO 8601 format)              |
-| npoolshare            | string    | Number of pool shares (2 decimal places)                |
-| nwithdraw             | string    | Withdrawal amount (2 decimal places)                    |
-| payment               | string    | Payment amount (2 decimal places)                       |
-| tlv0                  | string    | Total locked value tier 0 (2 decimal places)            |
-| tps0                  | string    | Total pool shares tier 0 (2 decimal places)             |
-| tlv1                  | string    | Total locked value tier 1 (2 decimal places)            |
-| tps1                  | string    | Total pool shares tier 1 (2 decimal places)             |
-| tlv2                  | string    | Total locked value tier 2 (2 decimal places)            |
-| tps2                  | string    | Total pool shares tier 2 (2 decimal places)             |
-| tlv3                  | string    | Total locked value tier 3 (2 decimal places)            |
-| tps3                  | string    | Total pool shares tier 3 (2 decimal places)             |
-| entry_sequence        | integer   | Entry sequence number                                   |
+| Field                 | Data_Type | Description                                       |
+| --------------------- | --------- | ------------------------------------------------- |
+| id                    | integer   | Internal lend order ID                            |
+| uuid                  | string    | Unique lend order identifier                      |
+| account_id            | string    | Account public key associated with the lend order |
+| balance               | string    | Current balance in the lend order                 |
+| order_status          | string    | Current order status (`"FILLED"`, `"PENDING"`, `"CANCELLED"`, `"SETTLED"`) |
+| order_type            | string    | Order type (`"MARKET"`, `"LIMIT"`)                |
+| entry_nonce           | integer   | Entry transaction nonce                           |
+| exit_nonce            | integer   | Exit transaction nonce                            |
+| deposit               | string    | Initial deposit amount                            |
+| new_lend_state_amount | string    | Updated lend state amount                         |
+| timestamp             | string    | Order creation timestamp (ISO 8601 format)        |
+| npoolshare            | string    | Number of pool shares                             |
+| nwithdraw             | string    | Withdrawal amount                                 |
+| payment               | string    | Payment amount                                    |
+| tlv0                  | string    | Total locked value tier 0                         |
+| tps0                  | string    | Total pool shares tier 0                          |
+| tlv1                  | string    | Total locked value tier 1                         |
+| tps1                  | string    | Total pool shares tier 1                          |
+| tlv2                  | string    | Total locked value tier 2                         |
+| tps2                  | string    | Total pool shares tier 2                          |
+| tlv3                  | string    | Total locked value tier 3                         |
+| tps3                  | string    | Total pool shares tier 3                          |
+| entry_sequence        | integer   | Entry sequence number                             |
 
-### Transaction Hash
+### Historical Trader Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "historical_trader_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": 50,
+      "uuid": "3374714d-8a95-4096-855f-7e2675fe0dc8",
+      "account_id": "0c08ed4f0daeec9b...",
+      "position_type": "LONG",
+      "order_status": "SETTLED",
+      "order_type": "MARKET",
+      "entryprice": "42508.71",
+      "execution_price": "30000",
+      "positionsize": "4250871",
+      "leverage": "10",
+      "initial_margin": "10",
+      "available_margin": "9.85",
+      "timestamp": "2024-01-31T11:14:45.575359Z",
+      "bankruptcy_price": "38644.28",
+      "bankruptcy_value": "110",
+      "maintenance_margin": "0.5375",
+      "liquidation_price": "38834.04",
+      "unrealized_pnl": "1.25",
+      "settlement_price": "43500.00",
+      "entry_nonce": 0,
+      "exit_nonce": 1,
+      "entry_sequence": 1,
+      "fee_filled": "0.05",
+      "fee_settled": "0.075"
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Retrieves the full history of trader orders for an account (up to 500 most recent). Uses the same hex-encoded `QueryTraderOrderZkos` format as `trader_order_info` but returns an array of all historical orders instead of just the latest.
+
+**Use Cases:**
+
+- Complete trading history retrieval for account analysis and record-keeping
+- Historical performance analysis and trade pattern identification
+- Compliance and audit trail for regulatory reporting requirements
+- P&L attribution and risk analysis across all historical positions
+- Account activity reconstruction for dispute resolution
+
+Get historical trader order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`historical_trader_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                  |
+| ------ | --------- | --------------------------------------- |
+| data   | string    | Hex-encoded query data for trader order |
+
+### Response Fields
+
+Returns an array of trader order objects. Each object has the same fields as the `trader_order_info` response.
+
+### Historical Lend Order Info
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "historical_lend_order_info",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "id": 25,
+      "uuid": "6fb4f910-ceb4-432d-995b-79eddb8c4c83",
+      "account_id": "0c08ed4f0daeec9b...",
+      "balance": "153620",
+      "order_status": "SETTLED",
+      "order_type": "MARKET",
+      "entry_nonce": 0,
+      "exit_nonce": 1,
+      "deposit": "153620",
+      "new_lend_state_amount": "155000",
+      "timestamp": "2024-02-28T04:59:44.020048Z",
+      "npoolshare": "100",
+      "nwithdraw": "155000",
+      "payment": "1380",
+      "tlv0": "0",
+      "tps0": "0",
+      "tlv1": "0",
+      "tps1": "0",
+      "tlv2": "0",
+      "tps2": "0",
+      "tlv3": "0",
+      "tps3": "0",
+      "entry_sequence": 10
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Retrieves the full history of lending orders for an account. Uses the same hex-encoded `QueryLendOrderZkos` format as `lend_order_info` but returns an array of all historical orders.
+
+**Use Cases:**
+
+- Complete lending history for account analysis and yield tracking
+- Historical performance review for lending strategy optimization
+- Compliance and audit trail for lending operations reporting
+- Pool share movement analysis and capital flow tracking
+- Account activity reconstruction for dispute resolution
+
+Get historical lend order information by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`historical_lend_order_info`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                |
+| ------ | --------- | ------------------------------------- |
+| data   | string    | Hex-encoded query data for lend order |
+
+### Response Fields
+
+Returns an array of lend order objects. Each object has the same fields as the `lend_order_info` response.
+
+### Order Funding History
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  jsonrpc: "2.0",
+  method: "order_funding_history",
+  id: 123,
+  params: {
+    data: "hex_encoded_data_string",
+  },
+});
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow",
+};
+
+fetch("API_ENDPOINT/api", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+```
+
+> The result from the above endpoint looks like this:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "time": "2024-01-31T17:35:14.662529Z",
+      "position_side": "LONG",
+      "payment": "0.0042",
+      "funding_rate": "0.0001",
+      "order_id": "3374714d-8a95-4096-855f-7e2675fe0dc8"
+    }
+  ],
+  "id": 123
+}
+```
+
+**Description:** Retrieves the funding payment history for a trader order using encrypted account data (hex-encoded `QueryTraderOrderZkos`). The request is verified via `verify_query_order` before querying the database. For each funding update on the order, the endpoint returns the cumulative payment delta and the corresponding funding rate.
+
+**Use Cases:**
+
+- Tracking funding payments accrued on an open position over time
+- Reconciling funding costs for PnL calculations
+- Auditing historical funding rate exposure per order
+
+Get order funding history by account ID
+
+### HTTP Method
+
+`POST`
+
+### RPC Method
+
+`order_funding_history`
+
+### Message Parameters
+
+| Params | Data_Type | Values                                  |
+| ------ | --------- | --------------------------------------- |
+| data   | string    | Hex-encoded query data for trader order |
+
+### Response Fields
+
+Returns an array of funding history entries:
+
+| Field         | Data_Type | Description                                        |
+| ------------- | --------- | -------------------------------------------------- |
+| time          | string    | Funding update timestamp (ISO 8601 format)         |
+| position_side | string    | Position direction (`"LONG"` or `"SHORT"`)         |
+| payment       | string    | Funding payment delta since previous update        |
+| funding_rate  | string    | Funding rate applied at this update                |
+| order_id      | string    | Order UUID associated with the funding update      |
+
+### Transaction Hashes
 
 The `transaction_hashes` method supports three different parameter types for querying transaction data:
 
@@ -1755,7 +2783,9 @@ var raw = JSON.stringify({
   params: {
     AccountId: {
       id: "0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22",
-      status: "FILLED", // Optional: filter by order status
+      status: "FILLED",
+      limit: 100,
+      offset: 0,
     },
   },
 });
@@ -1786,7 +2816,9 @@ var raw = JSON.stringify({
   params: {
     TxId: {
       id: "83216790-d1c6-40d9-a70e-712d5d81cecd",
-      status: "SETTLED", // Optional: filter by order status
+      status: "SETTLED",
+      limit: 100,
+      offset: 0,
     },
   },
 });
@@ -1816,8 +2848,10 @@ var raw = JSON.stringify({
   id: 123,
   params: {
     RequestId: {
-      id: "REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325", //request_id
-      status: "FILLED", // Optional: filter by order status
+      id: "REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325",
+      status: "FILLED",
+      limit: 100,
+      offset: 0,
     },
   },
 });
@@ -1842,33 +2876,22 @@ fetch("API_ENDPOINT/api", requestOptions)
   "jsonrpc": "2.0",
   "result": [
     {
-      "account_id": "0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22",
+      "account_id": "0c3eb16783ccdbee...",
       "datetime": "1708363831398559",
       "id": 4,
       "order_id": "83216790-d1c6-40d9-a70e-712d5d81cecd",
       "order_status": "FILLED",
       "order_type": "MARKET",
-      "output": "01000000010000002a000000000000003138363065656636336564656531303738313738623361646236336539663836393231636161313662358a00000000000000306333656231363738336363646265653835356530626162663664313330313031653764363630383962616332303438343630366535326266353037643930653361353034396133333739623861666334373036386432353038646664373166653932616461623761356164363832666262626239623430313135386536326434326161363463623232010000000000000082000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f0104000000000000000300000001000000386567000000000000000000000000000000000000000000000000000000000002000000010000000000000001000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f03000000010000009ccb0000000000000000000000000000000000000000000000000000000000000300000001000000010000000000000000000000000000000000000000000000000000000000000001000000",
+      "output": "01000000...",
       "request_id": "REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325",
       "tx_hash": "8E291447D61EBC7E0AF5BB006576190E117516CA9A29358554C108718586FF58"
-    },
-    {
-      "account_id": "0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22",
-      "datetime": "1708411999147047",
-      "id": 8,
-      "order_id": "83216790-d1c6-40d9-a70e-712d5d81cecd",
-      "order_status": "SETTLED",
-      "order_type": "MARKET",
-      "output": null,
-      "request_id": null,
-      "tx_hash": "C5680F08C4D315241924BB1B4F172B12ABB44A6A49DA0CBAD69552D43A9EBA4A"
     }
   ],
   "id": 123
 }
 ```
 
-**Description:** Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes.
+**Description:** Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes. Supports querying by Account ID, Transaction/Order ID, or Request ID, with optional status filtering and pagination.
 
 **Use Cases:**
 
@@ -1878,7 +2901,7 @@ fetch("API_ENDPOINT/api", requestOptions)
 - Dispute resolution and transaction history verification
 - Integration with blockchain explorers for transaction monitoring
 
-Transaction Hash
+Transaction Hashes
 
 ### HTTP Method
 
@@ -1897,32 +2920,38 @@ The `transaction_hashes` method accepts one of three parameter variants:
 | Params           | Data_Type | Required | Values                                                                     |
 | ---------------- | --------- | -------- | -------------------------------------------------------------------------- |
 | AccountId.id     | string    | Yes      | Account public key/identifier                                              |
-| AccountId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
+| AccountId.status | string    | No       | Optional order status filter (`"FILLED"`, `"SETTLED"`, `"PENDING"`, `"CANCELLED"`) |
+| AccountId.limit  | integer   | No       | Number of results (default 500, max 500)                                   |
+| AccountId.offset | integer   | No       | Page offset (default 0)                                                    |
 
 #### Variant 2: Query by Transaction/Order ID
 
 | Params      | Data_Type | Required | Values                                                                     |
 | ----------- | --------- | -------- | -------------------------------------------------------------------------- |
 | TxId.id     | string    | Yes      | Transaction/Order UUID                                                     |
-| TxId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
+| TxId.status | string    | No       | Optional order status filter (`"FILLED"`, `"SETTLED"`, `"PENDING"`, `"CANCELLED"`) |
+| TxId.limit  | integer   | No       | Number of results (default 500, max 500)                                   |
+| TxId.offset | integer   | No       | Page offset (default 0)                                                    |
 
 #### Variant 3: Query by Request ID
 
 | Params           | Data_Type | Required | Values                                                                     |
 | ---------------- | --------- | -------- | -------------------------------------------------------------------------- |
 | RequestId.id     | string    | Yes      | Unique request identifier                                                  |
-| RequestId.status | string    | No       | Optional order status filter ("FILLED", "SETTLED", "PENDING", "CANCELLED") |
+| RequestId.status | string    | No       | Optional order status filter (`"FILLED"`, `"SETTLED"`, `"PENDING"`, `"CANCELLED"`) |
+| RequestId.limit  | integer   | No       | Number of results (default 500, max 500)                                   |
+| RequestId.offset | integer   | No       | Page offset (default 0)                                                    |
 
 ### Response Fields
 
 | Field        | Data_Type | Description                                            |
 | ------------ | --------- | ------------------------------------------------------ |
-| account_id   | string    | Account ID associated with the transaction             |
-| datetime     | string    | Transaction timestamp (Unix timestamp in microseconds) |
 | id           | integer   | Internal transaction record ID                         |
 | order_id     | string    | Order UUID associated with the transaction             |
-| order_status | string    | Order status at transaction time ("FILLED", "SETTLED") |
-| order_type   | string    | Order type ("MARKET", "LIMIT")                         |
+| account_id   | string    | Account ID associated with the transaction             |
+| tx_hash      | string    | Blockchain transaction hash                            |
+| order_type   | string    | Order type (`"MARKET"`, `"LIMIT"`)                     |
+| order_status | string    | Order status at transaction time                       |
+| datetime     | string    | Transaction timestamp (Unix timestamp in microseconds) |
 | output       | string    | Hex-encoded transaction output data (nullable)         |
 | request_id   | string    | Unique request identifier (nullable)                   |
-| tx_hash      | string    | Blockchain transaction hash                            |

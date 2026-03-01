@@ -15,8 +15,8 @@ includes:
   - public
   - private
   - websocket
-  - zkos
-  - sdk
+  #- zkos
+  #- sdk
   - indexer
 
 search: true

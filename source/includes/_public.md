@@ -28,11 +28,9 @@ For example:
 
 ---
 
-# Data API
-
-The Data API provides publicly available market data, analytics, and system information. These endpoints do not require authentication and are designed for market monitoring, analysis, and data feeds.
-
 ## Market Data
+
+Market data endpoints provide OHLCV candles, real-time and historical prices, funding rates, and fee information. Use them for charting, backtesting, and monitoring market conditions. No authentication required.
 
 ### Candle Data
 
@@ -673,6 +671,8 @@ Historical fee rate
 | timestamp               | string    | Fee rate timestamp (ISO 8601 format)            |
 
 ## Market Analytics
+
+These endpoints provide aggregate market metrics such as position sizes, order book depth, pool information, APY, and open interest. They help you assess liquidity, market sentiment, and risk before placing orders or building trading strategies.
 
 ### Position Size
 
@@ -1418,6 +1418,8 @@ _Risk params object:_
 
 ## Account Analytics
 
+Account analytics endpoints return trading activity summaries for a given Twilight address over a date range. They show settled, filled, and liquidated positions and counts, useful for portfolio tracking, reporting, and compliance.
+
 ### Account Summary by Twilight Address
 
 ```javascript
@@ -1624,6 +1626,8 @@ _Each summary object:_
 
 ## System Information
 
+System information endpoints provide server time and basic status. Use them for client-server time synchronization, request timestamp validation, and audit trail consistency.
+
 ### Server Time
 
 ```javascript
@@ -1693,11 +1697,9 @@ Server time
 
 ---
 
-# Order API
-
-The Order API handles order management, chain operations, and trading activities. These endpoints may require authentication and are designed for active trading operations.
-
 ## Authentication
+
+Authentication endpoints let you obtain API credentials (`api_key` and `api_secret`) by signing a message with your wallet. Use these credentials to authenticate requests to order management and account endpoints.
 
 ### Login
 
@@ -1776,6 +1778,8 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </aside>
 
 ## Order Management
+
+Order management endpoints let you submit, settle, and cancel trading and lending orders. They support manual and automated trading flows, portfolio rebalancing, and risk management. Authentication required.
 
 ### Submit Trade Order
 
@@ -2148,6 +2152,8 @@ Cancel an existing trader order
 | id      | string    | Unique request identifier for tracking purposes |
 
 ## Order Information & Chain Data
+
+These endpoints let you query order details, historical orders, funding history, and blockchain transaction hashes. Use them for order tracking, compliance reporting, and verification of on-chain settlement.
 
 ### Trader Order Info
 

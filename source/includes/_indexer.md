@@ -13,7 +13,6 @@ This API is intended for:
 > This is an **off-chain indexer** API backed by indexed chain data.
 > For authoritative protocol module REST endpoints and schemas, refer to the Twilight LCD Swagger UI: **https://lcd.twilight.org**.
 
----
 
 ## Base URL
 
@@ -23,13 +22,11 @@ This API is intended for:
 **Local development**  
 `http://localhost:3030/api/`
 
----
 
 ## Authentication
 
 No authentication is required.
 
----
 
 ## Conventions
 
@@ -38,7 +35,6 @@ No authentication is required.
 - **Units**: All BTC-denominated values are expressed in **`sats`** (integer satoshis).
 - **Response format**: JSON.
 
----
 
 ## Table of Contents
 
@@ -53,7 +49,6 @@ No authentication is required.
 9. [QQ Account Mapping](#qq-account-mapping)
 10. [Address Summary](#address-summary)
 
----
 
 ## Health
 
@@ -85,7 +80,6 @@ curl -X GET "https://indexer.twilight.org/api/health"
 }
 ```
 
----
 
 ## Decode Transaction
 
@@ -126,7 +120,6 @@ curl -X POST "https://indexer.twilight.org/api/decode-transaction" \
 }
 ```
 
----
 
 ## Transaction Count
 
@@ -165,7 +158,6 @@ curl -X GET "https://indexer.twilight.org/api/transactions/twilight1..."
 }
 ```
 
----
 
 ## Funding Transfers
 
@@ -226,7 +218,6 @@ curl -X GET "https://indexer.twilight.org/api/funding/twilight1..."
   ]
 }
 ```
----
 
 ## Exchange Withdrawal
 
@@ -280,7 +271,6 @@ curl -X GET "https://indexer.twilight.org/api/exchange-withdrawal/twilight1..."
 }
 ```
 
----
 
 ## Exchange Deposit
 
@@ -331,7 +321,6 @@ curl -X GET "https://indexer.twilight.org/api/exchange-deposit/twilight1..."
   ]
 }
 ```
----
 
 ## BTC Deposit
 
@@ -369,6 +358,7 @@ curl -X GET "https://indexer.twilight.org/api/btc-deposit/twilight1..."
 **Response (200)**
 
 > The result from the above endpoint looks like this:
+
 ```json
 {
   "success": true,
@@ -381,7 +371,6 @@ curl -X GET "https://indexer.twilight.org/api/btc-deposit/twilight1..."
   ]
 }
 ```
----
 
 ## BTC Withdrawal
 
@@ -431,7 +420,6 @@ curl -X GET "https://indexer.twilight.org/api/btc-withdrawal/twilight1..."
   ]
 }
 ```
----
 
 ## QQ Account Mapping
 
@@ -481,7 +469,6 @@ curl -X GET "https://indexer.twilight.org/api/qq-account/twilight1..."
   ]
 }
 ```
----
 
 ## Address Summary
 
@@ -535,7 +522,6 @@ curl -X GET "https://indexer.twilight.org/api/address/twilight1.../all"
   "lit_burned_sats": []
 }
 ```
----
 
 ## HTTP Status Codes
 

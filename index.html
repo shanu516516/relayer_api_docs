@@ -335,7 +335,7 @@
                     <a href="#market-analytics" class="toc-h2 toc-link" data-title="Market Analytics">Market Analytics</a>
                   </li>
                   <li>
-                    <a href="#open-limit-order" class="toc-h2 toc-link" data-title="Open Limit Order">Open Limit Order</a>
+                    <a href="#account-analytics" class="toc-h2 toc-link" data-title="Account Analytics">Account Analytics</a>
                   </li>
                   <li>
                     <a href="#system-information" class="toc-h2 toc-link" data-title="System Information">System Information</a>
@@ -707,17 +707,17 @@
 <tr>
 <td>since</td>
 <td>datetime</td>
-<td>Start time</td>
+<td>Start time (ISO 8601)</td>
 </tr>
 <tr>
 <td>limit</td>
 <td>integer</td>
-<td>Number of entries</td>
+<td>Number of entries (max 5000)</td>
 </tr>
 <tr>
 <td>offset</td>
 <td>integer</td>
-<td>Page number</td>
+<td>Page offset</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields'>Response Fields</h3>
@@ -731,12 +731,12 @@
 <tr>
 <td>btc_volume</td>
 <td>string</td>
-<td>BTC trading volume for the period (2 decimal places)</td>
+<td>BTC trading volume for the period</td>
 </tr>
 <tr>
 <td>close</td>
 <td>string</td>
-<td>Closing price for the period (2 decimal places)</td>
+<td>Closing price for the period</td>
 </tr>
 <tr>
 <td>end</td>
@@ -746,17 +746,17 @@
 <tr>
 <td>high</td>
 <td>string</td>
-<td>Highest price during the period (2 decimal places)</td>
+<td>Highest price during the period</td>
 </tr>
 <tr>
 <td>low</td>
 <td>string</td>
-<td>Lowest price during the period (2 decimal places)</td>
+<td>Lowest price during the period</td>
 </tr>
 <tr>
 <td>open</td>
 <td>string</td>
-<td>Opening price for the period (2 decimal places)</td>
+<td>Opening price for the period</td>
 </tr>
 <tr>
 <td>resolution</td>
@@ -776,10 +776,10 @@
 <tr>
 <td>usd_volume</td>
 <td>string</td>
-<td>USD trading volume for the period (2 decimal places)</td>
+<td>USD trading volume for the period</td>
 </tr>
 </tbody></table>
-<h3 id='btc-usd-price'>Btc Usd Price</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<h3 id='btc-usd-price'>BTC USD Price</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -826,7 +826,7 @@
 <li>Market data synchronization and price validation</li>
 </ul>
 
-<p>Btc Usd Price</p>
+<p>BTC USD Price</p>
 <h3 id='http-method-2'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method-2'>RPC Method</h3>
@@ -861,7 +861,7 @@
 <tr>
 <td>price</td>
 <td>string</td>
-<td>Current BTC-USD price (2 decimal places)</td>
+<td>Current BTC-USD price</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -949,22 +949,22 @@
 <tr>
 <td>from</td>
 <td>datetime</td>
-<td>Start time</td>
+<td>Start time (ISO 8601)</td>
 </tr>
 <tr>
 <td>to</td>
 <td>datetime</td>
-<td>End time</td>
+<td>End time (ISO 8601)</td>
 </tr>
 <tr>
 <td>limit</td>
 <td>integer</td>
-<td>Number of entries</td>
+<td>Number of entries (max 5000)</td>
 </tr>
 <tr>
 <td>offset</td>
 <td>integer</td>
-<td>Page number</td>
+<td>Page offset</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-3'>Response Fields</h3>
@@ -983,7 +983,7 @@
 <tr>
 <td>price</td>
 <td>string</td>
-<td>Historical BTC-USD price (2 decimal places)</td>
+<td>Historical BTC-USD price</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1074,12 +1074,12 @@
 <tr>
 <td>price</td>
 <td>string</td>
-<td>BTC-USD price at funding time (2 decimal places)</td>
+<td>BTC-USD price at funding time</td>
 </tr>
 <tr>
 <td>rate</td>
 <td>string</td>
-<td>Current funding rate (4 decimal places)</td>
+<td>Current funding rate</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1170,22 +1170,22 @@
 <tr>
 <td>from</td>
 <td>datetime</td>
-<td>Start time</td>
+<td>Start time (ISO 8601)</td>
 </tr>
 <tr>
 <td>to</td>
 <td>datetime</td>
-<td>End time</td>
+<td>End time (ISO 8601)</td>
 </tr>
 <tr>
 <td>limit</td>
 <td>integer</td>
-<td>Number of entries</td>
+<td>Number of entries (max 5000)</td>
 </tr>
 <tr>
 <td>offset</td>
 <td>integer</td>
-<td>Page number</td>
+<td>Page offset</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-5'>Response Fields</h3>
@@ -1204,12 +1204,12 @@
 <tr>
 <td>price</td>
 <td>string</td>
-<td>BTC-USD price at funding time (2 decimal places)</td>
+<td>BTC-USD price at funding time</td>
 </tr>
 <tr>
 <td>rate</td>
 <td>string</td>
-<td>Funding rate for the period (4 decimal places)</td>
+<td>Funding rate for the period</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1302,22 +1302,22 @@
 <tr>
 <td>order_filled_on_market</td>
 <td>string</td>
-<td>Fee rate for market orders when filled (4 decimal places)</td>
+<td>Fee rate for market orders when filled</td>
 </tr>
 <tr>
 <td>order_filled_on_limit</td>
 <td>string</td>
-<td>Fee rate for limit orders when filled (4 decimal places)</td>
+<td>Fee rate for limit orders when filled</td>
 </tr>
 <tr>
 <td>order_settled_on_market</td>
 <td>string</td>
-<td>Fee rate for market orders when settled (4 decimal places)</td>
+<td>Fee rate for market orders when settled</td>
 </tr>
 <tr>
 <td>order_settled_on_limit</td>
 <td>string</td>
-<td>Fee rate for limit orders when settled (4 decimal places)</td>
+<td>Fee rate for limit orders when settled</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1414,22 +1414,22 @@
 <tr>
 <td>from</td>
 <td>datetime</td>
-<td>Start time</td>
+<td>Start time (ISO 8601)</td>
 </tr>
 <tr>
 <td>to</td>
 <td>datetime</td>
-<td>End time</td>
+<td>End time (ISO 8601)</td>
 </tr>
 <tr>
 <td>limit</td>
 <td>integer</td>
-<td>Number of entries</td>
+<td>Number of entries (max 5000)</td>
 </tr>
 <tr>
 <td>offset</td>
 <td>integer</td>
-<td>Page number</td>
+<td>Page offset</td>
 </tr>
 </tbody></table>
 <h3 id='response-fields-7'>Response Fields</h3>
@@ -1448,22 +1448,22 @@
 <tr>
 <td>order_filled_on_market</td>
 <td>string</td>
-<td>Fee rate for market orders when filled (4 decimal places)</td>
+<td>Fee rate for market orders when filled</td>
 </tr>
 <tr>
 <td>order_filled_on_limit</td>
 <td>string</td>
-<td>Fee rate for limit orders when filled (4 decimal places)</td>
+<td>Fee rate for limit orders when filled</td>
 </tr>
 <tr>
 <td>order_settled_on_market</td>
 <td>string</td>
-<td>Fee rate for market orders when settled (4 decimal places)</td>
+<td>Fee rate for market orders when settled</td>
 </tr>
 <tr>
 <td>order_settled_on_limit</td>
 <td>string</td>
-<td>Fee rate for limit orders when settled (4 decimal places)</td>
+<td>Fee rate for limit orders when settled</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1548,20 +1548,20 @@
 <tr>
 <td>total</td>
 <td>string</td>
-<td>Total open position size across all participants (2 decimal places)</td>
+<td>Total open position size</td>
 </tr>
 <tr>
 <td>total_long</td>
 <td>string</td>
-<td>Total long position size (2 decimal places)</td>
+<td>Total long position size</td>
 </tr>
 <tr>
 <td>total_short</td>
 <td>string</td>
-<td>Total short position size (2 decimal places)</td>
+<td>Total short position size</td>
 </tr>
 </tbody></table>
-<h2 id='open-limit-order'>Open Limit Order</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<h3 id='open-limit-orders'>Open Limit Orders</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -1589,13 +1589,17 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"ask"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-    </span><span class="nl">"bid"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="nl">"ask"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000</span><span class="p">,</span><span class="w"> </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">45000.50</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"bid"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">3000000</span><span class="p">,</span><span class="w"> </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">44500.25</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Displays the current order book with open limit orders, showing market depth and liquidity for both buy (bid) and sell (ask) sides.</p>
+<p><strong>Description:</strong> Displays the current order book with open limit orders from Redis cache, showing market depth and liquidity for both buy (bid) and sell (ask) sides. Limited to top 10 entries per side.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -1607,7 +1611,7 @@
 <li>Order book imbalance detection for short-term trading signals</li>
 </ul>
 
-<p>Open Limit Order</p>
+<p>Open Limit Orders</p>
 <h3 id='http-method-9'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method-9'>RPC Method</h3>
@@ -1646,8 +1650,27 @@
 </tr>
 </tbody></table>
 
-<p><em>Note: Each order in ask/bid arrays contains price, size, and order details</em></p>
-<h3 id='recent-trade-order'>Recent Trade Order</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<p><em>Each order in ask/bid arrays contains:</em></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>positionsize</td>
+<td>number</td>
+<td>Size of the limit order</td>
+</tr>
+<tr>
+<td>price</td>
+<td>number</td>
+<td>Price of the limit order</td>
+</tr>
+</tbody></table>
+<h3 id='recent-trade-orders'>Recent Trade Orders</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -1693,7 +1716,7 @@
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Retrieves the latest executed trades on the Relayer-matchbook, showing real-time market activity and price discovery.</p>
+<p><strong>Description:</strong> Retrieves the latest executed trades from the Redis cache (last 24 hours, limited to 25 most recent). Shows real-time market activity and price discovery.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -1705,7 +1728,7 @@
 <li>Historical trade reconstruction for compliance and audit purposes</li>
 </ul>
 
-<p>Recent Trade Order</p>
+<p>Recent Trade Orders</p>
 <h3 id='http-method-10'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method-10'>RPC Method</h3>
@@ -1745,12 +1768,12 @@
 <tr>
 <td>price</td>
 <td>string</td>
-<td>Execution price of the trade (2 decimal places)</td>
+<td>Execution price of the trade</td>
 </tr>
 <tr>
 <td>positionsize</td>
 <td>string</td>
-<td>Size of the executed trade (2 decimal places)</td>
+<td>Size of the executed trade</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1785,11 +1808,11 @@
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="mf">123.456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0253</span><span class="p">,</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Returns the current value of lending pool shares, essential for yield farming and liquidity provision calculations.</p>
+<p><strong>Description:</strong> Returns the current value of lending pool shares, calculated as total_locked_value / total_pool_share. Essential for yield farming and liquidity provision calculations.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -1801,7 +1824,7 @@
 <li>Portfolio valuation for mixed trading and lending positions</li>
 </ul>
 
-<p>Current pool share value (value of 100 pool shares)</p>
+<p>Current pool share value</p>
 <h3 id='http-method-11'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='rpc-method-11'>RPC Method</h3>
@@ -1831,7 +1854,937 @@
 <tr>
 <td>result</td>
 <td>number</td>
-<td>Current value of 100 pool shares (2 decimal places)</td>
+<td>Current value per pool share</td>
+</tr>
+</tbody></table>
+<h3 id='lend-pool-info'>Lend Pool Info</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">lend_pool_info</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pool_share"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_locked_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1025300"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pending_orders"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aggregate_log_sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_snapshot_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns complete lending pool information including total pool shares, total locked value, and operational state.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Pool health monitoring and risk assessment for liquidity providers</li>
+<li>Share price calculation and yield estimation for DeFi strategies</li>
+<li>Liquidity depth analysis for lending market capacity</li>
+<li>Pool utilization tracking and capital efficiency optimization</li>
+<li>Market analytics for lending pool performance reporting</li>
+</ul>
+
+<p>Lend Pool Info</p>
+<h3 id='http-method-12'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-12'>RPC Method</h3>
+<p><code>lend_pool_info</code></p>
+<h3 id='message-parameters-12'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-12'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>Internal pool record ID</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>integer</td>
+<td>Pool sequence number</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>Pool nonce</td>
+</tr>
+<tr>
+<td>total_pool_share</td>
+<td>string</td>
+<td>Total outstanding pool shares</td>
+</tr>
+<tr>
+<td>total_locked_value</td>
+<td>string</td>
+<td>Total value locked in the pool</td>
+</tr>
+<tr>
+<td>pending_orders</td>
+<td>integer</td>
+<td>Number of pending orders in the pool</td>
+</tr>
+<tr>
+<td>aggregate_log_sequence</td>
+<td>integer</td>
+<td>Aggregate log sequence number</td>
+</tr>
+<tr>
+<td>last_snapshot_id</td>
+<td>integer</td>
+<td>ID of the last pool snapshot</td>
+</tr>
+</tbody></table>
+<h3 id='last-day-apy'>Last Day APY</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">last_day_apy</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="mf">12.45</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns the annualized percentage yield (APY) computed from the lending pool&#39;s share price change over the last 24 hours.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time yield monitoring for lending pool participants</li>
+<li>Comparative analysis of lending returns across DeFi protocols</li>
+<li>Investment decision support for capital allocation to lending pools</li>
+<li>Yield farming strategy optimization based on current APY</li>
+<li>Dashboard display for lending pool performance metrics</li>
+</ul>
+
+<p>Last 24-hour APY</p>
+<h3 id='http-method-13'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-13'>RPC Method</h3>
+<p><code>last_day_apy</code></p>
+<h3 id='message-parameters-13'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-13'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>number or null</td>
+<td>Annualized percentage yield for the last 24h</td>
+</tr>
+</tbody></table>
+<h3 id='apy-chart'>APY Chart</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">apy_chart</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">range</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1d</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">step</span><span class="p">:</span> <span class="dl">"</span><span class="s2">5m</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">lookback</span><span class="p">:</span> <span class="dl">"</span><span class="s2">24h</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bucket_ts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-27T00:00:00Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"apy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.34"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bucket_ts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-27T00:05:00Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"apy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.56"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bucket_ts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-27T00:10:00Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"apy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11.89"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns a time series of APY data points for charting, computed from the lending pool&#39;s share price changes using the SQL <code>apy_series()</code> function. Supports configurable chart range, step interval, and lookback window.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>APY trend visualization and historical yield analysis for lending pools</li>
+<li>Yield volatility assessment for risk-adjusted return analysis</li>
+<li>Portfolio performance charting and reporting for investors</li>
+<li>Comparative yield analysis across different time windows</li>
+<li>Automated alert generation based on APY threshold changes</li>
+</ul>
+
+<p>APY Chart</p>
+<h3 id='http-method-14'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-14'>RPC Method</h3>
+<p><code>apy_chart</code></p>
+<h3 id='message-parameters-14'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>range</td>
+<td>string</td>
+<td>Chart range: <code>&quot;1d&quot;</code>, <code>&quot;7d&quot;</code>, <code>&quot;30d&quot;</code>, <code>&quot;24 hours&quot;</code>, <code>&quot;7 days&quot;</code>, <code>&quot;30 days&quot;</code></td>
+</tr>
+<tr>
+<td>step</td>
+<td>string</td>
+<td>(Optional) Step interval: <code>&quot;1m&quot;</code>, <code>&quot;5m&quot;</code>, <code>&quot;15m&quot;</code>, <code>&quot;30m&quot;</code>, <code>&quot;1h&quot;</code>, <code>&quot;2h&quot;</code>, <code>&quot;4h&quot;</code>, <code>&quot;12h&quot;</code>. Default varies by range</td>
+</tr>
+<tr>
+<td>lookback</td>
+<td>string</td>
+<td>(Optional) Trailing APY lookback window: <code>&quot;24h&quot;</code>, <code>&quot;7d&quot;</code>, <code>&quot;30d&quot;</code>. Default <code>&quot;24 hours&quot;</code></td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-14'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bucket_ts</td>
+<td>string</td>
+<td>Bucket timestamp (ISO 8601 format)</td>
+</tr>
+<tr>
+<td>apy</td>
+<td>string</td>
+<td>Annualized percentage yield at this point</td>
+</tr>
+</tbody></table>
+<h3 id='open-interest'>Open Interest</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">open_interest</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"long_exposure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1250000.50"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"short_exposure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"980000.25"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_order_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-27T15:30:00Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns the current open interest data including long and short exposure (computed as initial_margin * leverage for active filled orders), along with the most recent order timestamp.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Market-wide exposure analysis for risk monitoring and trend confirmation</li>
+<li>Long/short ratio calculation for sentiment analysis</li>
+<li>Liquidity and depth assessment for large position planning</li>
+<li>Open interest trend tracking for trading signal generation</li>
+<li>Market capacity and utilization monitoring</li>
+</ul>
+
+<p>Open Interest</p>
+<h3 id='http-method-15'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-15'>RPC Method</h3>
+<p><code>open_interest</code></p>
+<h3 id='message-parameters-15'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-15'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>long_exposure</td>
+<td>string</td>
+<td>Total long exposure (margin * leverage)</td>
+</tr>
+<tr>
+<td>short_exposure</td>
+<td>string</td>
+<td>Total short exposure (margin * leverage)</td>
+</tr>
+<tr>
+<td>last_order_timestamp</td>
+<td>string</td>
+<td>Timestamp of last order (ISO 8601, nullable)</td>
+</tr>
+</tbody></table>
+<h3 id='market-stats'>Market Stats</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get_market_stats</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pool_equity_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_long_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_short_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.8</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pending_long_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pending_short_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"open_interest_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"net_exposure_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"long_pct"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5333</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"short_pct"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4667</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"utilization"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5714</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"max_long_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"max_short_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.9</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HEALTHY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"max_oi_mult"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"max_net_mult"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"max_position_pct"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"min_position_btc"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"max_leverage"</span><span class="p">:</span><span class="w"> </span><span class="mf">50.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"mm_ratio"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns comprehensive market risk statistics computed from the cached RiskState (Redis) and lending pool equity. Includes open interest, net exposure, utilization ratio, maximum allowed position sizes, and market status (HEALTHY, CLOSE_ONLY, or HALT).</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Real-time market health monitoring and circuit breaker status checks</li>
+<li>Risk limit calculations for position sizing and order validation</li>
+<li>Market utilization and capacity analysis for trading decisions</li>
+<li>Long/short balance tracking and net exposure monitoring</li>
+<li>Automated trading system integration for risk-aware order routing</li>
+</ul>
+
+<p>Market Stats</p>
+<h3 id='http-method-16'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-16'>RPC Method</h3>
+<p><code>get_market_stats</code></p>
+<h3 id='message-parameters-16'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>N/A</td>
+<td>null</td>
+<td>No parameters required</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-16'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pool_equity_btc</td>
+<td>number</td>
+<td>Total pool equity in BTC</td>
+</tr>
+<tr>
+<td>total_long_btc</td>
+<td>number</td>
+<td>Total long positions in BTC</td>
+</tr>
+<tr>
+<td>total_short_btc</td>
+<td>number</td>
+<td>Total short positions in BTC</td>
+</tr>
+<tr>
+<td>total_pending_long_btc</td>
+<td>number</td>
+<td>Total pending long positions in BTC</td>
+</tr>
+<tr>
+<td>total_pending_short_btc</td>
+<td>number</td>
+<td>Total pending short positions in BTC</td>
+</tr>
+<tr>
+<td>open_interest_btc</td>
+<td>number</td>
+<td>Total open interest (long + short) in BTC</td>
+</tr>
+<tr>
+<td>net_exposure_btc</td>
+<td>number</td>
+<td>Net exposure (long - short) in BTC</td>
+</tr>
+<tr>
+<td>long_pct</td>
+<td>number</td>
+<td>Percentage of OI that is long (0-1)</td>
+</tr>
+<tr>
+<td>short_pct</td>
+<td>number</td>
+<td>Percentage of OI that is short (0-1)</td>
+</tr>
+<tr>
+<td>utilization</td>
+<td>number</td>
+<td>OI / pool equity ratio (0-1)</td>
+</tr>
+<tr>
+<td>max_long_btc</td>
+<td>number</td>
+<td>Maximum additional long position allowed in BTC</td>
+</tr>
+<tr>
+<td>max_short_btc</td>
+<td>number</td>
+<td>Maximum additional short position allowed in BTC</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Market status: <code>&quot;HEALTHY&quot;</code>, <code>&quot;CLOSE_ONLY&quot;</code>, or <code>&quot;HALT&quot;</code></td>
+</tr>
+<tr>
+<td>status_reason</td>
+<td>string</td>
+<td>Reason for non-healthy status (nullable). E.g. <code>&quot;MANUAL_HALT&quot;</code>, <code>&quot;POOL_EQUITY_INVALID&quot;</code></td>
+</tr>
+<tr>
+<td>params</td>
+<td>object</td>
+<td>Risk parameters object (see below)</td>
+</tr>
+</tbody></table>
+
+<p><em>Risk params object:</em></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>max_oi_mult</td>
+<td>number</td>
+<td>Maximum OI multiplier relative to pool equity</td>
+</tr>
+<tr>
+<td>max_net_mult</td>
+<td>number</td>
+<td>Maximum net exposure multiplier relative to pool</td>
+</tr>
+<tr>
+<td>max_position_pct</td>
+<td>number</td>
+<td>Maximum single position as percentage of pool equity</td>
+</tr>
+<tr>
+<td>min_position_btc</td>
+<td>number</td>
+<td>Minimum position size in BTC</td>
+</tr>
+<tr>
+<td>max_leverage</td>
+<td>number</td>
+<td>Maximum allowed leverage</td>
+</tr>
+<tr>
+<td>mm_ratio</td>
+<td>number</td>
+<td>Maintenance margin ratio</td>
+</tr>
+</tbody></table>
+<h2 id='account-analytics'>Account Analytics</h2><h3 id='account-summary-by-twilight-address'>Account Summary by Twilight Address</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">account_summary_by_twilight_address</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">t_address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">twilight1abc123...</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-01-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">to</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-02-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"settled_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"filled_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12000000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"liquidated_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"settled_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"filled_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"liquidated_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns a trading activity summary for a specific Twilight address, including aggregated position sizes and order counts by status (settled, filled, liquidated). Dates must be at least 7 days in the past (configurable via <code>MAX_DELAYED_DAYS</code>).</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Individual account performance analysis and trade history summary</li>
+<li>Risk monitoring for specific trader addresses</li>
+<li>Compliance reporting per address for regulatory requirements</li>
+<li>Portfolio analytics and P&amp;L attribution by account</li>
+<li>Automated account health scoring and risk assessment</li>
+</ul>
+
+<p>Account Summary by Twilight Address</p>
+<h3 id='http-method-17'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-17'>RPC Method</h3>
+<p><code>account_summary_by_twilight_address</code></p>
+<h3 id='message-parameters-17'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>t_address</td>
+<td>string</td>
+<td>Twilight address to query</td>
+</tr>
+<tr>
+<td>from</td>
+<td>datetime</td>
+<td>(Optional) Start time (ISO 8601). Must be &gt;= 7 days in the past</td>
+</tr>
+<tr>
+<td>to</td>
+<td>datetime</td>
+<td>(Optional) End time (ISO 8601). Capped to 7 days ago if in recent range</td>
+</tr>
+<tr>
+<td>since</td>
+<td>datetime</td>
+<td>(Optional) Alternative to from/to. Must be &gt;= 7 days in the past</td>
+</tr>
+</tbody></table>
+
+<p><em>Note: Either <code>since</code> or <code>from</code> must be provided. <code>to</code> cannot be provided without <code>from</code>.</em></p>
+<h3 id='response-fields-17'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>Effective start time (ISO 8601)</td>
+</tr>
+<tr>
+<td>to</td>
+<td>string</td>
+<td>Effective end time (ISO 8601)</td>
+</tr>
+<tr>
+<td>settled_positionsize</td>
+<td>string</td>
+<td>Total position size of settled orders</td>
+</tr>
+<tr>
+<td>filled_positionsize</td>
+<td>string</td>
+<td>Total position size of filled orders</td>
+</tr>
+<tr>
+<td>liquidated_positionsize</td>
+<td>string</td>
+<td>Total position size of liquidated orders</td>
+</tr>
+<tr>
+<td>settled_count</td>
+<td>integer</td>
+<td>Number of settled orders</td>
+</tr>
+<tr>
+<td>filled_count</td>
+<td>integer</td>
+<td>Number of filled orders</td>
+</tr>
+<tr>
+<td>liquidated_count</td>
+<td>integer</td>
+<td>Number of liquidated orders</td>
+</tr>
+</tbody></table>
+<h3 id='all-account-summaries'>All Account Summaries</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">all_account_summaries</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-01-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">to</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2024-02-01T00:00:00Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">limit</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"summaries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"twilight_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twilight1abc123..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"settled_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"filled_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12000000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"liquidated_positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"settled_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"filled_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"liquidated_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Returns paginated trading activity summaries for all Twilight addresses within a time range. Dates must be at least 7 days in the past. Supports pagination with configurable limit (max 500) and offset.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Platform-wide trading activity reporting and analytics</li>
+<li>Leaderboard generation based on trading volume or performance</li>
+<li>Compliance and regulatory reporting across all accounts</li>
+<li>Market-wide risk assessment and aggregate position monitoring</li>
+<li>Business intelligence and user engagement analytics</li>
+</ul>
+
+<p>All Account Summaries</p>
+<h3 id='http-method-18'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-18'>RPC Method</h3>
+<p><code>all_account_summaries</code></p>
+<h3 id='message-parameters-18'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>datetime</td>
+<td>(Optional) Start time (ISO 8601). Must be &gt;= 7 days in the past</td>
+</tr>
+<tr>
+<td>to</td>
+<td>datetime</td>
+<td>(Optional) End time (ISO 8601). Capped to 7 days ago if in recent range</td>
+</tr>
+<tr>
+<td>since</td>
+<td>datetime</td>
+<td>(Optional) Alternative to from/to. Must be &gt;= 7 days in the past</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>(Optional) Number of results per page (1-500, default 50)</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>integer</td>
+<td>(Optional) Page offset (default 0)</td>
+</tr>
+</tbody></table>
+
+<p><em>Note: Either <code>since</code> or <code>from</code> must be provided. <code>to</code> cannot be provided without <code>from</code>.</em></p>
+<h3 id='response-fields-18'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>Effective start time (ISO 8601)</td>
+</tr>
+<tr>
+<td>to</td>
+<td>string</td>
+<td>Effective end time (ISO 8601)</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>Applied page limit</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>integer</td>
+<td>Applied page offset</td>
+</tr>
+<tr>
+<td>summaries</td>
+<td>array</td>
+<td>Array of account summary objects</td>
+</tr>
+</tbody></table>
+
+<p><em>Each summary object:</em></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>twilight_address</td>
+<td>string</td>
+<td>Twilight address</td>
+</tr>
+<tr>
+<td>settled_positionsize</td>
+<td>string</td>
+<td>Total position size of settled orders</td>
+</tr>
+<tr>
+<td>filled_positionsize</td>
+<td>string</td>
+<td>Total position size of filled orders</td>
+</tr>
+<tr>
+<td>liquidated_positionsize</td>
+<td>string</td>
+<td>Total position size of liquidated orders</td>
+</tr>
+<tr>
+<td>settled_count</td>
+<td>integer</td>
+<td>Number of settled orders</td>
+</tr>
+<tr>
+<td>filled_count</td>
+<td>integer</td>
+<td>Number of filled orders</td>
+</tr>
+<tr>
+<td>liquidated_count</td>
+<td>integer</td>
+<td>Number of liquidated orders</td>
 </tr>
 </tbody></table>
 <h2 id='system-information'>System Information</h2><h3 id='server-time'>Server Time</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -1877,11 +2830,11 @@
 </ul>
 
 <p>Server time</p>
-<h3 id='http-method-12'>HTTP Method</h3>
+<h3 id='http-method-19'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-12'>RPC Method</h3>
+<h3 id='rpc-method-19'>RPC Method</h3>
 <p><code>server_time</code></p>
-<h3 id='message-parameters-12'>Message Parameters</h3>
+<h3 id='message-parameters-19'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -1895,7 +2848,7 @@
 <td>No parameters required</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-12'>Response Fields</h3>
+<h3 id='response-fields-19'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -1962,7 +2915,7 @@
 </ul>
 
 <p>Endpoint to get <code>api_key</code> and <code>api_secret</code> for private API endpoints.</p>
-<h3 id='http-method-13'>HTTP Method</h3>
+<h3 id='http-method-20'>HTTP Method</h3>
 <p><code>POST</code></p>
 <h3 id='message-body'>Message Body</h3>
 <table><thead>
@@ -1988,7 +2941,7 @@
 <td><code>{&quot;pub_key&quot;: {&quot;type&quot;: &quot;tendermint/PubKeySecp256k1&quot;, &quot;value&quot;: string}, &quot;signature&quot;: string}</code></td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-13'>Response Fields</h3>
+<h3 id='response-fields-20'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2047,7 +3000,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Submits a new perpetual contract trading order to the Relayer-matchbook orderbook.</p>
+<p><strong>Description:</strong> Submits a new perpetual contract trading order to the Relayer-matchbook orderbook. The hex-encoded data contains a serialized <code>CreateTraderOrderClientZkos</code> struct with ZK proof data and order parameters.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2060,11 +3013,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Submit a new trade order to the Relayer-matchbook</p>
-<h3 id='http-method-14'>HTTP Method</h3>
+<h3 id='http-method-21'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-13'>RPC Method</h3>
+<h3 id='rpc-method-20'>RPC Method</h3>
 <p><code>submit_trade_order</code></p>
-<h3 id='message-parameters-13'>Message Parameters</h3>
+<h3 id='message-parameters-20'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2078,7 +3031,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded transaction data for the trade order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-14'>Response Fields</h3>
+<h3 id='response-fields-21'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2133,7 +3086,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Submits a new lending order to participate in the lending pool and earn yield on deposited assets.</p>
+<p><strong>Description:</strong> Submits a new lending order to participate in the lending pool and earn yield on deposited assets. The hex-encoded data contains a serialized <code>CreateLendOrderZkos</code> struct.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2146,11 +3099,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Submit a new lend order to the lending pool</p>
-<h3 id='http-method-15'>HTTP Method</h3>
+<h3 id='http-method-22'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-14'>RPC Method</h3>
+<h3 id='rpc-method-21'>RPC Method</h3>
 <p><code>submit_lend_order</code></p>
-<h3 id='message-parameters-14'>Message Parameters</h3>
+<h3 id='message-parameters-21'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2164,7 +3117,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded transaction data for the lend order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-15'>Response Fields</h3>
+<h3 id='response-fields-22'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2219,7 +3172,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Executes the settlement process for filled trade orders, finalizing the trade and updating account balances.</p>
+<p><strong>Description:</strong> Executes the settlement process for filled trade orders, finalizing the trade and updating account balances. The hex-encoded data contains a serialized <code>ExecuteTraderOrderZkos</code> struct.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2232,11 +3185,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Settle an existing trade order</p>
-<h3 id='http-method-16'>HTTP Method</h3>
+<h3 id='http-method-23'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-15'>RPC Method</h3>
+<h3 id='rpc-method-22'>RPC Method</h3>
 <p><code>settle_trade_order</code></p>
-<h3 id='message-parameters-15'>Message Parameters</h3>
+<h3 id='message-parameters-22'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2250,7 +3203,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded settlement data for the trade order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-16'>Response Fields</h3>
+<h3 id='response-fields-23'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2305,7 +3258,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Executes the settlement process for lending orders, finalizing the lending position and updating pool shares.</p>
+<p><strong>Description:</strong> Executes the settlement process for lending orders, finalizing the lending position and updating pool shares. The hex-encoded data contains a serialized <code>ExecuteLendOrderZkos</code> struct.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2318,11 +3271,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Settle an existing lend order</p>
-<h3 id='http-method-17'>HTTP Method</h3>
+<h3 id='http-method-24'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-16'>RPC Method</h3>
+<h3 id='rpc-method-23'>RPC Method</h3>
 <p><code>settle_lend_order</code></p>
-<h3 id='message-parameters-16'>Message Parameters</h3>
+<h3 id='message-parameters-23'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2336,7 +3289,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded settlement data for the lend order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-17'>Response Fields</h3>
+<h3 id='response-fields-24'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2391,7 +3344,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Cancels an existing unfilled or partially filled trading order, removing it from the orderbook.</p>
+<p><strong>Description:</strong> Cancels an existing unfilled or partially filled trading order, removing it from the orderbook. The hex-encoded data contains a serialized <code>CancelTraderOrderZkos</code> struct. Only orders with a cancelable status can be cancelled.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2404,11 +3357,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Cancel an existing trader order</p>
-<h3 id='http-method-18'>HTTP Method</h3>
+<h3 id='http-method-25'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-17'>RPC Method</h3>
+<h3 id='rpc-method-24'>RPC Method</h3>
 <p><code>cancel_trader_order</code></p>
-<h3 id='message-parameters-17'>Message Parameters</h3>
+<h3 id='message-parameters-24'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2422,7 +3375,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded cancellation data for the trader order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-18'>Response Fields</h3>
+<h3 id='response-fields-25'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2473,21 +3426,21 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
     </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b..."</span><span class="p">,</span><span class="w">
     </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42508.7099999999991268850862979888916015625"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42508.71"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"execution_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30000"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4250871"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"initial_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"available_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T11:14:45.575359Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38644.281818181814742274582386016845703125"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38644.28"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"bankruptcy_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5375"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38834.039054470704286359250545501708984375"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38834.04"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -2499,7 +3452,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Retrieves detailed trader order information using encrypted account data for privacy-preserving order queries.</p>
+<p><strong>Description:</strong> Retrieves the latest trader order for an account using encrypted account data (hex-encoded <code>QueryTraderOrderZkos</code>). The request is verified via <code>verify_query_order</code> before querying the database.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2512,11 +3465,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Get trader order information by account ID</p>
-<h3 id='http-method-19'>HTTP Method</h3>
+<h3 id='http-method-26'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-18'>RPC Method</h3>
+<h3 id='rpc-method-25'>RPC Method</h3>
 <p><code>trader_order_info</code></p>
-<h3 id='message-parameters-18'>Message Parameters</h3>
+<h3 id='message-parameters-25'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2530,7 +3483,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded query data for trader order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-19'>Response Fields</h3>
+<h3 id='response-fields-26'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2556,47 +3509,47 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>position_type</td>
 <td>string</td>
-<td>Position direction (&quot;LONG&quot; or &quot;SHORT&quot;)</td>
+<td>Position direction (<code>&quot;LONG&quot;</code> or <code>&quot;SHORT&quot;</code>)</td>
 </tr>
 <tr>
 <td>order_status</td>
 <td>string</td>
-<td>Current order status (&quot;FILLED&quot;, &quot;PENDING&quot;, &quot;CANCELLED&quot;)</td>
+<td>Current order status (<code>&quot;FILLED&quot;</code>, <code>&quot;PENDING&quot;</code>, <code>&quot;CANCELLED&quot;</code>, <code>&quot;SETTLED&quot;</code>, <code>&quot;LIQUIDATE&quot;</code>)</td>
 </tr>
 <tr>
 <td>order_type</td>
 <td>string</td>
-<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+<td>Order type (<code>&quot;MARKET&quot;</code>, <code>&quot;LIMIT&quot;</code>)</td>
 </tr>
 <tr>
 <td>entryprice</td>
 <td>string</td>
-<td>Entry price for the position (2 decimal places)</td>
+<td>Entry price for the position</td>
 </tr>
 <tr>
 <td>execution_price</td>
 <td>string</td>
-<td>Actual execution price (2 decimal places)</td>
+<td>Actual execution price</td>
 </tr>
 <tr>
 <td>positionsize</td>
 <td>string</td>
-<td>Position size in base currency (2 decimal places)</td>
+<td>Position size in base currency</td>
 </tr>
 <tr>
 <td>leverage</td>
 <td>string</td>
-<td>Leverage multiplier (2 decimal places)</td>
+<td>Leverage multiplier</td>
 </tr>
 <tr>
 <td>initial_margin</td>
 <td>string</td>
-<td>Initial margin requirement (2 decimal places)</td>
+<td>Initial margin requirement</td>
 </tr>
 <tr>
 <td>available_margin</td>
 <td>string</td>
-<td>Available margin for the position (2 decimal places)</td>
+<td>Available margin for the position</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -2606,32 +3559,32 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>bankruptcy_price</td>
 <td>string</td>
-<td>Price at which position becomes bankrupt (2 decimal places)</td>
+<td>Price at which position becomes bankrupt</td>
 </tr>
 <tr>
 <td>bankruptcy_value</td>
 <td>string</td>
-<td>Value at bankruptcy price (2 decimal places)</td>
+<td>Value at bankruptcy price</td>
 </tr>
 <tr>
 <td>maintenance_margin</td>
 <td>string</td>
-<td>Maintenance margin requirement (4 decimal places)</td>
+<td>Maintenance margin requirement</td>
 </tr>
 <tr>
 <td>liquidation_price</td>
 <td>string</td>
-<td>Price at which position gets liquidated (2 decimal places)</td>
+<td>Price at which position gets liquidated</td>
 </tr>
 <tr>
 <td>unrealized_pnl</td>
 <td>string</td>
-<td>Current unrealized profit/loss (2 decimal places)</td>
+<td>Current unrealized profit/loss</td>
 </tr>
 <tr>
 <td>settlement_price</td>
 <td>string</td>
-<td>Settlement price if order is settled (2 decimal places)</td>
+<td>Settlement price if order is settled</td>
 </tr>
 <tr>
 <td>entry_nonce</td>
@@ -2651,12 +3604,154 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>fee_filled</td>
 <td>string</td>
-<td>Fee paid when order was filled (4 decimal places)</td>
+<td>Fee paid when order was filled</td>
 </tr>
 <tr>
 <td>fee_settled</td>
 <td>string</td>
-<td>Fee paid when order was settled (4 decimal places)</td>
+<td>Fee paid when order was settled</td>
+</tr>
+</tbody></table>
+<h3 id='trader-order-info-v1'>Trader Order Info V1</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">trader_order_info_v1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">data</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_data_string</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42508.71"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"execution_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4250871"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"initial_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"available_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T11:14:45.575359Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38644.28"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bankruptcy_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5375"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38834.04"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"exit_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entry_sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"settle_limit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45000.00"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"funding_applied"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0025"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Enhanced version of <code>trader_order_info</code> that includes additional fields: <code>settle_limit</code> (the latest close limit price for non-settled/non-liquidated orders) and <code>funding_applied</code> (the cumulative funding payment applied to the order, computed as <code>initial_margin - available_margin - fee_filled</code>).</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Comprehensive order detail retrieval including pending settlement limits</li>
+<li>Funding cost analysis and tracking for active positions</li>
+<li>Advanced position management with close limit price visibility</li>
+<li>Detailed P&amp;L breakdown including funding impact</li>
+<li>Risk assessment incorporating settlement limit prices</li>
+</ul>
+
+<p>Get enhanced trader order information by account ID</p>
+<h3 id='http-method-27'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-26'>RPC Method</h3>
+<p><code>trader_order_info_v1</code></p>
+<h3 id='message-parameters-26'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Hex-encoded query data for trader order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-27'>Response Fields</h3>
+<p>All fields from <code>trader_order_info</code> plus:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>settle_limit</td>
+<td>object</td>
+<td>Latest close limit details (null if settled/liquidated or no limit set)</td>
+</tr>
+<tr>
+<td>funding_applied</td>
+<td>string</td>
+<td>Cumulative funding payment applied (null if no funding updates recorded)</td>
+</tr>
+</tbody></table>
+
+<p><em>settle_limit object (when present):</em></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uuid</td>
+<td>string</td>
+<td>Order UUID</td>
+</tr>
+<tr>
+<td>position_type</td>
+<td>string</td>
+<td>Position direction</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>Close limit price</td>
 </tr>
 </tbody></table>
 <h3 id='lend-order-info'>Lend Order Info</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
@@ -2691,7 +3786,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
     </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6fb4f910-ceb4-432d-995b-79eddb8c4c83"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b3af55b0cce550ee94cb297171929a64bb598e901fbf0783e67c06ad24938611c9e4620b9467d532c46bdb1212c5c06e66ac65854b9ddf60e77721c4f8b"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b..."</span><span class="p">,</span><span class="w">
     </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"153620"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
@@ -2716,7 +3811,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Retrieves detailed lending order information using encrypted account data for privacy-preserving lending queries.</p>
+<p><strong>Description:</strong> Retrieves detailed lending order information using encrypted account data (hex-encoded <code>QueryLendOrderZkos</code>). The request is verified via <code>verify_query_order</code> before querying the database.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2729,11 +3824,11 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 </ul>
 
 <p>Get lend order information by account ID</p>
-<h3 id='http-method-20'>HTTP Method</h3>
+<h3 id='http-method-28'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-19'>RPC Method</h3>
+<h3 id='rpc-method-27'>RPC Method</h3>
 <p><code>lend_order_info</code></p>
-<h3 id='message-parameters-19'>Message Parameters</h3>
+<h3 id='message-parameters-27'>Message Parameters</h3>
 <table><thead>
 <tr>
 <th>Params</th>
@@ -2747,7 +3842,7 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Hex-encoded query data for lend order</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-20'>Response Fields</h3>
+<h3 id='response-fields-28'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2773,17 +3868,17 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>balance</td>
 <td>string</td>
-<td>Current balance in the lend order (2 decimal places)</td>
+<td>Current balance in the lend order</td>
 </tr>
 <tr>
 <td>order_status</td>
 <td>string</td>
-<td>Current order status (&quot;FILLED&quot;, &quot;PENDING&quot;, &quot;CANCELLED&quot;)</td>
+<td>Current order status (<code>&quot;FILLED&quot;</code>, <code>&quot;PENDING&quot;</code>, <code>&quot;CANCELLED&quot;</code>, <code>&quot;SETTLED&quot;</code>)</td>
 </tr>
 <tr>
 <td>order_type</td>
 <td>string</td>
-<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+<td>Order type (<code>&quot;MARKET&quot;</code>, <code>&quot;LIMIT&quot;</code>)</td>
 </tr>
 <tr>
 <td>entry_nonce</td>
@@ -2798,12 +3893,12 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>deposit</td>
 <td>string</td>
-<td>Initial deposit amount (2 decimal places)</td>
+<td>Initial deposit amount</td>
 </tr>
 <tr>
 <td>new_lend_state_amount</td>
 <td>string</td>
-<td>Updated lend state amount (2 decimal places)</td>
+<td>Updated lend state amount</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -2813,57 +3908,57 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <tr>
 <td>npoolshare</td>
 <td>string</td>
-<td>Number of pool shares (2 decimal places)</td>
+<td>Number of pool shares</td>
 </tr>
 <tr>
 <td>nwithdraw</td>
 <td>string</td>
-<td>Withdrawal amount (2 decimal places)</td>
+<td>Withdrawal amount</td>
 </tr>
 <tr>
 <td>payment</td>
 <td>string</td>
-<td>Payment amount (2 decimal places)</td>
+<td>Payment amount</td>
 </tr>
 <tr>
 <td>tlv0</td>
 <td>string</td>
-<td>Total locked value tier 0 (2 decimal places)</td>
+<td>Total locked value tier 0</td>
 </tr>
 <tr>
 <td>tps0</td>
 <td>string</td>
-<td>Total pool shares tier 0 (2 decimal places)</td>
+<td>Total pool shares tier 0</td>
 </tr>
 <tr>
 <td>tlv1</td>
 <td>string</td>
-<td>Total locked value tier 1 (2 decimal places)</td>
+<td>Total locked value tier 1</td>
 </tr>
 <tr>
 <td>tps1</td>
 <td>string</td>
-<td>Total pool shares tier 1 (2 decimal places)</td>
+<td>Total pool shares tier 1</td>
 </tr>
 <tr>
 <td>tlv2</td>
 <td>string</td>
-<td>Total locked value tier 2 (2 decimal places)</td>
+<td>Total locked value tier 2</td>
 </tr>
 <tr>
 <td>tps2</td>
 <td>string</td>
-<td>Total pool shares tier 2 (2 decimal places)</td>
+<td>Total pool shares tier 2</td>
 </tr>
 <tr>
 <td>tlv3</td>
 <td>string</td>
-<td>Total locked value tier 3 (2 decimal places)</td>
+<td>Total locked value tier 3</td>
 </tr>
 <tr>
 <td>tps3</td>
 <td>string</td>
-<td>Total pool shares tier 3 (2 decimal places)</td>
+<td>Total pool shares tier 3</td>
 </tr>
 <tr>
 <td>entry_sequence</td>
@@ -2871,7 +3966,298 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Entry sequence number</td>
 </tr>
 </tbody></table>
-<h3 id='transaction-hash'>Transaction Hash</h3>
+<h3 id='historical-trader-order-info'>Historical Trader Order Info</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">historical_trader_order_info</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">data</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_data_string</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SETTLED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entryprice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42508.71"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"execution_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"positionsize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4250871"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"initial_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"available_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.85"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T11:14:45.575359Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bankruptcy_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38644.28"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bankruptcy_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maintenance_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5375"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"liquidation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38834.04"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"unrealized_pnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.25"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settlement_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43500.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"exit_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entry_sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee_filled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.05"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee_settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.075"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves the full history of trader orders for an account (up to 500 most recent). Uses the same hex-encoded <code>QueryTraderOrderZkos</code> format as <code>trader_order_info</code> but returns an array of all historical orders instead of just the latest.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Complete trading history retrieval for account analysis and record-keeping</li>
+<li>Historical performance analysis and trade pattern identification</li>
+<li>Compliance and audit trail for regulatory reporting requirements</li>
+<li>P&amp;L attribution and risk analysis across all historical positions</li>
+<li>Account activity reconstruction for dispute resolution</li>
+</ul>
+
+<p>Get historical trader order information by account ID</p>
+<h3 id='http-method-29'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-28'>RPC Method</h3>
+<p><code>historical_trader_order_info</code></p>
+<h3 id='message-parameters-28'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Hex-encoded query data for trader order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-29'>Response Fields</h3>
+<p>Returns an array of trader order objects. Each object has the same fields as the <code>trader_order_info</code> response.</p>
+<h3 id='historical-lend-order-info'>Historical Lend Order Info</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">historical_lend_order_info</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">data</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_data_string</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6fb4f910-ceb4-432d-995b-79eddb8c4c83"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c08ed4f0daeec9b..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"153620"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SETTLED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entry_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"exit_nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"153620"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"new_lend_state_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"155000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-02-28T04:59:44.020048Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"npoolshare"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"nwithdraw"</span><span class="p">:</span><span class="w"> </span><span class="s2">"155000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1380"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tlv0"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tps0"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tlv1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tps1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tlv2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tps2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tlv3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tps3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entry_sequence"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves the full history of lending orders for an account. Uses the same hex-encoded <code>QueryLendOrderZkos</code> format as <code>lend_order_info</code> but returns an array of all historical orders.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Complete lending history for account analysis and yield tracking</li>
+<li>Historical performance review for lending strategy optimization</li>
+<li>Compliance and audit trail for lending operations reporting</li>
+<li>Pool share movement analysis and capital flow tracking</li>
+<li>Account activity reconstruction for dispute resolution</li>
+</ul>
+
+<p>Get historical lend order information by account ID</p>
+<h3 id='http-method-30'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-29'>RPC Method</h3>
+<p><code>historical_lend_order_info</code></p>
+<h3 id='message-parameters-29'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Hex-encoded query data for lend order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-30'>Response Fields</h3>
+<p>Returns an array of lend order objects. Each object has the same fields as the <code>lend_order_info</code> response.</p>
+<h3 id='order-funding-history'>Order Funding History</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">jsonrpc</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">order_funding_history</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">data</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hex_encoded_data_string</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">raw</span><span class="p">,</span>
+  <span class="na">redirect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">follow</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">API_ENDPOINT/api</span><span class="dl">"</span><span class="p">,</span> <span class="nx">requestOptions</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The result from the above endpoint looks like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-31T17:35:14.662529Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"position_side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LONG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0042"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"funding_rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0001"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3374714d-8a95-4096-855f-7e2675fe0dc8"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Description:</strong> Retrieves the funding payment history for a trader order using encrypted account data (hex-encoded <code>QueryTraderOrderZkos</code>). The request is verified via <code>verify_query_order</code> before querying the database. For each funding update on the order, the endpoint returns the cumulative payment delta and the corresponding funding rate.</p>
+
+<p><strong>Use Cases:</strong></p>
+
+<ul>
+<li>Tracking funding payments accrued on an open position over time</li>
+<li>Reconciling funding costs for PnL calculations</li>
+<li>Auditing historical funding rate exposure per order</li>
+</ul>
+
+<p>Get order funding history by account ID</p>
+<h3 id='http-method-31'>HTTP Method</h3>
+<p><code>POST</code></p>
+<h3 id='rpc-method-30'>RPC Method</h3>
+<p><code>order_funding_history</code></p>
+<h3 id='message-parameters-30'>Message Parameters</h3>
+<table><thead>
+<tr>
+<th>Params</th>
+<th>Data_Type</th>
+<th>Values</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>string</td>
+<td>Hex-encoded query data for trader order</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields-31'>Response Fields</h3>
+<p>Returns an array of funding history entries:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Data_Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>time</td>
+<td>string</td>
+<td>Funding update timestamp (ISO 8601 format)</td>
+</tr>
+<tr>
+<td>position_side</td>
+<td>string</td>
+<td>Position direction (<code>&quot;LONG&quot;</code> or <code>&quot;SHORT&quot;</code>)</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>string</td>
+<td>Funding payment delta since previous update</td>
+</tr>
+<tr>
+<td>funding_rate</td>
+<td>string</td>
+<td>Funding rate applied at this update</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Order UUID associated with the funding update</td>
+</tr>
+</tbody></table>
+<h3 id='transaction-hashes'>Transaction Hashes</h3>
 <p>The <code>transaction_hashes</code> method supports three different parameter types for querying transaction data:</p>
 <h3 id='1-query-by-account-id'>1. Query by Account ID</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
 <span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
@@ -2883,7 +4269,9 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">AccountId</span><span class="p">:</span> <span class="p">{</span>
       <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">limit</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">},</span>
   <span class="p">},</span>
 <span class="p">});</span>
@@ -2909,7 +4297,9 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">TxId</span><span class="p">:</span> <span class="p">{</span>
       <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">83216790-d1c6-40d9-a70e-712d5d81cecd</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SETTLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SETTLED</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">limit</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">},</span>
   <span class="p">},</span>
 <span class="p">});</span>
@@ -2934,8 +4324,10 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   <span class="na">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">RequestId</span><span class="p">:</span> <span class="p">{</span>
-      <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325</span><span class="dl">"</span><span class="p">,</span> <span class="c1">//request_id</span>
-      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Optional: filter by order status</span>
+      <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FILLED</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">limit</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">},</span>
   <span class="p">},</span>
 <span class="p">});</span>
@@ -2959,32 +4351,21 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
   </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c3eb16783ccdbee..."</span><span class="p">,</span><span class="w">
       </span><span class="nl">"datetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1708363831398559"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
       </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"83216790-d1c6-40d9-a70e-712d5d81cecd"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000010000002a000000000000003138363065656636336564656531303738313738623361646236336539663836393231636161313662358a00000000000000306333656231363738336363646265653835356530626162663664313330313031653764363630383962616332303438343630366535326266353037643930653361353034396133333739623861666334373036386432353038646664373166653932616461623761356164363832666262626239623430313135386536326434326161363463623232010000000000000082000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f0104000000000000000300000001000000386567000000000000000000000000000000000000000000000000000000000002000000010000000000000001000000000000000000000000000000671ca31e9c9274ef4cf068098060878c960afaa5d7c2a205d3cd3f38f858e00f03000000010000009ccb0000000000000000000000000000000000000000000000000000000000000300000001000000010000000000000000000000000000000000000000000000000000000000000001000000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000..."</span><span class="p">,</span><span class="w">
       </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REQIDFCE62EB3F784D832BB59ABF8AD67D84DA502248B95B7F613F00820879478F325"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"tx_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8E291447D61EBC7E0AF5BB006576190E117516CA9A29358554C108718586FF58"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0c3eb16783ccdbee855e0babf6d130101e7d66089bac20484606e52bf507d90e3a5049a3379b8afc47068d2508dfd71fe92adab7a5ad682fbbbb9b401158e62d42aa64cb22"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"datetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1708411999147047"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"83216790-d1c6-40d9-a70e-712d5d81cecd"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SETTLED"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"order_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"tx_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C5680F08C4D315241924BB1B4F172B12ABB44A6A49DA0CBAD69552D43A9EBA4A"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Description:</strong> Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes.</p>
+<p><strong>Description:</strong> Retrieves blockchain transaction hashes and details for order execution verification and audit trail purposes. Supports querying by Account ID, Transaction/Order ID, or Request ID, with optional status filtering and pagination.</p>
 
 <p><strong>Use Cases:</strong></p>
 
@@ -2996,12 +4377,12 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <li>Integration with blockchain explorers for transaction monitoring</li>
 </ul>
 
-<p>Transaction Hash</p>
-<h3 id='http-method-21'>HTTP Method</h3>
+<p>Transaction Hashes</p>
+<h3 id='http-method-32'>HTTP Method</h3>
 <p><code>POST</code></p>
-<h3 id='rpc-method-20'>RPC Method</h3>
+<h3 id='rpc-method-31'>RPC Method</h3>
 <p><code>transaction_hashes</code></p>
-<h3 id='message-parameters-20'>Message Parameters</h3>
+<h3 id='message-parameters-31'>Message Parameters</h3>
 <p>The <code>transaction_hashes</code> method accepts one of three parameter variants:</p>
 <h4 id='variant-1-query-by-account-id'>Variant 1: Query by Account ID</h4>
 <table><thead>
@@ -3022,7 +4403,19 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>AccountId.status</td>
 <td>string</td>
 <td>No</td>
-<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;PENDING&quot;, &quot;CANCELLED&quot;)</td>
+<td>Optional order status filter (<code>&quot;FILLED&quot;</code>, <code>&quot;SETTLED&quot;</code>, <code>&quot;PENDING&quot;</code>, <code>&quot;CANCELLED&quot;</code>)</td>
+</tr>
+<tr>
+<td>AccountId.limit</td>
+<td>integer</td>
+<td>No</td>
+<td>Number of results (default 500, max 500)</td>
+</tr>
+<tr>
+<td>AccountId.offset</td>
+<td>integer</td>
+<td>No</td>
+<td>Page offset (default 0)</td>
 </tr>
 </tbody></table>
 <h4 id='variant-2-query-by-transaction-order-id'>Variant 2: Query by Transaction/Order ID</h4>
@@ -3044,7 +4437,19 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>TxId.status</td>
 <td>string</td>
 <td>No</td>
-<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;PENDING&quot;, &quot;CANCELLED&quot;)</td>
+<td>Optional order status filter (<code>&quot;FILLED&quot;</code>, <code>&quot;SETTLED&quot;</code>, <code>&quot;PENDING&quot;</code>, <code>&quot;CANCELLED&quot;</code>)</td>
+</tr>
+<tr>
+<td>TxId.limit</td>
+<td>integer</td>
+<td>No</td>
+<td>Number of results (default 500, max 500)</td>
+</tr>
+<tr>
+<td>TxId.offset</td>
+<td>integer</td>
+<td>No</td>
+<td>Page offset (default 0)</td>
 </tr>
 </tbody></table>
 <h4 id='variant-3-query-by-request-id'>Variant 3: Query by Request ID</h4>
@@ -3066,10 +4471,22 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>RequestId.status</td>
 <td>string</td>
 <td>No</td>
-<td>Optional order status filter (&quot;FILLED&quot;, &quot;SETTLED&quot;, &quot;PENDING&quot;, &quot;CANCELLED&quot;)</td>
+<td>Optional order status filter (<code>&quot;FILLED&quot;</code>, <code>&quot;SETTLED&quot;</code>, <code>&quot;PENDING&quot;</code>, <code>&quot;CANCELLED&quot;</code>)</td>
+</tr>
+<tr>
+<td>RequestId.limit</td>
+<td>integer</td>
+<td>No</td>
+<td>Number of results (default 500, max 500)</td>
+</tr>
+<tr>
+<td>RequestId.offset</td>
+<td>integer</td>
+<td>No</td>
+<td>Page offset (default 0)</td>
 </tr>
 </tbody></table>
-<h3 id='response-fields-21'>Response Fields</h3>
+<h3 id='response-fields-32'>Response Fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -3077,16 +4494,6 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <th>Description</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>account_id</td>
-<td>string</td>
-<td>Account ID associated with the transaction</td>
-</tr>
-<tr>
-<td>datetime</td>
-<td>string</td>
-<td>Transaction timestamp (Unix timestamp in microseconds)</td>
-</tr>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3098,14 +4505,29 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>Order UUID associated with the transaction</td>
 </tr>
 <tr>
-<td>order_status</td>
+<td>account_id</td>
 <td>string</td>
-<td>Order status at transaction time (&quot;FILLED&quot;, &quot;SETTLED&quot;)</td>
+<td>Account ID associated with the transaction</td>
+</tr>
+<tr>
+<td>tx_hash</td>
+<td>string</td>
+<td>Blockchain transaction hash</td>
 </tr>
 <tr>
 <td>order_type</td>
 <td>string</td>
-<td>Order type (&quot;MARKET&quot;, &quot;LIMIT&quot;)</td>
+<td>Order type (<code>&quot;MARKET&quot;</code>, <code>&quot;LIMIT&quot;</code>)</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>string</td>
+<td>Order status at transaction time</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>string</td>
+<td>Transaction timestamp (Unix timestamp in microseconds)</td>
 </tr>
 <tr>
 <td>output</td>
@@ -3116,11 +4538,6 @@ You must add <code>api_key</code> and <code>api_secret</code> in your private AP
 <td>request_id</td>
 <td>string</td>
 <td>Unique request identifier (nullable)</td>
-</tr>
-<tr>
-<td>tx_hash</td>
-<td>string</td>
-<td>Blockchain transaction hash</td>
 </tr>
 </tbody></table>
 <h1 id='private-api'>Private API</h1>

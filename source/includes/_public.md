@@ -17,7 +17,7 @@ For example:
 - Production: `https://relayer.twilight.rest/api`
 - Staging: `https://app.twilight.rest/api`
 
-### Request Format
+**Request Format**
 
 | Component    | Description                    |
 | ------------ | ------------------------------ |
@@ -110,15 +110,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, daily change)
 
-### HTTP Method
+##### HTTP Method
 
 `POST`
 
-### RPC Method
+##### RPC Method
 
 `candle_data`
 
-### Message Parameters
+##### Message Parameters
 
 | Params   | Data_Type | Values                                                                                                                                            |
 | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -127,7 +127,7 @@ Candle data (Kline data: 1min, 5min, 15min, 30min, 1hr, 4hr, 8hr, 12hr, 24hr, da
 | limit    | integer   | Number of entries (max 5000)                                                                                                                      |
 | offset   | integer   | Page offset                                                                                                                                       |
 
-### Response Fields
+##### Response Fields
 
 | Field      | Data_Type | Description                                        |
 | ---------- | --------- | -------------------------------------------------- |
@@ -194,21 +194,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 BTC USD Price
 
-### HTTP Method
+##### HTTP Method
 
 `POST`
 
-### RPC Method
+##### RPC Method
 
 `btc_usd_price`
 
-### Message Parameters
+##### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+##### Response Fields
 
 | Field     | Data_Type | Description                       |
 | --------- | --------- | --------------------------------- |
@@ -285,15 +285,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Historical BTC price
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `historical_price`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                   |
 | ------ | --------- | ------------------------ |
@@ -302,7 +302,7 @@ Historical BTC price
 | limit  | integer   | Number of entries (max 5000) |
 | offset | integer   | Page offset              |
 
-### Response Fields
+#### Response Fields
 
 | Field     | Data_Type | Description                       |
 | --------- | --------- | --------------------------------- |
@@ -363,21 +363,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Current funding rate
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `get_funding_rate`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field     | Data_Type | Description                                |
 | --------- | --------- | ------------------------------------------ |
@@ -458,15 +458,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Historical funding rate
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `historical_funding_rate`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                   |
 | ------ | --------- | ------------------------ |
@@ -475,7 +475,7 @@ Historical funding rate
 | limit  | integer   | Number of entries (max 5000) |
 | offset | integer   | Page offset              |
 
-### Response Fields
+#### Response Fields
 
 | Field     | Data_Type | Description                              |
 | --------- | --------- | ---------------------------------------- |
@@ -539,21 +539,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Current fee rate
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `get_fee_rate`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field                   | Data_Type | Description                                    |
 | ----------------------- | --------- | ---------------------------------------------- |
@@ -642,15 +642,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Historical fee rate
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `historical_fee_rate`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                   |
 | ------ | --------- | ------------------------ |
@@ -659,7 +659,7 @@ Historical fee rate
 | limit  | integer   | Number of entries (max 5000) |
 | offset | integer   | Page offset              |
 
-### Response Fields
+#### Response Fields
 
 | Field                   | Data_Type | Description                                    |
 | ----------------------- | --------- | ---------------------------------------------- |
@@ -726,21 +726,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Position Size
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `position_size`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field       | Data_Type | Description                         |
 | ----------- | --------- | ----------------------------------- |
@@ -803,21 +803,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Open Limit Orders
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `open_limit_orders`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field | Data_Type | Description                                  |
 | ----- | --------- | -------------------------------------------- |
@@ -894,21 +894,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Recent Trade Orders
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `recent_trade_orders`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field        | Data_Type | Description                                 |
 | ------------ | --------- | ------------------------------------------- |
@@ -966,21 +966,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Current pool share value
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `pool_share_value`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field  | Data_Type | Description                      |
 | ------ | --------- | -------------------------------- |
@@ -1043,21 +1043,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Lend Pool Info
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `lend_pool_info`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field                  | Data_Type | Description                              |
 | ---------------------- | --------- | ---------------------------------------- |
@@ -1118,21 +1118,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Last 24-hour APY
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `last_day_apy`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field  | Data_Type      | Description                                   |
 | ------ | -------------- | --------------------------------------------- |
@@ -1203,15 +1203,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 APY Chart
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `apy_chart`
 
-### Message Parameters
+#### Message Parameters
 
 | Params   | Data_Type | Values                                                                                                    |
 | -------- | --------- | --------------------------------------------------------------------------------------------------------- |
@@ -1219,7 +1219,7 @@ APY Chart
 | step     | string    | (Optional) Step interval: `"1m"`, `"5m"`, `"15m"`, `"30m"`, `"1h"`, `"2h"`, `"4h"`, `"12h"`. Default varies by range |
 | lookback | string    | (Optional) Trailing APY lookback window: `"24h"`, `"7d"`, `"30d"`. Default `"24 hours"`                   |
 
-### Response Fields
+#### Response Fields
 
 | Field     | Data_Type | Description                               |
 | --------- | --------- | ----------------------------------------- |
@@ -1278,21 +1278,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Open Interest
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `open_interest`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field                | Data_Type | Description                                  |
 | -------------------- | --------- | -------------------------------------------- |
@@ -1371,21 +1371,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Market Stats
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `get_market_stats`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field                   | Data_Type | Description                                                                              |
 | ----------------------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -1481,15 +1481,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Account Summary by Twilight Address
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `account_summary_by_twilight_address`
 
-### Message Parameters
+#### Message Parameters
 
 | Params    | Data_Type | Values                                                                    |
 | --------- | --------- | ------------------------------------------------------------------------- |
@@ -1500,7 +1500,7 @@ Account Summary by Twilight Address
 
 _Note: Either `since` or `from` must be provided. `to` cannot be provided without `from`._
 
-### Response Fields
+#### Response Fields
 
 | Field                   | Data_Type | Description                                  |
 | ----------------------- | --------- | -------------------------------------------- |
@@ -1582,15 +1582,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 All Account Summaries
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `all_account_summaries`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                                                    |
 | ------ | --------- | ------------------------------------------------------------------------- |
@@ -1602,7 +1602,7 @@ All Account Summaries
 
 _Note: Either `since` or `from` must be provided. `to` cannot be provided without `from`._
 
-### Response Fields
+#### Response Fields
 
 | Field     | Data_Type | Description                              |
 | --------- | --------- | ---------------------------------------- |
@@ -1675,21 +1675,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Server time
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `server_time`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                 |
 | ------ | --------- | ---------------------- |
 | N/A    | null      | No parameters required |
 
-### Response Fields
+#### Response Fields
 
 | Field  | Data_Type | Description                                |
 | ------ | --------- | ------------------------------------------ |
@@ -1754,11 +1754,11 @@ fetch("API_ENDPOINT/register", requestOptions)
 
 Endpoint to get `api_key` and `api_secret` for private API endpoints.
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### Message Body
+#### Message Body
 
 | Params          | Data_Type | Values                                                                                      |
 | --------------- | --------- | ------------------------------------------------------------------------------------------- |
@@ -1766,7 +1766,7 @@ Endpoint to get `api_key` and `api_secret` for private API endpoints.
 | data            | string    | Message string                                                                              |
 | signature       | object    | `{"pub_key": {"type": "tendermint/PubKeySecp256k1", "value": string}, "signature": string}` |
 
-### Response Fields
+#### Response Fields
 
 | Field      | Data_Type | Description                                           |
 | ---------- | --------- | ----------------------------------------------------- |
@@ -1834,21 +1834,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Submit a new trade order to the Relayer-matchbook
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `submit_trade_order`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                           |
 | ------ | --------- | ------------------------------------------------ |
 | data   | string    | Hex-encoded transaction data for the trade order |
 
-### Response Fields
+#### Response Fields
 
 | Field   | Data_Type | Description                                     |
 | ------- | --------- | ----------------------------------------------- |
@@ -1908,21 +1908,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Submit a new lend order to the lending pool
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `submit_lend_order`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                          |
 | ------ | --------- | ----------------------------------------------- |
 | data   | string    | Hex-encoded transaction data for the lend order |
 
-### Response Fields
+#### Response Fields
 
 | Field   | Data_Type | Description                                     |
 | ------- | --------- | ----------------------------------------------- |
@@ -1982,21 +1982,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Settle an existing trade order
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `settle_trade_order`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                          |
 | ------ | --------- | ----------------------------------------------- |
 | data   | string    | Hex-encoded settlement data for the trade order |
 
-### Response Fields
+#### Response Fields
 
 | Field   | Data_Type | Description                                     |
 | ------- | --------- | ----------------------------------------------- |
@@ -2056,21 +2056,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Settle an existing lend order
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `settle_lend_order`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                         |
 | ------ | --------- | ---------------------------------------------- |
 | data   | string    | Hex-encoded settlement data for the lend order |
 
-### Response Fields
+#### Response Fields
 
 | Field   | Data_Type | Description                                     |
 | ------- | --------- | ----------------------------------------------- |
@@ -2130,21 +2130,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Cancel an existing trader order
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `cancel_trader_order`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                             |
 | ------ | --------- | -------------------------------------------------- |
 | data   | string    | Hex-encoded cancellation data for the trader order |
 
-### Response Fields
+#### Response Fields
 
 | Field   | Data_Type | Description                                     |
 | ------- | --------- | ----------------------------------------------- |
@@ -2230,21 +2230,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get trader order information by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `trader_order_info`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                  |
 | ------ | --------- | --------------------------------------- |
 | data   | string    | Hex-encoded query data for trader order |
 
-### Response Fields
+#### Response Fields
 
 | Field              | Data_Type | Description                                       |
 | ------------------ | --------- | ------------------------------------------------- |
@@ -2354,21 +2354,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get enhanced trader order information by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `trader_order_info_v1`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                  |
 | ------ | --------- | --------------------------------------- |
 | data   | string    | Hex-encoded query data for trader order |
 
-### Response Fields
+#### Response Fields
 
 All fields from `trader_order_info` plus:
 
@@ -2459,21 +2459,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get lend order information by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `lend_order_info`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                |
 | ------ | --------- | ------------------------------------- |
 | data   | string    | Hex-encoded query data for lend order |
 
-### Response Fields
+#### Response Fields
 
 | Field                 | Data_Type | Description                                       |
 | --------------------- | --------- | ------------------------------------------------- |
@@ -2578,21 +2578,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get historical trader order information by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `historical_trader_order_info`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                  |
 | ------ | --------- | --------------------------------------- |
 | data   | string    | Hex-encoded query data for trader order |
 
-### Response Fields
+#### Response Fields
 
 Returns an array of trader order objects. Each object has the same fields as the `trader_order_info` response.
 
@@ -2672,21 +2672,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get historical lend order information by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `historical_lend_order_info`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                |
 | ------ | --------- | ------------------------------------- |
 | data   | string    | Hex-encoded query data for lend order |
 
-### Response Fields
+#### Response Fields
 
 Returns an array of lend order objects. Each object has the same fields as the `lend_order_info` response.
 
@@ -2746,21 +2746,21 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Get order funding history by account ID
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `order_funding_history`
 
-### Message Parameters
+#### Message Parameters
 
 | Params | Data_Type | Values                                  |
 | ------ | --------- | --------------------------------------- |
 | data   | string    | Hex-encoded query data for trader order |
 
-### Response Fields
+#### Response Fields
 
 Returns an array of funding history entries:
 
@@ -2909,15 +2909,15 @@ fetch("API_ENDPOINT/api", requestOptions)
 
 Transaction Hashes
 
-### HTTP Method
+#### HTTP Method
 
 `POST`
 
-### RPC Method
+#### RPC Method
 
 `transaction_hashes`
 
-### Message Parameters
+#### Message Parameters
 
 The `transaction_hashes` method accepts one of three parameter variants:
 
@@ -2948,7 +2948,7 @@ The `transaction_hashes` method accepts one of three parameter variants:
 | RequestId.limit  | integer   | No       | Number of results (default 500, max 500)                                   |
 | RequestId.offset | integer   | No       | Page offset (default 0)                                                    |
 
-### Response Fields
+#### Response Fields
 
 | Field        | Data_Type | Description                                            |
 | ------------ | --------- | ------------------------------------------------------ |

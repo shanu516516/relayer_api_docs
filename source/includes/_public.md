@@ -2,9 +2,9 @@
 
 **Endpoint URL**
 
-`API_ENDPOINT_PRODUCTION = https://relayer.twilight.rest`
+`API_ENDPOINT_PRODUCTION = https://api.ephemeral.fi`
 
-`API_ENDPOINT_STAGING = https://app.twilight.rest`
+`API_ENDPOINT_STAGING = https://relayer.twilight.rest`
 
 ## Request Structure
 
@@ -14,8 +14,8 @@ All public API requests must be sent to:
 
 For example:
 
-- Production: `https://relayer.twilight.rest/api`
-- Staging: `https://app.twilight.rest/api`
+- Production: `https://api.ephemeral.fi/api`
+- Staging: `https://relayer.twilight.rest/api`
 
 **Request Format**
 
